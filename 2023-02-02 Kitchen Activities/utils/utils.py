@@ -69,7 +69,7 @@ def interp1d_periods(df, periods, num_points):
 
 #MARK: VISUALIZATION
 
-def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000)):
+def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000), ylabel="Position (mm)"):
     """
     Args
     ----
@@ -79,7 +79,7 @@ def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels:
     ax = data.loc[:, columns].plot(figsize=(20,10))
     ax.set_title(title)
     ax.set_ylim(ylim)
-    ax.set_ylabel("Position (mm)")
+    ax.set_ylabel(ylabel)
     for label in labels:
         if label["Label"] != "10 sec elapsed":
             ax.axvline(float(label['Timestamp']), color="red")
