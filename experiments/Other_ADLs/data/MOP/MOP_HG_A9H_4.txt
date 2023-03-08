@@ -1,0 +1,14 @@
+quiet standing (living entrance): 1678226970.047287
+mop living room: 1678226975.4162707
+move to bedroom: 1678226986.8122408
+quiet standing (bedroom door): 1678226995.3904822
+mop bedroom: 1678227002.3985136
+move to bathroom: 1678227012.4131255
+quiet standing (bathroom door): 1678227020.0324116
+mop bathroom: 1678227024.6700277
+move to kitchen: 1678227036.1232204
+quiet standing (kitchen): 1678227045.7867122
+mop kitchen: 1678227050.7985804
+move back to living entrance: 1678227062.5102167
+quiet standing (living entrance): 1678227069.6593473
+5 seconds elapsed: 1678227074.6156414

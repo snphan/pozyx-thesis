@@ -4,6 +4,13 @@ import ipywidgets as widgets
 import numpy as np
 from scipy import interpolate
 from PIL import Image
+import matplotlib.pyplot as plt
+
+#MARK: UTIITY FUNCTIONS
+
+def list_from_series(data):
+    return data.values.tolist()
+
 
 #MARK: PREPROCESSING
 def extract_time_labels(fp):
@@ -67,9 +74,39 @@ def interp1d_periods(df, periods, num_points):
         df = pd.concat([df, interp_df])
     return df
 
+def handle_spikes(df: pd.DataFrame, columns: list[str], jump_thresholds: list[float]):
+    """
+    Handle the outliers by setting the outlier value to the previous value.
+
+    Parameters
+    ----------
+    df: target df
+    columns: list of columns to apply outlier handling to.
+    jump_thresholds: array with the same size as "columns", sets the threshold for each column
+
+    Returns
+    -------
+    df: processed df
+    """
+    if len(columns) != len(jump_thresholds): raise ValueError("columns and jump_thresholds do not have the same length")
+
+    for col, threshold in zip(columns, jump_thresholds):
+        for ind in range(len(df.index) - 1):
+            diff = abs(
+                df.iloc[ind+1, list_from_series(df.columns).index(col)] 
+                - df.iloc[ind, list_from_series(df.columns).index(col)]
+            ) 
+            if diff > threshold:
+                df.iloc[ind+1, list_from_series(df.columns).index(col)] = df.iloc[ind-10:ind+1, list_from_series(df.columns).index(col)].mean()
+
+
+
+    return df
+
+
 #MARK: VISUALIZATION
 
-def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000)):
+def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000), ylabel="Position (mm)"):
     """
     Args
     ----
@@ -79,11 +116,11 @@ def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels:
     ax = data.loc[:, columns].plot(figsize=(20,10))
     ax.set_title(title)
     ax.set_ylim(ylim)
-    ax.set_ylabel("Position (mm)")
+    ax.set_ylabel(ylabel)
     for label in labels:
         if label["Label"] != "10 sec elapsed":
             ax.axvline(float(label['Timestamp']), color="red")
-            ax.text(float(label['Timestamp'])+2,0,label["Label"], rotation=90, color="red", size=18)
+            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", size=18)
         else:
             ax.axvline(float(label['Timestamp']), color="black")
     return ax
@@ -108,3 +145,30 @@ def plot_interactive_pozyx_data(data, title, xlim=(0,12000), ylim=(0,12000), gro
         for point in ground_truth:
             plt.scatter(point['x'], point['y'], color='red', s=2, marker="x")
             plt.text(point['x'] + 50, point['y'], point['label'], color='red')
+
+def subplot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000), units="(mm)"):
+    """
+    Args
+    ----
+
+    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>} 
+    """
+    fig, axs = plt.subplots(len(columns), 1, figsize=(20,10))
+    for ind, ax in enumerate(axs):
+        current_data = data.loc[:, columns[ind]]
+        min_data = current_data.dropna().values.min()
+        data.loc[:, columns[ind]].plot(ax=ax)
+
+        if ind == 0:
+            ax.set_title(title)
+        ax.set_ylabel(f"{columns[ind]} {units}")
+
+        for label in labels:
+            if label["Label"] != "10 sec elapsed":
+                ax.axvline(float(label['Timestamp']), color="red")
+                if ind == len(columns) - 1:
+                    ax.text(float(label['Timestamp'])+0.5,min_data,label["Label"], rotation=90, color="red", size=18)
+            else:
+                ax.axvline(float(label['Timestamp']), color="black")
+    return axs
+

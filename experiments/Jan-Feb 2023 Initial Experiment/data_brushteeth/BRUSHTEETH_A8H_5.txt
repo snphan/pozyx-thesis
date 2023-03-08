@@ -1,0 +1,10 @@
+wait at kitchen sink: 1675977735.1390839
+10 sec elapsed: 1675977745.7737496
+kitchen sink brushing start: 1675977748.261678
+20 sec elapsed: 1675977768.8102078
+wait at bathroom sink: 1675977777.6636827
+10 sec elapsed: 1675977788.0694733
+bathroom sink brushing start: 1675977791.031915
+20 sec elapsed: 1675977811.9115274
+back to kitchen wait: 1675977820.4226484
+10 sec elapsed: 1675977831.1062462
