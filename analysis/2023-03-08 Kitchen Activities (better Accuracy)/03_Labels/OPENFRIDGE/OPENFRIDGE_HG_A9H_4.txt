@@ -9,4 +9,4 @@ quiet standing: 1678219454.0487976
 quiet standing: 1678219467.5854516
 #5 grab something from fridge: 1678219472.2511787
 quiet standing: 1678219481.2637959
-10 seconds elapsed: 1678219485.431128
+5 seconds elapsed: 1678219485.431128

@@ -9,4 +9,4 @@ quiet standing: 1678219700.3050501
 quiet standing: 1678219714.5648332
 #5 grab something from freezer: 1678219719.425282
 quiet standing: 1678219728.6838841
-10 seconds elapsed: 1678219733.2227385
+5 seconds elapsed: 1678219733.2227385

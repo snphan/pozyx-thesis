@@ -19,4 +19,4 @@ quiet standing: 1678220997.9340281
 quiet standing: 1678221012.0583732
 #5 plate counter to cabinet: 1678221016.2445548
 quiet standing: 1678221025.8865864
-10 seconds elapsed: 1678221030.3024602
+5 seconds elapsed: 1678221030.3024602

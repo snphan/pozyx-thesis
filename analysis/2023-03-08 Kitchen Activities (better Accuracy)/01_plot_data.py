@@ -24,9 +24,9 @@ data_dir = "02_Pozyx_Positioning_Data"
 NUM_NORM_POINTS = 300
 ANCHOR_CONFIG = ["9H"]
 SUBJECT_INITIALS = "HG"
-TYPE = "OPENFREEZER"
+TYPE = "ASSEMBLESANDWICH"
 TAG_ID =  ["0x683f"]
-TRIAL = 3
+TRIAL = 1
 
 for anchor in ANCHOR_CONFIG:
     for tagId in TAG_ID:
@@ -57,7 +57,7 @@ for anchor in ANCHOR_CONFIG:
         cleaned_data = (data
                         .loc[:, ['POS_X', 'POS_Y', 'POS_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch']]
                         .pipe(utils.handle_spikes, ['POS_Z', 'POS_Y'], [1500.0, 800.0]) 
-                        .rolling(20).mean() # 20 point moving average
+                        .pipe(utils.MAV_cols, ['POS_X', 'POS_Y', 'POS_Z'], 20)
                         )
 
         ######################################################################
@@ -69,10 +69,11 @@ for anchor in ANCHOR_CONFIG:
         ax.set_xlabel('dt (s)')
         ax.set_ylabel('Occurences')
 
-        ax = utils.subplot_pozyx_data_with_timings(cleaned_data, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name)
+        # Plot the position in cm
+        ax = utils.subplot_pozyx_data_with_timings(cleaned_data / 10, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name, units="(cm)")
         # ax.set_title(label_fn + " POS")
-        # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['LINACC_X','LINACC_Y','LINACC_Z'], labels, ylim=(-1000, 1000), ylabel="Acceleration (mg)")
-        # ax.set_title(label_fn + " ACC")
+        ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['LINACC_X','LINACC_Y','LINACC_Z'], labels, ylim=(-1000, 1000), ylabel="Acceleration (mg)")
+        ax.set_title(label_fn + " ACC")
         # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['GYRO_X','GYRO_Y','GYRO_Z'], labels, ylim=(-500, 500), ylabel="Angular Velocity (dps)")
         # ax.set_title(label_fn + " GYRO")
 
