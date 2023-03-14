@@ -16,17 +16,20 @@ np.set_printoptions(suppress=True, formatter={'float_kind':'{:f}'.format})
 font = {'family' : 'Ubuntu',
         'size'   : 22}
 
+import json
+
 matplotlib.rc('font', **font)
 
 
 labels_dir = "03_Labels"
 data_dir = "02_Pozyx_Positioning_Data"
+regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
 NUM_NORM_POINTS = 300
 ANCHOR_CONFIG = ["9H"]
 SUBJECT_INITIALS = "HG"
-TYPE = "ASSEMBLESANDWICH"
+TYPE = "OPENFRIDGE"
 TAG_ID =  ["0x683f"]
-TRIAL = 1
+TRIAL = 3
 
 for anchor in ANCHOR_CONFIG:
     for tagId in TAG_ID:
@@ -60,6 +63,17 @@ for anchor in ANCHOR_CONFIG:
                         .pipe(utils.MAV_cols, ['POS_X', 'POS_Y', 'POS_Z'], 20)
                         )
 
+
+        ######################################################################
+        #  GETTING CONTEXT
+        ######################################################################
+        regions = None
+        with open(regions_fp) as f:
+            regions = json.load(f)
+        
+        cleaned_data = cleaned_data.pipe(utils.determine_location, regions)
+        print(cleaned_data)
+
         ######################################################################
         # PLOTTING
         ######################################################################
@@ -70,14 +84,14 @@ for anchor in ANCHOR_CONFIG:
         ax.set_ylabel('Occurences')
 
         # Plot the position in cm
-        ax = utils.subplot_pozyx_data_with_timings(cleaned_data / 10, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name, units="(cm)")
-        # ax.set_title(label_fn + " POS")
+        ax = utils.subplot_pozyx_data_with_timings(cleaned_data.loc[:, ['POS_X', 'POS_Y', 'POS_Z']] / 10, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name, units="(cm)")
         ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['LINACC_X','LINACC_Y','LINACC_Z'], labels, ylim=(-1000, 1000), ylabel="Acceleration (mg)")
         ax.set_title(label_fn + " ACC")
         # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['GYRO_X','GYRO_Y','GYRO_Z'], labels, ylim=(-500, 500), ylabel="Angular Velocity (dps)")
         # ax.set_title(label_fn + " GYRO")
-
         # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['Heading', 'Roll', 'Pitch'], labels, ylim=(-500, 500), ylabel="Euler Angle (deg)")
         # ax.set_title(label_fn + " Orientation")
+
+        ax = utils.plot_pozyx_locations_with_timings(cleaned_data, labels)
 
     plt.show()

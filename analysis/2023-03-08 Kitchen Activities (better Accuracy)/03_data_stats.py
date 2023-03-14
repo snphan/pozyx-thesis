@@ -5,11 +5,13 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import re
 import matplotlib
+from matplotlib import patches
 import sys, os
 SCRIPT_DIR = os.path.dirname(os.path.abspath('__file__'))
 sys.path.append(os.path.dirname(os.path.dirname(SCRIPT_DIR)))
 from analysis.utils import utils
 import dataframe_image as dfi
+from PIL import Image
 
 # np.set_printoptions(suppress=True, formatter={'float_kind':'{:f}'.format})
 font = {'family' : 'Ubuntu',
@@ -21,6 +23,8 @@ EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICE
 tagId = "0x683f"
 
 mean_means = pd.DataFrame(columns=['POS_X', 'POS_Y', 'POS_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch'])
+std_means = pd.DataFrame(columns=['POS_X', 'POS_Y', 'POS_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch'])
+
 mean_stds = pd.DataFrame(columns=['POS_X', 'POS_Y', 'POS_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch'])
 mean_durations = pd.DataFrame(columns=['Duration'])
 
@@ -75,10 +79,9 @@ for experiment in EXP_TYPES:
             durations = pd.concat([durations, pd.DataFrame([duration], index=["Duration"])], axis=1)
     
     mean_means = pd.concat([mean_means, means.mean(axis=1).rename(experiment).to_frame().T])
+    std_means = pd.concat([std_means, means.std(axis=1).rename(experiment).to_frame().T])
     mean_stds = pd.concat([mean_stds, stds.mean(axis=1).rename(experiment).to_frame().T])
     mean_durations = pd.concat([mean_durations, durations.mean(axis=1).rename(experiment).to_frame().T])
-
-
 
 
 table_styles = [{
@@ -90,8 +93,12 @@ table_styles = [{
 
 export_table_columns = ['POS_X (cm)', 'POS_Y (cm)', 'POS_Z (cm)', 'LINACC_X (mg)', 'LINCACC_Y (mg)', 'LINACC_Z (mg)', 'GYRO_X (dps)', 'GYRO_Y (dps)', 'GYRO_Z (dps)', 'Heading (deg)', 'Roll (deg)', 'Pitch (deg)']
 mean_means.columns = export_table_columns
+std_means.columns = export_table_columns
 mean_stds.columns = export_table_columns
-print(mean_durations)
+
+print(std_means)
+
+# Output the Summary Stats Table #
 
 dfi.export((mean_means)
     .style
@@ -100,6 +107,15 @@ dfi.export((mean_means)
     .set_table_styles(table_styles)
     .background_gradient(axis=0), 'means.png'
     )
+
+dfi.export((std_means)
+    .style
+    .set_precision(1)
+    .set_caption("Std of Mean for each Experiment")
+    .set_table_styles(table_styles)
+    .background_gradient(axis=0), 'std_means.png'
+    )
+
 
 dfi.export((mean_stds)
     .style
@@ -116,3 +132,24 @@ dfi.export((mean_durations)
     .set_table_styles(table_styles)
     .background_gradient(axis=0), 'durations.png'
     )
+
+
+# Plot the means
+bg_options = {
+    "ILS": {"path": "ISL HQ Screenshot-rotated.png", "multiplier": 6.3, },
+}
+bg_path = bg_options["ILS"]["path"]
+bg_multiplier = bg_options["ILS"]["multiplier"]
+img = Image.open(bg_path).convert("L")
+img = np.asarray(img)
+ax = plt.subplot()
+ax.imshow(img, extent=[0,img.shape[1]*bg_multiplier,0,img.shape[0]*bg_multiplier], cmap='gray', vmin=0, vmax=255)
+
+for mean_row, std_mean in zip(mean_means.iterrows(), std_means.iterrows()):
+    ax.scatter(mean_row[1]['POS_X (cm)']*10, mean_row[1]['POS_Y (cm)']*10, color='red', s=20, marker="o")
+    ax.text(mean_row[1]['POS_X (cm)']*10, mean_row[1]['POS_Y (cm)']*10, mean_row[1].name, size=20, color='red', rotation=30)
+    ax.add_patch(patches.Ellipse((mean_row[1]['POS_X (cm)']*10, mean_row[1]['POS_Y (cm)']*10), std_mean[1]['POS_X (cm)']*10, std_mean[1]['POS_Y (cm)']*10, fill=False, color='red', alpha=0.5))
+
+ax.set_xlabel("POS_X (mm)")
+ax.set_ylabel("POS_Y (mm)")
+plt.show()
