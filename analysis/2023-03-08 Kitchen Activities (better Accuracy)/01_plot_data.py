@@ -29,7 +29,7 @@ ANCHOR_CONFIG = ["9H"]
 SUBJECT_INITIALS = "HG"
 TYPE = "OPENFRIDGE"
 TAG_ID =  ["0x683f"]
-TRIAL = 3
+TRIAL = 4
 
 for anchor in ANCHOR_CONFIG:
     for tagId in TAG_ID:

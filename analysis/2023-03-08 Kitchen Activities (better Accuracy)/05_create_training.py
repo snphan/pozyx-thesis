@@ -20,16 +20,20 @@ from collections import defaultdict
 font = {'family' : 'Ubuntu',
         'size'   : 22}
 matplotlib.rc('font', **font)
+import json
 
 
 EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
 # ACTION_PERIOD = ['grab something', ]
 tagId = "0x683f"
+regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
+
+
 
 ##################################################
 # Preprocessing
 ##################################################
-all_cleaned_data = defaultdict(lambda: {})
+all_cleaned_data = defaultdict(lambda: {}) # {name_of_file: pd.DataFrame}
 for experiment in EXP_TYPES: 
     means = pd.DataFrame()
     stds = pd.DataFrame()
@@ -41,7 +45,7 @@ for experiment in EXP_TYPES:
         data = data.set_index('Timestamp')
 
         cleaned_data = (data
-                    .loc[:, ['POS_X', 'POS_Y', 'POS_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch']]
+                    .loc[:, ['POS_X', 'POS_Y', 'POS_Z', 'ACC_X', 'ACC_Y', 'ACC_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch', 'Pressure']]
                     .pipe(utils.handle_spikes, ['POS_Z', 'POS_Y'], [1500.0, 800.0]) 
                     .pipe(utils.MAV_cols, ['POS_X', 'POS_Y', 'POS_Z'], 20)
                     )
@@ -52,6 +56,8 @@ for experiment in EXP_TYPES:
 ##################################################
 for experiment in EXP_TYPES:
     for data_name in all_cleaned_data[experiment]:
+        cleaned_data = all_cleaned_data[experiment][data_name]
+
         label_fp = Path().joinpath('03_Labels', experiment, data_name + ".txt")
         labels = utils.extract_time_labels(label_fp)
 
@@ -75,9 +81,31 @@ for experiment in EXP_TYPES:
             start = float(period[0]['Timestamp'])
             end = float(period[1]['Timestamp'])
             activity_data = cleaned_data.loc[start:end]
-            mean = activity_data.mean()
-            std = activity_data.std()
 
+            mean = activity_data.mean()
+            mean.index = ['MEAN_' + ind for ind in mean.index]
+
+            median = activity_data.median()
+            median.index = ['MEDIAN_' + ind for ind in median.index]
+
+            std = activity_data.std()
+            std.index = ['STD_' + ind for ind in std.index]
+
+            mode = activity_data.copy().pipe(utils.round_cols, ['POS_X', 'POS_Y', 'POS_Z'], 50).mode().iloc[0, :] # 50 mm = 5 cm, mode may output 2 rows
+            mode.index = ['MODE_' + ind for ind in mode.index]
+
+            max_value = activity_data.max()
+            max_value.index = ['MAX_' + ind for ind in max_value.index]
+
+            min_value = activity_data.min()
+            min_value.index = ['MIN_' + ind for ind in min_value.index]
+
+            regions = None
+            with open(regions_fp) as f:
+                regions = json.load(f)
+            mode_location = pd.Series(activity_data.copy().pipe(utils.determine_location, regions).loc[:, 'Location'].mode()[0], index=["LOCATION"])
+
+            print(pd.concat([mean, median, std, mode, max_value, min_value, mode_location]))
             # Find Location
 
 
