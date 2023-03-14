@@ -5,12 +5,17 @@ import numpy as np
 from scipy import interpolate
 from PIL import Image
 import matplotlib.pyplot as plt
-
+import matplotlib.path as mpltPath
 #MARK: UTIITY FUNCTIONS
 
 def list_from_series(data):
     return data.values.tolist()
 
+def what_location(x, y, regions):
+    for k, v in regions.items():
+        path = mpltPath.Path(v)
+        if path.contains_point([x,y]): return k
+    return "undefined"
 
 #MARK: PREPROCESSING
 def extract_time_labels(fp):
@@ -45,7 +50,7 @@ def copy_df_format(df):
 def remove_periods(df, periods):
     """Deletes the selected periods"""
     for period in periods:
-        mask = (df.index > period[0]) & (df.index < period[1])
+        mask = (df.index > float(period[0])) & (df.index < float(period[1]))
         df = df.drop(df.index[mask])
     return df
 
@@ -98,13 +103,47 @@ def handle_spikes(df: pd.DataFrame, columns: list[str], jump_thresholds: list[fl
             ) 
             if diff > threshold:
                 df.iloc[ind+1, list_from_series(df.columns).index(col)] = df.iloc[ind-10:ind+1, list_from_series(df.columns).index(col)].mean()
+    return df
 
+def MAV_cols(df: pd.DataFrame, columns: list[str], n: int):
+    for col in columns:
+        mav_data = df.loc[:, col].rolling(n).mean()
+        df.loc[:, col] = mav_data
+    return df
 
+def round_cols(df: pd.DataFrame, columns: list[str], base=1):
+    for col in columns:
+        rounded = (df.loc[:, col] / base).round() * base 
+        df.loc[:, col] = rounded
+    return df
+    
+
+def determine_location(df, regions): # Note that df must contain POS_X and POS_Y
+    df["Location"] = df.apply(lambda row: what_location(row['POS_X'], row['POS_Y'], regions), axis=1)
 
     return df
 
-
 #MARK: VISUALIZATION
+
+def plot_pozyx_locations_with_timings(data: pd.DataFrame, labels: list[dict], title="Location with Timings", ylabel="Location"):
+    """
+    Args
+    ----
+
+    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>} 
+    """
+    fig = plt.figure(figsize=(20,10))
+    ax = plt.subplot()
+    ax.scatter(data.index, data.loc[:, 'Location'], s=10, marker="+")
+    ax.set_title(title)
+    ax.set_ylabel(ylabel)
+    for label in labels:
+        if label["Label"] != "10 sec elapsed":
+            ax.axvline(float(label['Timestamp']), color="red", alpha=0.5)
+            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", alpha=0.5, size=18)
+        else:
+            ax.axvline(float(label['Timestamp']), color="black")
+    return ax
 
 def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000), ylabel="Position (mm)"):
     """
@@ -119,8 +158,8 @@ def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels:
     ax.set_ylabel(ylabel)
     for label in labels:
         if label["Label"] != "10 sec elapsed":
-            ax.axvline(float(label['Timestamp']), color="red")
-            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", size=18)
+            ax.axvline(float(label['Timestamp']), color="red", alpha=0.5)
+            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", alpha=0.5, size=18)
         else:
             ax.axvline(float(label['Timestamp']), color="black")
     return ax
@@ -157,18 +196,79 @@ def subplot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labe
     for ind, ax in enumerate(axs):
         current_data = data.loc[:, columns[ind]]
         min_data = current_data.dropna().values.min()
-        data.loc[:, columns[ind]].plot(ax=ax)
+        current_data.plot(ax=ax)
 
         if ind == 0:
             ax.set_title(title)
+        data_mean = current_data.dropna().mean()
         ax.set_ylabel(f"{columns[ind]} {units}")
+        ax.set_xlim(current_data.index.min() - 0.5, current_data.index.max())
+
+        if "POS" in columns[ind]: ax.set_ylim(data_mean - 80, data_mean + 80)
 
         for label in labels:
             if label["Label"] != "10 sec elapsed":
-                ax.axvline(float(label['Timestamp']), color="red")
+                ax.axvline(float(label['Timestamp']), color="red", alpha=0.5)
                 if ind == len(columns) - 1:
-                    ax.text(float(label['Timestamp'])+0.5,min_data,label["Label"], rotation=90, color="red", size=18)
+                    ax.text(float(label['Timestamp'])+0.5,min_data,label["Label"], alpha=0.5, rotation=90, color="red", size=18)
             else:
                 ax.axvline(float(label['Timestamp']), color="black")
     return axs
 
+# MATPLOTLIB
+
+def zoom_factory(ax, max_xlim, max_ylim, base_scale = 2.):
+    def zoom_fun(event):
+        # get the current x and y limits
+        cur_xlim = ax.get_xlim()
+        cur_ylim = ax.get_ylim()
+        xdata = event.xdata # get event x location
+        ydata = event.ydata # get event y location
+        if event.button == 'up':
+            # deal with zoom in
+            scale_factor = 1/base_scale
+            x_scale = scale_factor / 2
+        elif event.button == 'down':
+            # deal with zoom out
+            scale_factor = base_scale
+            x_scale = scale_factor * 2
+        else:
+            # deal with something that should never happen
+            scale_factor = 1
+            print(event.button)
+        # set new limits
+        new_width = (cur_xlim[1] - cur_xlim[0]) * x_scale
+        new_height = (cur_ylim[1] - cur_ylim[0]) * x_scale
+
+        relx = (cur_xlim[1] - xdata) / (cur_xlim[1] - cur_xlim[0])
+        rely = (cur_ylim[1] - ydata) / (cur_ylim[1] - cur_ylim[0])
+
+        if xdata - new_width * (1 - relx) > max_xlim[0]:
+            x_min = xdata - new_width * (1 - relx)
+        else:
+            x_min = max_xlim[0]
+        if xdata + new_width * (relx) < max_xlim[1]:
+            x_max = xdata + new_width * (relx)
+        else:
+            x_max = max_xlim[1]
+        if ydata - new_height * (1 - rely) > max_ylim[0]:
+            y_min = ydata - new_height * (1 - rely)
+        else:
+            y_min = max_ylim[0]
+        if ydata + new_height * (rely) < max_ylim[1]:
+            y_max = ydata + new_height * (rely)
+        else:
+            y_max = max_ylim[1]
+
+        print(x_min, x_max)
+        print(y_min, y_max)
+        ax.set_xlim([x_min, x_max])
+        ax.set_ylim([y_min, y_max])
+        ax.figure.canvas.draw()
+
+    fig = ax.get_figure() # get the figure of interest
+    # attach the call back
+    fig.canvas.mpl_connect('scroll_event',zoom_fun)
+
+    #return the function
+    return zoom_fun
