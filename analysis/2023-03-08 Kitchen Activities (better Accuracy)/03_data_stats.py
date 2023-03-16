@@ -1,3 +1,11 @@
+"""
+Script to output the data statistics
+
+- Creates tables of mean of means
+- Creates tables of mean of stds
+- Plots the activity location
+"""
+
 import seaborn as sns
 import pandas as pd
 import numpy as np
@@ -19,8 +27,11 @@ font = {'family' : 'Ubuntu',
 matplotlib.rc('font', **font)
 
 
+# MARK: - Config
+##################################################
 EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
 tagId = "0x683f"
+##################################################
 
 mean_means = pd.DataFrame(columns=['POS_X', 'POS_Y', 'POS_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch'])
 std_means = pd.DataFrame(columns=['POS_X', 'POS_Y', 'POS_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Heading', 'Roll', 'Pitch'])

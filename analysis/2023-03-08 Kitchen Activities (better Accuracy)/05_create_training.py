@@ -1,5 +1,9 @@
 """
-Script to convert the data into training set
+Script to convert the data into training set. 
+
+Change the EXP_TYPES if you have different experiments.
+Data must be in 02_Pozyx_Positioning_Data and the corresponding labels in 
+03_Labels.
 """
 import seaborn as sns
 import pandas as pd
@@ -21,19 +25,21 @@ font = {'family' : 'Ubuntu',
         'size'   : 22}
 matplotlib.rc('font', **font)
 import json
+from datetime import datetime
 
-
+# MARK: - Config
 EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
 # ACTION_PERIOD = ['grab something', ]
 tagId = "0x683f"
 regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
+output_dir = Path().joinpath("04_outputs", "TRAINING")
 
 
+# MARK: - Preprocessing
+# Cleaning the data such as handling_spikes and MAV
 
-##################################################
-# Preprocessing
-##################################################
-all_cleaned_data = defaultdict(lambda: {}) # {name_of_file: pd.DataFrame}
+all_cleaned_data: dict[str, dict[str, pd.DataFrame]] = defaultdict(dict) # {name_of_file: pd.DataFrame}
+
 for experiment in EXP_TYPES: 
     means = pd.DataFrame()
     stds = pd.DataFrame()
@@ -51,9 +57,15 @@ for experiment in EXP_TYPES:
                     )
         all_cleaned_data[experiment][data_path.name.replace('.csv', '')] = cleaned_data
 
-##################################################
-# Windowing
-##################################################
+print('Done Cleaning!')
+
+# MARK: - Windowing
+# Separate the data into windows dict of ACTIVITY: [pd.DataFrame] 
+
+windows: dict[str, list] = defaultdict(list)
+WINDOW_WIDTH = 2 # seconds
+WINDOW_STRIDE = 1 # seconds
+
 for experiment in EXP_TYPES:
     for data_name in all_cleaned_data[experiment]:
         cleaned_data = all_cleaned_data[experiment][data_name]
@@ -61,8 +73,9 @@ for experiment in EXP_TYPES:
         label_fp = Path().joinpath('03_Labels', experiment, data_name + ".txt")
         labels = utils.extract_time_labels(label_fp)
 
-        # Get the activity periods
-        activity_periods = []
+        # Get the activity periods assume these periods occur between quiet standing.
+        # Note that the transitional periods should be taken out (from quiet standing to doing the activity)
+        activity_periods: list[dict[str, str]] = [] 
         i = 0
         while i < len(labels):
             if 'quiet' in labels[i]['Label']:
@@ -80,37 +93,86 @@ for experiment in EXP_TYPES:
         for period in activity_periods:
             start = float(period[0]['Timestamp'])
             end = float(period[1]['Timestamp'])
-            activity_data = cleaned_data.loc[start:end]
-
-            mean = activity_data.mean()
-            mean.index = ['MEAN_' + ind for ind in mean.index]
-
-            median = activity_data.median()
-            median.index = ['MEDIAN_' + ind for ind in median.index]
-
-            std = activity_data.std()
-            std.index = ['STD_' + ind for ind in std.index]
-
-            mode = activity_data.copy().pipe(utils.round_cols, ['POS_X', 'POS_Y', 'POS_Z'], 50).mode().iloc[0, :] # 50 mm = 5 cm, mode may output 2 rows
-            mode.index = ['MODE_' + ind for ind in mode.index]
-
-            max_value = activity_data.max()
-            max_value.index = ['MAX_' + ind for ind in max_value.index]
-
-            min_value = activity_data.min()
-            min_value.index = ['MIN_' + ind for ind in min_value.index]
-
-            regions = None
-            with open(regions_fp) as f:
-                regions = json.load(f)
-            mode_location = pd.Series(activity_data.copy().pipe(utils.determine_location, regions).loc[:, 'Location'].mode()[0], index=["LOCATION"])
-
-            print(pd.concat([mean, median, std, mode, max_value, min_value, mode_location]))
-            # Find Location
+            
+            while start < end - WINDOW_WIDTH:
+                # # DEBUG
+                # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X', 'POS_Y', 'POS_Z'], labels)
+                # ax.axvline(start, color='green')
+                # ax.axvline(start+WINDOW_WIDTH, color='green')
+                # plt.show()
+                windows[experiment].append(cleaned_data.loc[start: start+WINDOW_WIDTH])
+                start += WINDOW_STRIDE
 
 
-# Feature Extraction
+        quiet_periods: list[dict[str, str]] = []
+        i = 0
+        while i < len(labels):
+            if 'quiet' in labels[i]['Label']:
+                quiet_periods.append([labels[i], labels[i+1]])
+            i += 1
 
-# Output the labelled data
+        for period in quiet_periods:
+            start = float(period[0]['Timestamp'])
+            end = float(period[1]['Timestamp'])
+            
+            while start < end - WINDOW_WIDTH:
+                # # DEBUG
+                # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X', 'POS_Y', 'POS_Z'], labels)
+                # ax.axvline(start, color='green')
+                # ax.axvline(start+WINDOW_WIDTH, color='green')
+                # plt.show()
+                windows["UNDEFINED"].append(cleaned_data.loc[start:start+WINDOW_WIDTH])
+                start += WINDOW_STRIDE
+
+print('Done Windowing!')
+
+# MARK: - Feature Extraction
+# Extract the features from each window and label with activity
+
+training_data = pd.DataFrame()
+
+for experiment in windows:
+    for data in windows[experiment]:
+        mean = data.mean()
+        mean.index = ['MEAN_' + ind for ind in mean.index]
+
+        median = data.median()
+        median.index = ['MEDIAN_' + ind for ind in median.index]
+
+        std = data.std()
+        std.index = ['STD_' + ind for ind in std.index]
+
+        mode = data.copy().pipe(utils.round_cols, ['POS_X', 'POS_Y', 'POS_Z'], 50).mode().iloc[0, :] # 50 mm = 5 cm, mode may output 2 rows
+        mode.index = ['MODE_' + ind for ind in mode.index]
+
+        max_value = data.max()
+        max_value.index = ['MAX_' + ind for ind in max_value.index]
+
+        min_value = data.min()
+        min_value.index = ['MIN_' + ind for ind in min_value.index]
+
+        regions = None
+        with open(regions_fp) as f:
+            regions = json.load(f)
+        mode_location = pd.Series(data.copy().pipe(utils.determine_location, regions).loc[:, 'Location'].mode()[0], index=["LOCATION"])
+
+        activity_type = pd.Series([experiment], index=['ACTIVITY'])
+
+        feature_vector = pd.concat([mean, median, std, mode, max_value, min_value, mode_location, activity_type])
+
+        training_data = pd.concat([training_data, feature_vector], axis=1)
+
+print("Training Data Set Complete")
+
+# MARK: - Output
+# Output the Labelled Data
+
+output_dir.mkdir(parents=True, exist_ok=True)
+
+(training_data
+    .T
+    .reset_index(drop=True)
+    .to_csv(output_dir.joinpath(f"{datetime.now()}_W{WINDOW_WIDTH}_S{WINDOW_STRIDE}_training.csv"), index=False)
+)
 
 

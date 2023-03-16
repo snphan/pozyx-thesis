@@ -1,3 +1,11 @@
+"""
+Metrics to look at the quality of the data as a whole
+
+- dt (to answer if we can do spectral analysis)
+- Will add NaN values
+
+Change config to include the correct data.
+"""
 import seaborn as sns
 import pandas as pd
 import numpy as np
@@ -12,8 +20,12 @@ font = {'family' : 'Ubuntu',
 matplotlib.rc('font', **font)
 
 
+# MARK: - Config
+##################################################
 EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
 tagId = "0x683f"
+##################################################
+
 ALL_DATA_FILES = [file for exp in EXP_TYPES for file in Path(__file__).resolve().parent.joinpath('02_Pozyx_Positioning_Data', exp).glob('*.csv')]
 ALL_LABEL_FILES = [file.parent.joinpath('03_Labels', file.name.replace('.csv', '.txt')) for file in ALL_DATA_FILES]
 

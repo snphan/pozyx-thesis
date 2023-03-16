@@ -1,3 +1,8 @@
+"""
+Script for plotting a single experiment trial with corresponding labels.
+
+Please change the config to plot the correct file
+"""
 # Fix for importing utils
 import sys, os
 SCRIPT_DIR = os.path.dirname(os.path.abspath('__file__'))
@@ -10,8 +15,6 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 from pathlib import Path
-import ipywidgets as widgets
-from IPython.display import display
 np.set_printoptions(suppress=True, formatter={'float_kind':'{:f}'.format})
 font = {'family' : 'Ubuntu',
         'size'   : 22}
@@ -21,6 +24,8 @@ import json
 matplotlib.rc('font', **font)
 
 
+# MARK: - Config
+##################################################
 labels_dir = "03_Labels"
 data_dir = "02_Pozyx_Positioning_Data"
 regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
@@ -30,6 +35,7 @@ SUBJECT_INITIALS = "HG"
 TYPE = "OPENFRIDGE"
 TAG_ID =  ["0x683f"]
 TRIAL = 4
+##################################################
 
 for anchor in ANCHOR_CONFIG:
     for tagId in TAG_ID:
