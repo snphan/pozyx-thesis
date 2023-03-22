@@ -3,7 +3,7 @@ from pathlib import Path
 
 TRANSITIONS = [
     'quiet standing',
-    '#1 plate cabinet to counter',
+    '#1 plate cabinet to counter', # Press enter when participant touches the handle
     'quiet standing',
     '#1 plate counter to cabinet',
     'quiet standing',
@@ -23,7 +23,7 @@ TRANSITIONS = [
     'quiet standing',
     '#5 plate counter to cabinet',
     'quiet standing',
-    '10 seconds elapsed'
+    '5 seconds elapsed'
 ]
 
 if __name__ == "__main__":

@@ -3,11 +3,9 @@ from pathlib import Path
 
 TRANSITIONS = [
     'quiet standing',
-    'grab knife', # 3 Times
-    'slice tomato',
-    'put knife down',
+    'slice tomato', # Right before slicing 
     'quiet standing',
-    '10 seconds elapsed',
+    '5 seconds elapsed',
 ]
 
 if __name__ == "__main__":

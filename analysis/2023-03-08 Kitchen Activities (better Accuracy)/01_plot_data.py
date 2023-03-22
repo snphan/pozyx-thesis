@@ -32,9 +32,9 @@ regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.79414
 NUM_NORM_POINTS = 300
 ANCHOR_CONFIG = ["9H"]
 SUBJECT_INITIALS = "HG"
-TYPE = "OPENFRIDGE"
+TYPE = "MAKESANDWICH"
 TAG_ID =  ["0x683f"]
-TRIAL = 4
+TRIAL = 1
 ##################################################
 
 for anchor in ANCHOR_CONFIG:
@@ -52,7 +52,7 @@ for anchor in ANCHOR_CONFIG:
         labels = utils.extract_time_labels(label_fp)
 
         data = pd.read_csv(data_fp)
-        data.columns = ['Timestamp', 'POS_X', 'POS_Y', 'POS_Z', 'Heading', 'Roll', 'Pitch', 'ACC_X', 'ACC_Y', 'ACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'Pressure', 'TagId']
+        data.columns = ['Timestamp', 'POS_X', 'POS_Y', 'POS_Z', 'Heading', 'Roll', 'Pitch', 'ACC_X', 'ACC_Y', 'ACC_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Pressure', 'TagId']
         data = data.set_index('Timestamp')
 
 
@@ -90,7 +90,8 @@ for anchor in ANCHOR_CONFIG:
         ax.set_ylabel('Occurences')
 
         # Plot the position in cm
-        ax = utils.subplot_pozyx_data_with_timings(cleaned_data.loc[:, ['POS_X', 'POS_Y', 'POS_Z']] / 10, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name, units="(cm)")
+        # ax = utils.subplot_pozyx_data_with_timings(cleaned_data.loc[:, ['POS_X', 'POS_Y', 'POS_Z']] / 10, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name, units="(cm)")
+        ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X','POS_Y','POS_Z'], labels, ylim=(-10, 12000), ylabel="Position (mm)")
         ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['LINACC_X','LINACC_Y','LINACC_Z'], labels, ylim=(-1000, 1000), ylabel="Acceleration (mg)")
         ax.set_title(label_fn + " ACC")
         # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['GYRO_X','GYRO_Y','GYRO_Z'], labels, ylim=(-500, 500), ylabel="Angular Velocity (dps)")

@@ -28,8 +28,7 @@ import json
 from datetime import datetime
 
 # MARK: - Config
-# EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
-EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
+EXP_TYPES = ['MAKESANDWICH']
 # ACTION_PERIOD = ['grab something', ]
 tagId = "0x683f"
 regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
@@ -79,12 +78,12 @@ for experiment in EXP_TYPES:
         activity_periods: list[dict[str, str]] = [] 
         i = 0
         while i < len(labels):
-            if 'quiet' in labels[i]['Label']:
+            if 'transition' in labels[i]['Label']:
                 i += 1
                 # Find the next quiet standing
                 start = labels[i]
                 if i >= len(labels) - 1: break
-                while 'quiet' not in labels[i]['Label']:
+                while 'transition' not in labels[i]['Label']:
                     i += 1
                 end = labels[i]
                 i -= 1
@@ -100,15 +99,18 @@ for experiment in EXP_TYPES:
                 # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X', 'POS_Y', 'POS_Z'], labels)
                 # ax.axvline(start, color='green')
                 # ax.axvline(start+WINDOW_WIDTH, color='green')
+                # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['ACC_X', 'ACC_Y', 'ACC_Z'], labels, ylim=(-2000,2000))
+                # ax.axvline(start, color='green')
+                # ax.axvline(start+WINDOW_WIDTH, color='green')
                 # plt.show()
-                windows[experiment].append(cleaned_data.loc[start: start+WINDOW_WIDTH])
+                windows[period[0]['Label']].append(cleaned_data.loc[start: start+WINDOW_WIDTH])
                 start += WINDOW_STRIDE
 
 
         quiet_periods: list[dict[str, str]] = []
         i = 0
         while i < len(labels):
-            if 'quiet' in labels[i]['Label']:
+            if 'transition' in labels[i]['Label']:
                 quiet_periods.append([labels[i], labels[i+1]])
             i += 1
 
@@ -119,6 +121,9 @@ for experiment in EXP_TYPES:
             while start < end - WINDOW_WIDTH:
                 # # DEBUG
                 # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X', 'POS_Y', 'POS_Z'], labels)
+                # ax.axvline(start, color='green')
+                # ax.axvline(start+WINDOW_WIDTH, color='green')
+                # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['ACC_X', 'ACC_Y', 'ACC_Z'], labels, ylim=(-2000,2000))
                 # ax.axvline(start, color='green')
                 # ax.axvline(start+WINDOW_WIDTH, color='green')
                 # plt.show()
@@ -173,7 +178,7 @@ output_dir.mkdir(parents=True, exist_ok=True)
 (training_data
     .T
     .reset_index(drop=True)
-    .to_csv(output_dir.joinpath(f"{datetime.now()}_W{WINDOW_WIDTH}_S{WINDOW_STRIDE}_training.csv"), index=False)
+    .to_csv(output_dir.joinpath(f"{datetime.now()}_W{WINDOW_WIDTH}_S{WINDOW_STRIDE}_wild_training.csv"), index=False)
 )
 
 

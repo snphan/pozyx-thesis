@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 import matplotlib.path as mpltPath
 from matplotlib.patches import Rectangle
 from sklearn.preprocessing import OneHotEncoder
-
+import joblib 
+from pathlib import Path
 #MARK: UTIITY FUNCTIONS
 
 def list_from_series(data):
@@ -131,6 +132,7 @@ def one_hot_encode_col(df: pd.DataFrame, column: str):
     enc = OneHotEncoder(handle_unknown='ignore')
     locations = np.reshape(df[column].values, (-1, 1))
     enc.fit(locations)
+    joblib.dump(enc, Path().joinpath('04_outputs', 'location_encoder.joblib'))
     data = enc.transform(locations).toarray()
     header = enc.get_feature_names_out([column])
     one_hot_encode_df = pd.DataFrame(data, columns=header)
@@ -320,8 +322,9 @@ def make_confusion_matrix(cf,
 
                 precision = TP/(TP+FP)
                 sensitivity = TP/(TP+FN)
+                specificity = TN/(FP+TN)
 
-                stats_text += f"\n{category}: Precision={precision:.2f}, Sensitivity={sensitivity:.2f}"
+                stats_text += f"\n{category}: Precision={precision:.2f}, Sensitivity={sensitivity:.2f}, Specificity={specificity:.2f}"
     else:
         stats_text = ""
 

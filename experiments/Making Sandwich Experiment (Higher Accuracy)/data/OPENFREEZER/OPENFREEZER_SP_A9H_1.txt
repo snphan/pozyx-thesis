@@ -1,0 +1,12 @@
+quiet standing: 1679500098.4733043
+#1 grab something from freezer: 1679500104.4578388
+quiet standing: 1679500109.7082882
+#2 grab something from freezer: 1679500116.2175357
+quiet standing: 1679500123.4099069
+#3 grab something from freezer: 1679500129.657617
+quiet standing: 1679500134.6810856
+#4 grab something from freezer: 1679500141.1077325
+quiet standing: 1679500147.4905717
+#5 grab something from freezer: 1679500153.849678
+quiet standing: 1679500158.8937583
+5 seconds elapsed: 1679500163.7176127

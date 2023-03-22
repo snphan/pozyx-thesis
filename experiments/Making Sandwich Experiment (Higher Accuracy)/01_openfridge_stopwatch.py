@@ -13,7 +13,7 @@ TRANSITIONS = [
     'quiet standing',
     '#5 grab something from fridge',
     'quiet standing',
-    '10 seconds elapsed'
+    '5 seconds elapsed'
 ]
 
 if __name__ == "__main__":

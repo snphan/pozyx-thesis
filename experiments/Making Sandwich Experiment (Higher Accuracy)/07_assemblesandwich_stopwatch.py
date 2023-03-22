@@ -3,7 +3,7 @@ from pathlib import Path
 
 TRANSITIONS = [
     'quiet standing',
-    'put bread on plate',
+    'put bread on plate', # When bread is grabbed
     'shake and squeeze mayo',
     'put meat',
     'put cheese',
@@ -12,7 +12,7 @@ TRANSITIONS = [
     'put bread',
     'done sandwich',
     'quiet standing',
-    '10 seconds elapsed',
+    '5 seconds elapsed',
 ]
 
 if __name__ == "__main__":

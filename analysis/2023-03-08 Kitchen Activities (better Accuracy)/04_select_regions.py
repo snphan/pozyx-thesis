@@ -29,7 +29,8 @@ matplotlib.rc('font', **font)
 
 # MARK: - Config
 ##################################################
-EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
+# EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
+EXP_TYPES = []
 tagId = "0x683f"
 ##################################################
 

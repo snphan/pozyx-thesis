@@ -3,32 +3,17 @@ from pathlib import Path
 
 TRANSITIONS = [
     'quiet standing',
-    '#1 open faucet',
-    'wash hands',
-    'close faucet',
-    'dry hands',
+    '#1 wash hands', # right when participant starts to wash their hands
     'quiet standing',
-    '#2 open faucet',
-    'wash hands',
-    'close faucet',
-    'dry hands',
+    '#2 wash hands',
     'quiet standing',
-    '#3 open faucet',
-    'wash hands',
-    'close faucet',
-    'dry hands',
+    '#3 wash hands',
     'quiet standing',
-    '#4 open faucet',
-    'wash hands',
-    'close faucet',
-    'dry hands',
+    '#4 wash hands',
     'quiet standing',
-    '#5 open faucet',
-    'wash hands',
-    'close faucet',
-    'dry hands',
+    '#5 wash hands',
     'quiet standing',
-    '10 seconds elapsed'
+    '5 seconds elapsed'
 ]
 
 if __name__ == "__main__":
