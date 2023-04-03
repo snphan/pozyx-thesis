@@ -128,11 +128,15 @@ def determine_location(df, regions): # Note that df must contain POS_X and POS_Y
 
     return df
 
-def one_hot_encode_col(df: pd.DataFrame, column: str):
-    enc = OneHotEncoder(handle_unknown='ignore')
+def one_hot_encode_col(df: pd.DataFrame, column: str, mylocation: str=''):
     locations = np.reshape(df[column].values, (-1, 1))
-    enc.fit(locations)
-    joblib.dump(enc, Path().joinpath('04_outputs', 'location_encoder.joblib'))
+    if mylocation == '':
+        enc = OneHotEncoder(handle_unknown='ignore')
+        enc.fit(locations)
+        joblib.dump(enc, Path().joinpath('04_outputs', 'location_encoder.joblib'))
+    else: 
+        enc = joblib.load(mylocation)
+
     data = enc.transform(locations).toarray()
     header = enc.get_feature_names_out([column])
     one_hot_encode_df = pd.DataFrame(data, columns=header)
