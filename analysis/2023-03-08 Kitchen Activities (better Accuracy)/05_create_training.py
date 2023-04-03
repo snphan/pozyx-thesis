@@ -29,7 +29,7 @@ from datetime import datetime
 
 # MARK: - Config
 # EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
-EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
+EXP_TYPES = ['MINCE','MOP','TIESHOES','BRUSHTEETH','ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
 # ACTION_PERIOD = ['grab something', ]
 tagId = "0x683f"
 regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
@@ -96,7 +96,7 @@ for experiment in EXP_TYPES:
             end = float(period[1]['Timestamp'])
             
             while start < end - WINDOW_WIDTH:
-                # # DEBUG
+                # DEBUG
                 # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X', 'POS_Y', 'POS_Z'], labels)
                 # ax.axvline(start, color='green')
                 # ax.axvline(start+WINDOW_WIDTH, color='green')
@@ -117,7 +117,7 @@ for experiment in EXP_TYPES:
             end = float(period[1]['Timestamp'])
             
             while start < end - WINDOW_WIDTH:
-                # # DEBUG
+                # DEBUG
                 # ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X', 'POS_Y', 'POS_Z'], labels)
                 # ax.axvline(start, color='green')
                 # ax.axvline(start+WINDOW_WIDTH, color='green')
