@@ -139,7 +139,7 @@ def one_hot_encode_col(df: pd.DataFrame, column: str, mylocation: str=''):
     if mylocation == '':
         enc = OneHotEncoder(handle_unknown='ignore')
         enc.fit(locations)
-        joblib.dump(enc, Path().joinpath('04_outputs', 'location_encoder.joblib'))
+        joblib.dump(enc, Path().joinpath('outputs', 'location_encoder.joblib'))
     else: 
         enc = joblib.load(mylocation)
 

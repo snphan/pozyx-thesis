@@ -14,9 +14,7 @@ import re
 import matplotlib
 from matplotlib import patches
 import sys, os
-SCRIPT_DIR = os.path.dirname(os.path.abspath('__file__'))
-sys.path.append(os.path.dirname(os.path.dirname(SCRIPT_DIR)))
-from analysis.utils import utils
+from utils import utils
 import dataframe_image as dfi
 from PIL import Image
 from collections import defaultdict
@@ -31,8 +29,8 @@ from datetime import datetime
 EXP_TYPES = ['MAKESANDWICH']
 # ACTION_PERIOD = ['grab something', ]
 tagId = "0x683f"
-regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
-output_dir = Path().joinpath("04_outputs", "TRAINING")
+regions_fp = Path().joinpath("outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
+output_dir = Path().joinpath("outputs", "TRAINING")
 
 
 # MARK: - Preprocessing
@@ -44,7 +42,7 @@ for experiment in EXP_TYPES:
     means = pd.DataFrame()
     stds = pd.DataFrame()
     durations = pd.DataFrame()
-    for data_path in Path().joinpath('02_Pozyx_Positioning_Data', experiment).glob('*.csv'):
+    for data_path in Path().joinpath('data', '02_Pozyx_Positioning_Data', experiment).glob('*.csv'):
         data = pd.read_csv(data_path)
 
         data.columns = ['Timestamp', 'POS_X', 'POS_Y', 'POS_Z', 'Heading', 'Roll', 'Pitch', 'ACC_X', 'ACC_Y', 'ACC_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Pressure', 'TagId']
@@ -70,7 +68,7 @@ for experiment in EXP_TYPES:
     for data_name in all_cleaned_data[experiment]:
         cleaned_data = all_cleaned_data[experiment][data_name]
 
-        label_fp = Path().joinpath('03_Labels', experiment, data_name + ".txt")
+        label_fp = Path().joinpath('data', '03_Labels', experiment, data_name + ".txt")
         labels = utils.extract_time_labels(label_fp)
 
         # Get the activity periods assume these periods occur between quiet standing.

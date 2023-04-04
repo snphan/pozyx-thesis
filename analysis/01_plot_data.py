@@ -5,9 +5,7 @@ Please change the config to plot the correct file
 """
 # Fix for importing utils
 import sys, os
-SCRIPT_DIR = os.path.dirname(os.path.abspath('__file__'))
-sys.path.append(os.path.dirname(os.path.dirname(SCRIPT_DIR)))
-from analysis.utils import utils
+from utils import utils
 
 import matplotlib.pyplot as plt
 import matplotlib
@@ -28,7 +26,7 @@ matplotlib.rc('font', **font)
 ##################################################
 labels_dir = "03_Labels"
 data_dir = "02_Pozyx_Positioning_Data"
-regions_fp = Path().joinpath("04_outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
+regions_fp = Path().joinpath("outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
 NUM_NORM_POINTS = 300
 ANCHOR_CONFIG = ["9H"]
 SUBJECT_INITIALS = "HG"

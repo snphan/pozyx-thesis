@@ -1,5 +1,5 @@
 """
-Script to change any of the regions file created in 04_outputs/REGIONS
+Script to change any of the regions file created in outputs/REGIONS
 
 Currently only works for the ILS
 """
@@ -12,9 +12,7 @@ import re
 import matplotlib
 from matplotlib import patches
 import sys, os
-SCRIPT_DIR = os.path.dirname(os.path.abspath('__file__'))
-sys.path.append(os.path.dirname(os.path.dirname(SCRIPT_DIR)))
-from analysis.utils import utils
+from utils import utils
 import dataframe_image as dfi
 from PIL import Image
 from datetime import datetime
@@ -54,7 +52,7 @@ def plot_ILS(regions):
     return ax
 
 
-output_dir = Path().joinpath('04_outputs', 'REGIONS')
+output_dir = Path().joinpath('outputs', 'REGIONS')
 output_dir.mkdir(parents=True, exist_ok=True)
 existing_files = list(output_dir.glob("*.json"))
 

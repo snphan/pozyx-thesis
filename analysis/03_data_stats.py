@@ -15,9 +15,7 @@ import re
 import matplotlib
 from matplotlib import patches
 import sys, os
-SCRIPT_DIR = os.path.dirname(os.path.abspath('__file__'))
-sys.path.append(os.path.dirname(os.path.dirname(SCRIPT_DIR)))
-from analysis.utils import utils
+from utils import utils
 import dataframe_image as dfi
 from PIL import Image
 
@@ -43,9 +41,9 @@ for experiment in EXP_TYPES:
     means = pd.DataFrame()
     stds = pd.DataFrame()
     durations = pd.DataFrame()
-    for data_path in Path().joinpath('02_Pozyx_Positioning_Data', experiment).glob('*.csv'):
+    for data_path in Path().joinpath('data', '02_Pozyx_Positioning_Data', experiment).glob('*.csv'):
         data = pd.read_csv(data_path)
-        label_fp = Path().joinpath('03_Labels', experiment, data_path.name.replace(".csv", ".txt"))
+        label_fp = Path().joinpath('data', '03_Labels', experiment, data_path.name.replace(".csv", ".txt"))
 
         labels = utils.extract_time_labels(label_fp)
 
@@ -111,12 +109,15 @@ print(std_means)
 
 # Output the Summary Stats Table #
 
+output_dir = Path().joinpath('outputs', 'STATS')
+output_dir.mkdir(parents=True, exist_ok=True)
+
 dfi.export((mean_means)
     .style
     .set_precision(1)
     .set_caption("Mean of Mean for each Experiment")
     .set_table_styles(table_styles)
-    .background_gradient(axis=0), 'means.png'
+    .background_gradient(axis=0), str(Path().joinpath('outputs', 'STATS', 'means.png'))
     )
 
 dfi.export((std_means)
@@ -124,7 +125,7 @@ dfi.export((std_means)
     .set_precision(1)
     .set_caption("Std of Mean for each Experiment")
     .set_table_styles(table_styles)
-    .background_gradient(axis=0), 'std_means.png'
+    .background_gradient(axis=0), str(Path().joinpath('outputs', 'STATS', 'std_means.png'))
     )
 
 
@@ -133,7 +134,7 @@ dfi.export((mean_stds)
     .set_precision(1)
     .set_caption("Mean of Stds for each Experiment")
     .set_table_styles(table_styles)
-    .background_gradient(axis=0), 'stds.png'
+    .background_gradient(axis=0), str(Path().joinpath('outputs', 'STATS', 'stds.png'))
     )
 
 dfi.export((mean_durations)
@@ -141,7 +142,7 @@ dfi.export((mean_durations)
     .set_precision(1)
     .set_caption("Mean of Durations for each Experiment")
     .set_table_styles(table_styles)
-    .background_gradient(axis=0), 'durations.png'
+    .background_gradient(axis=0), str(Path().joinpath('outputs', 'STATS', 'durations.png'))
     )
 
 

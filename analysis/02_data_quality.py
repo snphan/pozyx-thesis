@@ -26,8 +26,8 @@ EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICE
 tagId = "0x683f"
 ##################################################
 
-ALL_DATA_FILES = [file for exp in EXP_TYPES for file in Path(__file__).resolve().parent.joinpath('02_Pozyx_Positioning_Data', exp).glob('*.csv')]
-ALL_LABEL_FILES = [file.parent.joinpath('03_Labels', file.name.replace('.csv', '.txt')) for file in ALL_DATA_FILES]
+ALL_DATA_FILES = [file for exp in EXP_TYPES for file in Path(__file__).resolve().parent.joinpath('data', '02_Pozyx_Positioning_Data', exp).glob('*.csv')]
+ALL_LABEL_FILES = [file.parent.joinpath('data', '03_Labels', file.name.replace('.csv', '.txt')) for file in ALL_DATA_FILES]
 
 all_dt = np.array([])
 for data_path, label_path in zip(ALL_DATA_FILES, ALL_LABEL_FILES):

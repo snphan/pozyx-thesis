@@ -13,9 +13,7 @@ import re
 import matplotlib
 from matplotlib import patches
 import sys, os
-SCRIPT_DIR = os.path.dirname(os.path.abspath('__file__'))
-sys.path.append(os.path.dirname(os.path.dirname(SCRIPT_DIR)))
-from analysis.utils import utils
+from utils import utils
 import dataframe_image as dfi
 from PIL import Image
 from datetime import datetime
@@ -29,7 +27,7 @@ matplotlib.rc('font', **font)
 
 # MARK: - Config
 ##################################################
-# EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
+# EXP_TYPES = ['ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS'] # Select activities to see their average location
 EXP_TYPES = []
 tagId = "0x683f"
 ##################################################
@@ -44,9 +42,9 @@ for experiment in EXP_TYPES:
     means = pd.DataFrame()
     stds = pd.DataFrame()
     durations = pd.DataFrame()
-    for data_path in Path().joinpath('02_Pozyx_Positioning_Data', experiment).glob('*.csv'):
+    for data_path in Path().joinpath('data', '02_Pozyx_Positioning_Data', experiment).glob('*.csv'):
         data = pd.read_csv(data_path)
-        label_fp = Path().joinpath('03_Labels', experiment, data_path.name.replace(".csv", ".txt"))
+        label_fp = Path().joinpath('data', '03_Labels', experiment, data_path.name.replace(".csv", ".txt"))
 
         labels = utils.extract_time_labels(label_fp)
 
@@ -149,7 +147,7 @@ while cont_select:
     cont_select = True if input("Continue? (y/n): ").lower() == "y" else False
 
 
-output_dir = Path().joinpath('04_outputs', 'REGIONS')
+output_dir = Path().joinpath('outputs', 'REGIONS')
 output_dir.mkdir(parents=True, exist_ok=True)
 
 with open(output_dir.joinpath(str(datetime.now()) + '.json'), 'w') as f:
