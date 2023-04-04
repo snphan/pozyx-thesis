@@ -61,7 +61,7 @@ def remove_periods(df, periods):
 
 
 def drop_columns_that_contain(df, query) -> pd.DataFrame:
-    col_to_drop = df.loc[:, df.columns.str.contains('Pressure')]
+    col_to_drop = df.loc[:, df.columns.str.contains(query)]
     return df.drop(col_to_drop.columns.values, axis=1)
 
 
