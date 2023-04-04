@@ -1,0 +1,12 @@
+quiet standing: 1679499808.085428
+#1 grab something from fridge: 1679499814.5392926
+quiet standing: 1679499820.6840475
+#2 grab something from fridge: 1679499826.7997046
+quiet standing: 1679499832.282345
+#3 grab something from fridge: 1679499839.0966897
+quiet standing: 1679499845.6665494
+#4 grab something from fridge: 1679499852.1500247
+quiet standing: 1679499858.7716956
+#5 grab something from fridge: 1679499865.3161085
+quiet standing: 1679499871.4123156
+5 seconds elapsed: 1679499875.9990041

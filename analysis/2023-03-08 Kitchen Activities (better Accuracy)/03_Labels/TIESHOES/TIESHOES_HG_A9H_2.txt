@@ -1,6 +1,0 @@
-#1 quiet standing (wait): 1678225757.2992952
-tie shoes: 1678225769.944504
-quiet standing: 1678225786.903573
-untie shoes: 1678225795.3337123
-quiet standing: 1678225804.389526
-5 seconds elapsed: 1678225821.1510136
