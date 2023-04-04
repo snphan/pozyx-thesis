@@ -59,6 +59,12 @@ def remove_periods(df, periods):
         df = df.drop(df.index[mask])
     return df
 
+
+def drop_columns_that_contain(df, query) -> pd.DataFrame:
+    col_to_drop = df.loc[:, df.columns.str.contains(query)]
+    return df.drop(col_to_drop.columns.values, axis=1)
+
+
 def df_iterp1d(df, num_points):
 
     interp_df = pd.DataFrame()
