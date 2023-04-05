@@ -20,6 +20,7 @@ from analysis.utils import utils
 import dataframe_image as dfi
 from PIL import Image
 from collections import defaultdict
+from scipy.signal import find_peaks
 # np.set_printoptions(suppress=True, formatter={'float_kind':'{:f}'.format})
 font = {'family' : 'Ubuntu',
         'size'   : 22}
@@ -152,6 +153,16 @@ for experiment in windows:
         min_value = data.min()
         min_value.index = ['MIN_' + ind for ind in min_value.index]
 
+        xpeaks = find_peaks(data.iloc[:,3], height = 200)
+        ypeaks = find_peaks(data.iloc[:,4], height = 200)
+        zpeaks = find_peaks(data.iloc[:,5], height = 200)
+
+        numpeaks = len(xpeaks[1]['peak_heights']) + len(ypeaks[1]['peak_heights']) + len(zpeaks[1]['peak_heights'])
+        print(data)
+        print(xpeaks[1]['peak_heights'])
+        print(numpeaks)
+        quit()
+
         regions = None
         with open(regions_fp) as f:
             regions = json.load(f)
@@ -159,7 +170,7 @@ for experiment in windows:
 
         activity_type = pd.Series([experiment], index=['ACTIVITY'])
 
-        feature_vector = pd.concat([mean, median, std, mode, max_value, min_value, mode_location, activity_type])
+        feature_vector = pd.concat([mean, median, std, mode, max_value, min_value, mode_location, activity_type, numpeaks])
 
         training_data = pd.concat([training_data, feature_vector], axis=1)
 
