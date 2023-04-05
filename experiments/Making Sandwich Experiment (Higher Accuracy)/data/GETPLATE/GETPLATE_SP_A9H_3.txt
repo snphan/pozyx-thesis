@@ -1,22 +1,12 @@
-quiet standing: 1679501138.9839544
-#1 plate cabinet to counter: 1679501145.6304622
-quiet standing: 1679501150.8391106
-#1 plate counter to cabinet: 1679501157.4332354
-quiet standing: 1679501163.210143
-#2 plate cabinet to counter: 1679501169.7662463
-quiet standing: 1679501175.2182827
-#2 plate counter to cabinet: 1679501182.3404634
-quiet standing: 1679501188.204286
-#3 plate cabinet to counter: 1679501195.3221152
-quiet standing: 1679501200.394115
-#3 plate counter to cabinet: 1679501207.2821474
-quiet standing: 1679501213.2725453
-#4 plate cabinet to counter: 1679501219.4706562
-quiet standing: 1679501225.7358253
-#4 plate counter to cabinet: 1679501232.369747
-quiet standing: 1679501238.232072
-#5 plate cabinet to counter: 1679501244.5141442
-quiet standing: 1679501250.2025828
-#5 plate counter to cabinet: 1679501256.818748
-quiet standing: 1679501262.9579628
-5 seconds elapsed: 1679501267.6097689
+quiet standing: 1680715901.946292
+#1 grab plate from cabinet: 1680715912.390291
+quiet standing: 1680715919.558846
+#2 grab plate from cabinet: 1680715925.7025201
+quiet standing: 1680715933.9978602
+#3 grab plate from cabinet: 1680715941.1790788
+quiet standing: 1680715948.2310798
+#4 grab plate from cabinet: 1680715955.603682
+quiet standing: 1680715963.592107
+#5 grab plate from cabinet: 1680715971.270983
+quiet standing: 1680715978.1320808
+5 seconds elapsed: 1680715984.378612
