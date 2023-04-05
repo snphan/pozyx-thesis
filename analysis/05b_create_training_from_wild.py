@@ -18,6 +18,7 @@ from utils import utils
 import dataframe_image as dfi
 from PIL import Image
 from collections import defaultdict
+from scipy.signal import find_peaks
 # np.set_printoptions(suppress=True, formatter={'float_kind':'{:f}'.format})
 font = {'family' : 'Ubuntu',
         'size'   : 22}
@@ -155,6 +156,22 @@ for experiment in windows:
         min_value = data.min()
         min_value.index = ['MIN_' + ind for ind in min_value.index]
 
+
+        # Obtains # of Accel peaks for feature
+        xpeaks = find_peaks(abs(data.iloc[:,3] - data.iloc[:,3].mean()), height = 500)
+        ypeaks = find_peaks(abs(data.iloc[:,4] - data.iloc[:,4].mean()), height = 500)
+        zpeaks = find_peaks(abs(data.iloc[:,5] - data.iloc[:,5].mean()), height = 500)
+        peaks = [len(xpeaks[1]['peak_heights']), len(ypeaks[1]['peak_heights']), len(zpeaks[1]['peak_heights'])]
+        
+        column_name = ['Peaks_Acc_X','Peaks_Acc_Y','Peaks_Acc_Z']
+
+        #Plotting peaks
+        # new_data = abs(data.iloc[:,5] - data.iloc[:,5].mean())
+        # ax = abs(data.iloc[:,5] - data.iloc[:,5].mean()).plot()
+        # ax.axhline(800)
+        # ax.scatter(new_data.index[zpeaks[0]], new_data.iloc[zpeaks[0]])
+        # plt.show()
+        # quit()
         regions = None
         with open(regions_fp) as f:
             regions = json.load(f)
@@ -162,10 +179,13 @@ for experiment in windows:
 
         activity_type = pd.Series([experiment], index=['ACTIVITY'])
 
-        feature_vector = pd.concat([mean, median, std, mode, max_value, min_value, mode_location, activity_type])
+        accel_peak = pd.Series(peaks, index = column_name)
+
+        feature_vector = pd.concat([mean, median, std, mode, max_value, min_value, mode_location, activity_type, accel_peak])
 
         training_data = pd.concat([training_data, feature_vector], axis=1)
 
+# plt.show()
 print("Training Data Set Complete")
 
 # MARK: - Output
