@@ -3,25 +3,15 @@ from pathlib import Path
 
 TRANSITIONS = [
     'quiet standing',
-    '#1 plate cabinet to counter', # Press enter when participant touches the handle
+    '#1 grab plate from cabinet',
     'quiet standing',
-    '#1 plate counter to cabinet',
+    '#2 grab plate from cabinet',
     'quiet standing',
-    '#2 plate cabinet to counter',
+    '#3 grab plate from cabinet',
     'quiet standing',
-    '#2 plate counter to cabinet',
+    '#4 grab plate from cabinet',
     'quiet standing',
-    '#3 plate cabinet to counter',
-    'quiet standing',
-    '#3 plate counter to cabinet',
-    'quiet standing',
-    '#4 plate cabinet to counter',
-    'quiet standing',
-    '#4 plate counter to cabinet',
-    'quiet standing',
-    '#5 plate cabinet to counter',
-    'quiet standing',
-    '#5 plate counter to cabinet',
+    '#5 grab plate from cabinet',
     'quiet standing',
     '5 seconds elapsed'
 ]
