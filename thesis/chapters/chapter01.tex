@@ -1,5 +1,25 @@
-Hello world this is my chapter 1
+This thesis project will investigate how to detect fine-grained action within the meal preparation activity of daily living 
+(ADL) in the home without the use of privacy-intruding cameras. ADLs are common activities that an individual 
+performs inside their homes. These include walking around, eating, dressing, personal hygiene, toileting, 
+transportation, meal preparation, house cleaning, and managing medication. The meal preparation ADL was chosen as the 
+main focus because cooking is a uniquely enjoyable activity while being procedurally dense. Meal preparation can include 
+the following actions: opening the fridge, retrieving ingredients, cutting vegetables, and assembling the ingredients. 
+Monitoring these actions may be used as part of a health monitoring program by enabling the assessment of the presence and 
+length of each individual step in a goal-orientated activity. This information may help guide interventions and track 
+the effectiveness of interventions in clinical populations such as people with dementia or frailty. 
 
-\begin{equation}
-    1 + 1 = 2
-\end{equation}
+Several studies have used features from inertial data to classify these fine-grained action…
+
+It is hypothesized that inclusion of context to this inertial data, such as hyper accurate 
+indoor localization (down to 30 cm) to the inertial data can result in higher and more reliable 
+classification of fine-grained ADLs. 
+The system used for indoor localization is the Pozyx Creator Kit which provides a wrist mounted 
+wearable that can obtain data at a maximum of 60 Hz \cite{noauthor_creator_nodate}. This data includes position relative to a 
+floorplan, and inertial data from a BNO055 which outputs 3D Acceleration, 3D angular velocity, 
+3D Linear Acceleration, and the Heading, Pitch and Roll.
+
+Prior to any experiments related to classification of these cooking actions, the optimal 
+configuration of the system that provides reliable position data had to be investigated. 
+The next section details the different attempts at changing the configuration of the Pozyx 
+Creator Kit to obtain the most reliable positioning data in X, Y, and Z at a satisfactory 
+sampling rate. 
