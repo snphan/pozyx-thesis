@@ -1,6 +1,12 @@
 \begin{thebibliography}{1}
 
+\bibitem{noauthor_configuration_nodate}
+Configuration of the {UWB} parameters ({Arduino}).
+
 \bibitem{noauthor_creator_nodate}
 Creator {One} {Kit} for research and prototyping - {Pozyx}.
+
+\bibitem{noauthor_hardware_nodate}
+Hardware setup.
 
 \end{thebibliography}
