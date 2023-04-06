@@ -3,13 +3,7 @@ from pathlib import Path
 
 TRANSITIONS = [
     'quiet standing (living entrance)', # 5 seconds
-    'mop living room', # 10 seconds
-    'quiet standing (bedroom door)', # 5 seconds
-    'mop bedroom', # 10 seconds
-    'quiet standing (bathroom door)', # 5 seconds
-    'mop bathroom', # 10 seconds
-    'quiet standing (kitchen)', # 5 seconds
-    'mop kitchen', # 10 seconds
+    'mop', 
     'quiet standing (living entrance)', # 5 seconds
     '5 seconds elapsed',
 ]

@@ -1,0 +1,12 @@
+quiet standing at kitchen entrance : 1680802228.631169
+wipe counter #1: 1680802237.168308
+quiet standing: 1680802245.8340359
+wipe counter #2: 1680802248.3118012
+quiet standing: 1680802256.496769
+wipe counter #3: 1680802259.758828
+quiet standing: 1680802267.475109
+wipe counter #4: 1680802269.843744
+quiet standing: 1680802288.965308
+wipe table #5: 1680802293.3401852
+quiet standing: 1680802314.092335
+5 seconds elapsed: 1680802323.377101

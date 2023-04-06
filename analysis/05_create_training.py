@@ -28,7 +28,7 @@ from datetime import datetime
 # MARK: - Config
 
 # EXP_TYPES = ['BRUSHTEETH']
-EXP_TYPES = ['DESKWORK','MINCE','MOP','TIESHOES','BRUSHTEETH','ASSEMBLESANDWICH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
+EXP_TYPES = ['WALK','WIPE','OPENDISHWASHER','MOP','DESKWORK','MINCE','TIESHOES','BRUSHTEETH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
 # ACTION_PERIOD = ['grab something', ]
 tagId = "0x683f"
 regions_fp = Path().joinpath("outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
@@ -63,7 +63,7 @@ print('Done Cleaning!')
 # Separate the data into windows dict of ACTIVITY: [pd.DataFrame] 
 
 windows: dict[str, list] = defaultdict(list)
-WINDOW_WIDTH = 2 # seconds
+WINDOW_WIDTH = 3 # seconds
 WINDOW_STRIDE = 1 # seconds
 
 for experiment in EXP_TYPES:
@@ -129,10 +129,19 @@ print('Done Windowing!')
 # MARK: - Feature Extraction
 # Extract the features from each window and label with activity
 
-training_data = pd.DataFrame()
+# training_data = pd.DataFrame()
+training_data = []
+
+total_data_len = 0
+for k in windows:
+    total_data_len += len(windows[k])
+
+count = 0
 
 for experiment in windows:
     for data in windows[experiment]:
+        count += 1
+        print(f" {count}/{total_data_len}                     ", end="\r")
         mean = data.mean()
         mean.index = ['MEAN_' + ind for ind in mean.index]
 
@@ -160,10 +169,12 @@ for experiment in windows:
         column_name = ['Peaks_Acc_X','Peaks_Acc_Y','Peaks_Acc_Z']
         
         #Plotting peaks
-        # new_data = abs(data.iloc[:,5] - data.iloc[:,5].mean())
-        # ax = abs(data.iloc[:,5] - data.iloc[:,5].mean()).plot()
-        # ax.axhline(800)
-        # ax.scatter(new_data.index[zpeaks[0]], new_data.iloc[zpeaks[0]])
+        # new_data = abs(data.iloc[:,3] - data.iloc[:,3].mean())
+        # ax = abs(data.iloc[:,3] - data.iloc[:,3].mean()).plot()
+        # ax.axhline(500)
+        # ax.scatter(new_data.index[xpeaks[0]], new_data.iloc[xpeaks[0]])
+        # plt.title("X-Acceleration Peaks")
+        # plt.ylabel("Acceleration (mg)")
         # plt.show()
         # quit()
 
@@ -177,8 +188,10 @@ for experiment in windows:
         activity_type = pd.Series([experiment], index=['ACTIVITY'])
 
         feature_vector = pd.concat([mean, median, std, mode, max_value, min_value, mode_location, activity_type, accel_peak])
-
-        training_data = pd.concat([training_data, feature_vector], axis=1)
+        # print(feature_vector.values)
+        # print(feature_vector.values.tolist())
+        training_data.append(feature_vector.values.tolist())
+        # training_data = pd.concat([training_data, feature_vector], axis=1)
 
 # plt.show()
 print("Training Data Set Complete")
@@ -187,9 +200,8 @@ print("Training Data Set Complete")
 # Output the Labelled Data
 
 output_dir.mkdir(parents=True, exist_ok=True)
-
-(training_data
-    .T
+df = pd.DataFrame(training_data, columns= feature_vector.index)
+(df
     .reset_index(drop=True)
     .to_csv(output_dir.joinpath(f"{datetime.now()}_W{WINDOW_WIDTH}_S{WINDOW_STRIDE}_training.csv"), index=False)
 )

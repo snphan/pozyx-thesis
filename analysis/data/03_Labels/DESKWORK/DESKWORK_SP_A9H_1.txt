@@ -1,0 +1,4 @@
+quiet standing: 1680716519.8986619
+work at desk: 1680716531.6110258
+quiet standing: 1680717219.734813
+5 seconds elapsed: 1680717229.107671
