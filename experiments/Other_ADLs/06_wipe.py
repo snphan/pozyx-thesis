@@ -2,7 +2,7 @@ import time
 from pathlib import Path
 
 TRANSITIONS = [
-    'quiet standing',
+    'quiet standing at kitchen entrance ',
     'wipe counter #1',
     'quiet standing',
     'wipe counter #2',
