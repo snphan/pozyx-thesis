@@ -30,9 +30,9 @@ regions_fp = Path().joinpath("outputs", "REGIONS", "2023-03-14 12:15:31.794149.j
 NUM_NORM_POINTS = 300
 ANCHOR_CONFIG = ["9H"]
 SUBJECT_INITIALS = "HG"
-TYPE = "MAKESANDWICH"
+TYPE = "MOP"
 TAG_ID =  ["0x683f"]
-TRIAL = 1
+TRIAL = 8
 ##################################################
 
 for anchor in ANCHOR_CONFIG:

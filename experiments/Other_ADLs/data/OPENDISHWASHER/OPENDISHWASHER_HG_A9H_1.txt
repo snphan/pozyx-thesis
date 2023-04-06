@@ -1,0 +1,12 @@
+quiet standing: 1680801955.704381
+#1 open dishwasher: 1680801961.895401
+quiet standing: 1680801979.957029
+#2 open dishwasher: 1680801985.93398
+quiet standing: 1680802010.98404
+#3 open dishwasher: 1680802017.468241
+quiet standing: 1680802036.8404422
+#4 open dishwasher: 1680802042.545405
+quiet standing: 1680802062.136547
+#5 open dishwasher: 1680802068.245526
+quiet standing: 1680802084.723007
+5 seconds elapsed: 1680802088.644995

@@ -1,0 +1,4 @@
+quiet standing (living entrance): 1680724568.613837
+walk: 1680724579.061297
+quiet standing (living entrance): 1680724740.695777
+5 seconds elapsed: 1680724747.381671
