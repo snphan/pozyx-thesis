@@ -211,7 +211,7 @@ Table \ref{tab:accuracies} summarizes the accuracies obtained from each model.
     \midrule
     SVM Linear      & 97.7 \\
     SVM Radial      & 88.1 \\
-    SVM Poly        & 93.1 \\
+    SVM Polynomial  & 93.1 \\
     kNN             & 97.4 \\
     Decision Tree   & 97.5 \\
     Random Forests  & 99.3 \\
@@ -227,4 +227,18 @@ presence of class imbalance. If a classifier
 guesses all UNDEFINED it can obtain an accuracy of 599/1110 = 54\%. Thus,
 accuracies taken around 54\% should be interpreted with caution. Other 
 metrics such as the Sensitivity, Precision and Specificity have been provided
-to address this class imbalance. 
+to address this class imbalance. Sensitivity is the rate at which the classifier
+predicts a $TP$, Precision is the fraction of predictions that are actually
+true, and Specificity is the rate at which the classifier predicts a $TN$.
+Of all the models, the Random Forests Classifier at the default settings
+seem to the best in terms of Accuracy and Precision, Sensitivity, and Specificity
+for all classes. 
+
+The performance of these models in the real-time will need to be tested 
+and quantified before any conclusions can be made. A high accuracy 
+is promising, but may also be indicative of overfitting which means 
+that the model will not be able to generalize variation experienced in the 
+real world. In later sections, more fine-grained actions will be considered,
+models will be more rigorously tuned, and the performance in real-time
+will be investigated.
+

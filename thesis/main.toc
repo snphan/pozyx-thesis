@@ -10,4 +10,11 @@
 \contentsline {subsection}{\numberline {2.3.3}Z Position}{12}{}%
 \contentsline {subsection}{\numberline {2.3.4}Overall}{13}{}%
 \contentsline {chapter}{\numberline {3}Pilot Testing of Detecting Activities to make a Sandwich}{15}{}%
-\contentsline {chapter}{\numberline {A}Appendix}{16}{}%
+\contentsline {section}{\numberline {3.1}Experimental Protocol}{17}{}%
+\contentsline {subsection}{\numberline {3.1.1}Setup}{17}{}%
+\contentsline {subsection}{\numberline {3.1.2}Data Collection}{18}{}%
+\contentsline {section}{\numberline {3.2}Feature Extraction}{19}{}%
+\contentsline {section}{\numberline {3.3}Model Selection}{21}{}%
+\contentsline {section}{\numberline {3.4}Results}{21}{}%
+\contentsline {section}{\numberline {3.5}Discussion}{28}{}%
+\contentsline {chapter}{\numberline {A}Appendix}{29}{}%
