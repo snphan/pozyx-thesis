@@ -9,7 +9,7 @@ TRANSITIONS = [
 ]
 
 if __name__ == "__main__":
-    data_dir = Path(__file__).resolve().parent.joinpath('data', 'Toileting')
+    data_dir = Path(__file__).resolve().parent.joinpath('data', 'TOILETING')
     data_dir.mkdir(parents=True, exist_ok=True)
     start_time = None
     counter = 0
