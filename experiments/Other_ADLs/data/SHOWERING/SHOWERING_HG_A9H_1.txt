@@ -1,0 +1,4 @@
+quiet standing (Outside tub): 1682453396.512624
+Shower: 1682453407.0600991
+quiet standing (Outside tub): 1682453526.0372212
+5 seconds elapsed: 1682453535.866692
