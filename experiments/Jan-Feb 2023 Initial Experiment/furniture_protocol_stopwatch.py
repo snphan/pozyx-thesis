@@ -55,7 +55,8 @@ if __name__ == "__main__":
     counter = 0
     trial = input("Trial Number: ")
     anchor_num = input("Number of Anchors: ")
-    with open(f"FURNITURE_A{anchor_num}_{trial}.txt", "w+") as f:
+    position = input("Tag on Wrist or Chest: ")
+    with open(f"FURNITURE_A{anchor_num}_{trial}_{position}.txt", "w+") as f:
         while counter < len(TRANSITIONS):
             input("")
             f.write(f"{TRANSITIONS[counter]}: {time.time()}\n")
