@@ -28,7 +28,7 @@ from datetime import datetime
 # MARK: - Config
 
 # EXP_TYPES = ['BRUSHTEETH']
-EXP_TYPES = ['SHOWERING','TOILETING','WALK','WIPE','OPENDISHWASHER','MOP','DESKWORK','MINCE','TIESHOES','BRUSHTEETH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
+EXP_TYPES = ['STANDUP', 'SITDOWN','SHOWERING','TOILETING','WALK','WIPE','OPENDISHWASHER','MOP','DESKWORK','MINCE','TIESHOES','BRUSHTEETH', 'GETPLATE', 'OPENFREEZER', 'OPENFRIDGE', 'SLICETOMATO', 'WASHHANDS']
 # ACTION_PERIOD = ['grab something', ]
 tagId = "0x683f"
 regions_fp = Path().joinpath("outputs", "REGIONS", "2023-03-14 12:15:31.794149.json")
@@ -121,8 +121,11 @@ for experiment in EXP_TYPES:
                 # ax.axvline(start, color='green')
                 # ax.axvline(start+WINDOW_WIDTH, color='green')
                 # plt.show()
-                windows["UNDEFINED"].append(cleaned_data.loc[start:start+WINDOW_WIDTH])
-                start += WINDOW_STRIDE
+                if experiment == ('STANDUP' or 'SITDOWN'): 
+                    start += WINDOW_STRIDE
+                else : 
+                    windows["UNDEFINED"].append(cleaned_data.loc[start:start+WINDOW_WIDTH])
+                    start += WINDOW_STRIDE
 
 print('Done Windowing!')
 

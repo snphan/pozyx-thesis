@@ -1,0 +1,14 @@
+quiet standing (standing at toilet): 1683750662.2941408
+sitdown: 1683750666.2865732
+quiet standing (standing at couch): 1683750669.359446
+sitdown: 1683750676.1167748
+quiet standing (standing at kitchen table 2/2): 1683750678.574261
+sitdown: 1683750684.718424
+quiet standing (standing at kitchen table 2/2): 1683750687.676639
+sitdown: 1683750693.320053
+quiet standing (standing at desk): 1683750696.6992261
+sitdown: 1683750702.5369768
+quiet standing (standing at bedroom chair): 1683750705.9152331
+sitdown: 1683750720.66096
+quiet standing: 1683750723.1189709
+5 seconds elapsed: 1683750725.469252
