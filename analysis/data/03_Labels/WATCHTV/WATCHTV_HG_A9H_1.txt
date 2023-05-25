@@ -1,0 +1,6 @@
+quiet standing (By couch): 1685044025.9197388
+sitdown: 1685044032.504092
+quiet standing (By chair across from tv): 1685044117.377504
+sitdown: 1685044123.0270028
+quiet standing: 1685044155.1789591
+5 seconds elapsed: 1685044158.358598

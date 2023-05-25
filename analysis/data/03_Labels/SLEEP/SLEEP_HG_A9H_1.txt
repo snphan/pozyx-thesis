@@ -1,0 +1,4 @@
+quiet standing (By bed): 1685043685.5751722
+sitdown: 1685043704.6217868
+quiet standing: 1685043772.719233
+5 seconds elapsed: 1685043779.5798578
