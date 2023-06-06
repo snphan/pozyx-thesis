@@ -15,6 +15,26 @@ TRANSITIONS = [
     'quiet standing (standing at bedroom chair)',
     'sitdown',
     'quiet standing',
+    'sitdown', 
+    'quiet standing (standing at couch)',
+    'sitdown',
+    'quiet standing (standing at kitchen table 2/2)',
+    'sitdown',
+    'quiet standing (standing at kitchen table 2/2)', # 5 seconds
+    'sitdown', 
+    'quiet standing (standing at desk)',
+    'sitdown',
+    'quiet standing (standing at bedroom chair)',
+    'sitdown', 
+    'quiet standing (standing at couch)',
+    'sitdown',
+    'quiet standing (standing at kitchen table 2/2)',
+    'sitdown',
+    'quiet standing (standing at kitchen table 2/2)', # 5 seconds
+    'sitdown', 
+    'quiet standing (standing at desk)',
+    'sitdown',
+    'quiet standing',
     '5 seconds elapsed',
 ]
 
