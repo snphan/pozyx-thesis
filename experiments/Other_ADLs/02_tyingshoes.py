@@ -3,12 +3,9 @@ from pathlib import Path
 
 TRANSITIONS = [
     '#1 quiet standing (wait)',
-    'walk to shoe',
     'tie shoes',
     'quiet standing',
     'untie shoes',
-    'quiet standing',
-    'return to start',
     'quiet standing',
     '5 seconds elapsed'
 ]
