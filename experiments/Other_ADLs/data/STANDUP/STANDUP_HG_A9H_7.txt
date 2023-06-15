@@ -1,0 +1,32 @@
+quiet standing (Sitting on toilet): 1686154641.689502
+Standup: 1686154645.683037
+quiet standing (Sitting on couch): 1686154647.637182
+Standup: 1686154651.213269
+quiet standing (Sitting at kitchen table 2/2): 1686154653.568817
+Standup: 1686154658.4842129
+quiet standing (Sitting at kitchen table 2/2): 1686154660.532265
+Standup: 1686154667.3463
+quiet standing (Sitting on desk): 1686154669.5426219
+Standup: 1686154672.7171662
+quiet standing (Sitting on bedroom chair): 1686154675.6869519
+Standup: 1686154681.933384
+quiet standing: 1686154684.493212
+Standup: 1686154693.8354712
+quiet standing (Sitting on couch): 1686154693.962374
+Standup: 1686154699.034519
+quiet standing (Sitting at kitchen table 2/2): 1686154701.0697129
+Standup: 1686154706.100227
+quiet standing (Sitting at kitchen table 2/2): 1686154708.557726
+Standup: 1686154717.057077
+quiet standing (Sitting on desk): 1686154719.207374
+Standup: 1686154730.1654022
+quiet standing (Sitting on bedroom chair): 1686154732.622113
+Standup: 1686154737.579744
+quiet standing: 1686154739.9950569
+Standup: 1686154743.37494
+quiet standing (Sitting on couch): 1686154746.139164
+Standup: 1686154754.433845
+quiet standing (Sitting at kitchen table 2/2): 1686154756.464632
+Standup: 1686154766.209988
+quiet standing: 1686154768.770627
+5 seconds elapsed: 1686154770.714002
