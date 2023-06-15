@@ -1,0 +1,10 @@
+quiet standing (living entrance): 1686774282.604185
+mop: 1686774286.292156
+quiet standing (living entrance): 1686774298.169047
+mop: 1686774308.685079
+quiet standing (living entrance): 1686774328.582426
+mop: 1686774340.6140711
+quiet standing (living entrance): 1686774354.3867671
+mop: 1686774373.332036
+quiet standing (living entrance): 1686774388.7755892
+5 seconds elapsed: 1686774390.740403
