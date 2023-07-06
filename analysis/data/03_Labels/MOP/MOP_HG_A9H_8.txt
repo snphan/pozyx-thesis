@@ -1,4 +1,0 @@
-quiet standing (living entrance): 1680724140.628958
-mop: 1680724151.457803
-quiet standing (living entrance): 1680724448.4272902
-5 seconds elapsed: 1680724455.9737768
