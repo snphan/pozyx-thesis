@@ -46,7 +46,7 @@ for experiment in EXP_TYPES:
     durations = pd.DataFrame()
     for data_path in Path().joinpath('data', '02_Pozyx_Positioning_Data', experiment).glob('*.csv'):
         data = pd.read_csv(data_path)
-
+        #Seperates data into each signal
         data.columns = ['Timestamp', 'POS_X', 'POS_Y', 'POS_Z', 'Heading', 'Roll', 'Pitch', 'ACC_X', 'ACC_Y', 'ACC_Z', 'LINACC_X', 'LINACC_Y', 'LINACC_Z', 'GYRO_X', 'GYRO_Y', 'GYRO_Z', 'Pressure', 'TagId']
         data = data.set_index('Timestamp')
 
@@ -66,6 +66,7 @@ windows: dict[str, list] = defaultdict(list)
 WINDOW_WIDTH = 3 # seconds
 WINDOW_STRIDE = 1 # seconds
 
+#Loop cycles through training data and labels for each activity and chops it into window sizes as defined above ^
 for experiment in EXP_TYPES:
     for data_name in all_cleaned_data[experiment]:
         cleaned_data = all_cleaned_data[experiment][data_name]
@@ -140,7 +141,7 @@ for k in windows:
     total_data_len += len(windows[k])
 
 count = 0
-
+# generate stats for data in each time window for training set
 for experiment in windows:
     for data in windows[experiment]:
         count += 1
