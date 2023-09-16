@@ -1,20 +1,21 @@
 \contentsline {chapter}{\numberline {1}Introduction}{2}{}%
-\contentsline {chapter}{\numberline {2}System Tuning at the Independent Living Suite}{4}{}%
-\contentsline {section}{\numberline {2.1}Methodology}{4}{}%
-\contentsline {subsection}{\numberline {2.1.1}Setup}{5}{}%
-\contentsline {subsection}{\numberline {2.1.2}Protocol}{7}{}%
-\contentsline {section}{\numberline {2.2}Results}{8}{}%
-\contentsline {section}{\numberline {2.3}Discussion}{12}{}%
-\contentsline {subsection}{\numberline {2.3.1}X Position}{12}{}%
-\contentsline {subsection}{\numberline {2.3.2}Y Position}{12}{}%
-\contentsline {subsection}{\numberline {2.3.3}Z Position}{12}{}%
-\contentsline {subsection}{\numberline {2.3.4}Overall}{13}{}%
-\contentsline {chapter}{\numberline {3}Pilot Testing of Detecting Activities to make a Sandwich}{15}{}%
-\contentsline {section}{\numberline {3.1}Experimental Protocol}{17}{}%
-\contentsline {subsection}{\numberline {3.1.1}Setup}{17}{}%
-\contentsline {subsection}{\numberline {3.1.2}Data Collection}{18}{}%
-\contentsline {section}{\numberline {3.2}Feature Extraction}{19}{}%
-\contentsline {section}{\numberline {3.3}Model Selection}{21}{}%
-\contentsline {section}{\numberline {3.4}Results}{21}{}%
-\contentsline {section}{\numberline {3.5}Discussion}{28}{}%
-\contentsline {chapter}{\numberline {A}Appendix}{29}{}%
+\contentsline {chapter}{\numberline {2}Literature Review}{4}{}%
+\contentsline {chapter}{\numberline {3}System Tuning at the Independent Living Suite}{6}{}%
+\contentsline {section}{\numberline {3.1}System Tuning Review}{6}{}%
+\contentsline {section}{\numberline {3.2}Methodology}{6}{}%
+\contentsline {subsection}{\numberline {3.2.1}Setup}{7}{}%
+\contentsline {subsection}{\numberline {3.2.2}Protocol}{10}{}%
+\contentsline {section}{\numberline {3.3}Results}{11}{}%
+\contentsline {section}{\numberline {3.4}Discussion}{15}{}%
+\contentsline {subsection}{\numberline {3.4.1}X Position}{15}{}%
+\contentsline {subsection}{\numberline {3.4.2}Y Position}{15}{}%
+\contentsline {subsection}{\numberline {3.4.3}Z Position}{15}{}%
+\contentsline {subsection}{\numberline {3.4.4}Overall}{16}{}%
+\contentsline {chapter}{\numberline {4}Pilot Testing of Detecting Activities to make a Sandwich}{18}{}%
+\contentsline {section}{\numberline {4.1}Experimental Protocol}{20}{}%
+\contentsline {subsection}{\numberline {4.1.1}Setup}{20}{}%
+\contentsline {subsection}{\numberline {4.1.2}Data Collection}{21}{}%
+\contentsline {section}{\numberline {4.2}Feature Extraction}{22}{}%
+\contentsline {section}{\numberline {4.3}Model Selection}{24}{}%
+\contentsline {section}{\numberline {4.4}Results}{24}{}%
+\contentsline {section}{\numberline {4.5}Discussion}{31}{}%

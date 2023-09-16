@@ -1,244 +1,228 @@
-Continuing from the findings in Chapter \ref{chp2}, the 9H anchor configuration
-was used to perform a preliminary classification of activities in the 
-kitchen. Steps performed in making a sandwich were broken down and organized
-into Setup, Preparation, Cooking, and Finishing steps, Figure \ref{fig:sandwichbreakdown}. 
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics*[width=\textwidth]{makingsandwich}
-    \caption{Task decomposition of making a sandwich.}
-    \label{fig:sandwichbreakdown}
-\end{figure}
-
-From the actions shown in Figure \ref{fig:sandwichbreakdown}, actions 
-with distinct location or patterns were selected as classes for classification.
-OPENFRIDGE, OPENFREEZER, and GETPLATE were selected as classes from the Setup
-category, washing hands/vegetables/fruits/using the kitchen sink were grouped 
-into a WASHHANDS category, and SLICETOMATO were selected as a class. Finally,
-All intermediary transitions or motionless segments were grouped into a 
-UNDEFINED category. Single trials were performed to collect data for each of 
-these classes. 
-
-\clearpage
-\section{Experimental Protocol}
-\subsection{Setup}
-Several points were enforced to ensure that the training dataset captures
-the variation in action sufficiently when classifying data from right-handed individuals.
+\section{System Tuning Review}
+% TODO: Add some literature review on the methodology that Linna and Joanne did 
+The Pozyx Creator Kit comes with anchors and several tags. Anchors are mounted 
+on the walls and are used to position the tags. Multiple tags may be positioned
+at the same time.
+The Pozyx Creator kit uses ultrawideband (UWB) signals with the two-way ranging protocol to localize the tag. 
+The tag is mounted on custom 3D printed wearables which the participant can wear as 
+a wrist-watch or a necklace. Through trial-and-error and consultation with the Pozyx Creator Documentation
+\cite{noauthor_hardware_nodate,noauthor_configuration_nodate}
+it was determined that the accuracy of the system depends on factors listed below:
 
 \begin{itemize}
-    \item Pozyx Tag is mounted on the right wrist (Figure \ref{fig:wristsensor}).
-    \item Initial position for each of the single trials are not marked. Participant
-    will be able to choose a location from which they can perform the action comfortably
-    without moving their feet.
-    \item An action starts when the individual contacts the appliance or furniture.
-    For SLICETOMATO the action starts when an individual starts slicing the 
-    tomato and ends when they stop slicing the tomato. Motions such as picking up the
-    knife and getting in position to slice were considered transitions and labelled 
-    as UNDEFINED. 
+    \item Number of anchors
+    \item Position of anchors
 \end{itemize}
 
+These variables were modified to achieve satisfactory actual position error
+and standard deviation below the expected error of 30 cm for UWB systems. The 
+protocol for obtaining data and evaluating the actual position error and 
+standard deviation will be described.
+
+% ----------------------------------------------------------------------------------------------------
+\section{Methodology}
+This protocol tests the X, Y, and Z positional accuracy of the Pozyx Creator system in the Independent
+Living Suite (ILS) at the Glenrose Rehabilitation Hospital by having a participant stand at 
+a specific location in each room. Permanent appliances or furniture such as the stove
+or dining table were used as much as possible to ensure that the experiment is repeatable.
+
+\subsection{Setup}
+Masking tape was used to mark the locations where the participant should place their feet.
+The following procedure was followed to place the tape:
+\begin{enumerate}
+    \item Using a measuring tape, measure 1 meter out from the middle of the 
+    appliance or furniture and place a 20 cm piece of tape centered on, perpendicular to
+    and underneath the measuring tape (the tips of the participant's toes should be 1 meter
+    away from the appliance).\label{step1}
+    \item Place parallel tape on the sides of the tape placed in Step \ref{step1} to constrain
+    the feet to a box. (The participant should have their toes on the tape perpendicular to the
+    measuring tape and usually facing the appliance or furniture).
+    Figure \ref{fig:tape} outlines some examples of tape placements.
+\end{enumerate}
+
 
 \begin{figure}[ht]
     \centering
-    \includegraphics*[width=0.4\textwidth]{wristsensor}
-    \caption{Pozyx tag mounted on the wrist. The participant is performing the 
-    OPENFRIDGE task
-    }
-    \label{fig:wristsensor}
+    \includegraphics[width=0.6\textwidth, angle=-90]{tape.jpg}
+    \caption{Box tape placement at the stove, fridge, and dining table. Participant's toes 
+    and sides of feet should touch the tape.}
+    \label{fig:tape}
 \end{figure}
 
-\subsection{Data Collection}
-Custom Python stopwatch scripts were created to accurately label periods of 
-transitions (quiet standing + getting into position for the action) and the action.
-An example of the data collected is shown in Figure \ref{fig:openfridgedata}. 
-For each action there is a quiet standing period at the beginning and end. 
-OPENFRIDGE, OPENFREEZER, OPENPLATE, WASHHANDS each had 5 repetitions for each trial.
-SLICETOMATO contained 3 slices to conserve the amount of tomato.
-Each action had a total of 5 trials. 
+Following the tape placement guidelines outlined at the beginning of this section,
+tape was placed at or near the following locations. Refer to the AUTOCAD floor plan for 
+the location of the rooms (Figure \ref{fig:floorplan}):
+\begin{itemize}
+    \item The Hallway between Living Room and Kitchen facing the Dining Table.
+    \item The Living Room facing the Desk.
+    \item The Bedroom facing the bed.
+    \item The Hallway between the bedroom and the bathroom, facing away from the wall.
+    \item Bathroom facing the toilet.
+    \item Kitchen facing the stove.
+\end{itemize}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics*[width=\textwidth]{openfridgedata}
-    \caption{Labelled position data of the OPENFRIDGE action. Note that the "quiet standing"
-    periods do not consist entirely of quiet standing, but also include traces of 
-    transitions from getting into the correct position to perform the action. 
+    \includegraphics[width=0.8\textwidth]{floorplan}
+    \caption{Floor plan of the ILS. Positions where the participant stood 1 meter
+    from appliances or furniture are marked in the green "open" box on the floorplan.
     }
-    \label{fig:openfridgedata}
+    \label{fig:floorplan}
 \end{figure}
-
-Since the Pozyx Tag contained a BNO055 chip, in addition to 3D Position data, the
-tags were able to capture inertial data including Accelerometer Data, 
-Linear Accelerometer Data, Angular Velocity Data, and the orientation.
-
-Data for each of the actions that relate to making a sandwich were collected from 
-2 participants.
-
-\section{Feature Extraction}
-An initial sliding window with a width of 2 seconds and a stride length of 1 second
-was used to ensure that enough feature vectors could be extracted from the SLICETOMATO dataset.
-An example of a windows taken for the OPENFRIDGE action and UNDEFINED action 
-are shown in Figure \ref{fig:windows}.
-
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}{\textwidth}
-        \includegraphics*[width=\textwidth]{windowing1}
-        \caption{}
-    \end{subfigure}
-    \begin{subfigure}{\textwidth}
-        \includegraphics*[width=\textwidth]{windowing3}
-        \caption{}
-    \end{subfigure}
-    \caption{Obtaining windows from the OPENFRIDGE dataset. The green vertical
-    lines section off a 2-second window. (a) A window
-    labelled OPENFRIDGE. (b) A window labelled UNDEFINED.
-    }
-    \label{fig:windows}
-\end{figure}
-
-From each window, basic statistical measures over the entire window were taken. These
-measures include the MEAN, MEDIAN, MODE (to 5cm for position), MAX, MIN, and STD
-of the entire window. 
-From each window of data, there were a total of 3 (axes) * 5 (types of data) * 6 (statistical measures) = 90 Features 
-
-From the entire timeseries dataset, 2773 feature vectors were extracted.
-Refer to Table \ref{tab:countsfeatvect} for the breakdown of counts for each label.
-
-\begin{table}[!htbp]
-  \centering
-  \caption{Count of the occurrences of each action.}
-  \label{tab:countsfeatvect}
-  \begin{tabular}{ll}
-    \toprule
-    \thead{Action} & \thead{Count} \\
-    \midrule
-    UNDEFINED   & 1518 \\
-    SLICETOMATO & 197 \\
-    WAHSHANDS   & 316 \\
-    OPENFRIDGE  & 239 \\
-    OPENFREEZER & 203 \\
-    GETPLATE    & 300 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
 
 \clearpage
-\section{Model Selection}
-A 60:40 split was used to train and test the model selected. Several models 
-were chosen including Linear Support Vector Machine, Radial Support Vector Machine,
-K-Nearest Neighbors, Decision Trees and Random Forests. As this was a pilot study in determining the 
-feasibility of classification of the fine-grained actions involved
-in making a sandwich, rigorous parameter tuning and feature selection 
-were neglected and the defaults from the sklearn Python package were used.
+\subsection{Protocol}
+A stopwatch python script was created with predetermined labels and used as the ground truth 
+for positions. A single participant wore the tag on a 3D printed necklace mount (Figure \ref{fig:necklace}). 
+The measuring tape was used to measure the height from the ground and height when squatting.
+For this participant, the standing height was \textbf{144cm} and the squatting height was \textbf{68.5cm}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{necklace}
+    \caption{The Pozyx tag mounted in a custom 3D printed necklace mount.}
+    \label{fig:necklace}
+\end{figure}
+
+The protocol had the following steps:
+\begin{enumerate}
+    \item At the first location (Hallway Between Living Room and Kitchen) stand still for 10 seconds
+    \item Squatt still for 10 seconds.
+    \item Move to next position.
+    \item Repeat steps 1-3 until all of the positions have been reached.
+    \item Finally return to the first position (Hallway Between Living Room and Kitchen)
+\end{enumerate}
+
+There were 3 trials for each configuration. Following the guidelines from 
+the Pozyx Creator Setup \cite{noauthor_configuration_nodate} anchors were 
+staggered at heights of 1.4m and 2.4m (ceiling height) for 4, 5, 6, 8, and 10 anchors.
+A configuration where anchors were all low (10cm) were tested for 8 anchors and configurations
+where anchors were all high (2.4m) were tested for 8 and 9 anchors.
 
 \section{Results}
-The confusion matrices from each model are output in Figures \ref{fig:cm-svm-lin}-\ref{fig:cm-rf}.
-Total accuracy was reported as well as the sensitivity, specificity, and precision of each class 
-were reported. These measures are calculated as follows:
-
-\begin{equation}
-    \text{Accuracy} = \frac{\text{All} \: TP}{N}
-\end{equation}
-
-\begin{equation}
-    \text{Sensitivity} = \frac{TP}{TP + FN}
-\end{equation}
-
-\begin{equation}
-    \text{Precision} = \frac{TP}{TP + FP}
-\end{equation}
-
-\begin{equation}
-    \text{Specificity} = \frac{TN}{TN + FP}
-\end{equation}
-Where $N$ is the number of samples $TP$ are True Positives, 
-$TN$ are true negatives, $FP$ are false positives and $FN$ are false negatives.
+Trials for each configuration were aggregated, transition periods were removed, 
+data of interest was time normalized and the error and standard deviation of each
+location while standing and squatting were calculated. An as-built AUTOCAD file of the 
+ILS was used to obtain the real position and used in the calculation of the error 
+between measured versus the actual position. The results of the experiment are summarized
+in the heatmap tables (Figures \ref{fig:xposstats}, \ref{fig:yposstats} and \ref{fig:zposstats}) 
+with a minimum darkness set at 30cm and a maximum darkness set at 60cm.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics*[height=0.8\textheight]{cm-svm-lin}
-    \caption{Test confusion matrix using the Support Vector Classifier with a Linear Kernel}
-    \label{fig:cm-svm-lin}
-\end{figure}
-
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics*[height=0.8\textheight]{cm-svm-rbf}
-    \caption{Test confusion matrix using the Support Vector Classifier with a Radial Kernel}
-    \label{fig:cm-svm-rbf}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics*[width=\textwidth]{x_errors}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics*[width=\textwidth]{x_stds}
+        \caption{}
+    \end{subfigure}
+    \caption{The positional error in X (a) and the standard deviation in X (b) at each location
+    and body position
+    }
+    \label{fig:xposstats}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics*[height=0.8\textheight]{cm-svm-poly}
-    \caption{Test confusion matrix using the Support Vector Classifier with a Polynomial Kernel}
-    \label{fig:cm-svm-poly}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics*[width=\textwidth]{y_errors}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{y_stds}
+        \caption{}
+    \end{subfigure}
+    \caption{The positional error in Y (a) and the standard deviation in Y (b) at each location
+    and body position}
+    \label{fig:yposstats}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics*[height=0.8\textheight]{cm-5nn}
-    \caption{Test confusion matrix using the K-Nearest Neighbors Classifier}
-    \label{fig:cm-5nn}
-\end{figure}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics*[height=0.8\textheight]{cm-decision}
-    \caption{Test confusion matrix using the Decision Tree Classifier}
-    \label{fig:cm-decision}
-\end{figure}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics*[height=0.8\textheight]{cm-rf}
-    \caption{Test confusion matrix using the Random Forests Classifier}
-    \label{fig:cm-rf}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics*[width=\textwidth]{z_errors}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics*[width=\textwidth]{z_stds}
+        \caption{}
+    \end{subfigure}
+    \caption{The positional error in Z (a) and the standard deviation in Z (b) at each location
+    and body position}
+    \label{fig:zposstats}
 \end{figure}
 
 \clearpage
 \section{Discussion}
-Table \ref{tab:accuracies} summarizes the accuracies obtained from each model.
 
-\begin{table}[!htbp]
-  \centering
-  \caption{Accuracy of each Model}
-  \label{tab:accuracies}
-  \begin{tabular}{ll}
-    \toprule
-    \thead{Model Name} & \thead{Accuracy (\%)} \\
-    \midrule
-    SVM Linear      & 97.7 \\
-    SVM Radial      & 88.1 \\
-    SVM Polynomial  & 93.1 \\
-    kNN             & 97.4 \\
-    Decision Tree   & 97.5 \\
-    Random Forests  & 99.3 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+\subsection{X Position}
+Visually, the heatmap of error in the X position shows different spots 
+where the system struggled to obtain the location based on the AUTOCAD as-builts 
+depending on the configuration selected.
+For 4, 5 and 6 anchors, the errors seemed to be larger in the living room
+and the hallway between the kitchen and the living room. 8, 10, 8 (L)ow, 8 (H)igh, and 9H
+anchors seemed to struggle most around the bathroom and bedroom area. 
+The standard deviation in X position seems to follow a similar pattern where 
+4, 5 and 6 anchors have higher standard deviation in hallway between the kitchen and living
+area and 8, 10, 8 (L)ow, 8 (H)igh, and 9H seems to struggle the most in the bathroom.
+Out of all of the configurations the 9H configuration has the most locations
+where the standard deviation is acceptable.
 
-With the exception of the Radial SVM, all of the models perform well
-achieving an accuracy of somewhere in the high 90s. In day-to-day
-activities, there is a disproportionately higher number of the 
-UNDEFINED class compared to the other "action" classes signifying the 
-presence of class imbalance. If a classifier 
-guesses all UNDEFINED it can obtain an accuracy of 599/1110 = 54\%. Thus,
-accuracies taken around 54\% should be interpreted with caution. Other 
-metrics such as the Sensitivity, Precision and Specificity have been provided
-to address this class imbalance. Sensitivity is the rate at which the classifier
-predicts a $TP$, Precision is the fraction of predictions that are actually
-true, and Specificity is the rate at which the classifier predicts a $TN$.
-Of all the models, the Random Forests Classifier at the default settings
-seem to the best in terms of Accuracy and Precision, Sensitivity, and Specificity
-for all classes. 
+\subsection{Y Position}
+For 4, 5, and 6 anchors, the error seems to increase in the seated position
+meaning that there may be some dependence on the Z position. This occurs 
+in the hallway between the kitchen and the living room, the bathroom and the 
+hallway between the bedroom and bathroom.
+There seems to be a large struggle for 8, 10 and 8H anchors to pinpoint the Y
+position in the hallway between the kitchen and the living, the living room
+and the bathroom. The 8L anchor configuration struggled when the in the bedroom,
+but was overall within or near the acceptable threshold of 30cm. 9H anchors
+overall seemed to be the best at determining the Y position with mild 
+errors at the hallway between the kitchen and the living room, the living room 
+and the bathroom.
 
-The performance of these models in the real-time will need to be tested 
-and quantified before any conclusions can be made. A high accuracy 
-is promising, but may also be indicative of overfitting which means 
-that the model will not be able to generalize variation experienced in the 
-real world. In later sections, more fine-grained actions will be considered,
-models will be more rigorously tuned, and the performance in real-time
-will be investigated.
+In terms of standard deviation, anchor configurations 4, 5, 6, 8, 8H, and 10 
+had trouble at a height of 144cm, but otherwise had low standard deviation.
+8L had minor issues regarding standard deviation in the bathroom 
+but was otherwise low. The 9H configuration seemed to yield
+the lowest standard deviations in the Y Position. 
 
+\subsection{Z Position}
+The Z position at many of the locations and all configurations seem 
+to deviate from the measured heights and have high error. 
+Only the 8H and 9H configurations have acceptable standard deviations
+for most of the rooms (there is still some struggle in the bathroom).
+Considering the inaccuracies in the Z positioning, it is recommended
+that the Z not be used as a absolute source of truth for height. 
+Rather Z position should be used relative to another reference tag 
+with the 9H configuration. For example, a necklace tag may be combined
+a wrist tag. When standing, the position of the wrist may be compared 
+with the position of the necklace to determine if the wrist is 
+above, below or at chest height.
+
+\subsection{Overall}
+The 9H configuration seems to provide the most reliable data when observing
+the standard deviations of the X, Y, and Z positions. With this configuration,
+each room had around 4 anchors surrounding it Figure \ref{fig:anchorplacement}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[width=0.8\textwidth]{floorplananchors}
+    \caption{ILS Floorplan with the 9 anchors all high.}
+    \label{fig:anchorplacement}
+\end{figure}
+
+Though the inaccuracies in the hallway, living room, bathroom and bedroom may
+prevent the 9H configuration from using heuristics for classification at these 
+locations, the inherent repeatability evident in the low standard deviation in 
+each axes of the position can make the position data from the 9H configuration
+a candidate for machine-learning based classification. 
+% ----------------------------------------------------------------------------------------------------

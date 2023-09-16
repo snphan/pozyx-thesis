@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main"] 1680939702 "main.aux" "main.bbl" "main" 1680941273
+["bibtex main"] 1694890918 "main.aux" "main.bbl" "main" 1694890960
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   "ReHM.bib" 1680795851 408033 33dd71cc9938597c5fa2cd7c81ad5934 ""
-  "main.aux" 1680941273 7401 7417d4ee4e15688a5cdd7cc582cfa377 "pdflatex"
+  "main.aux" 1694890959 7584 c292859c83a3163ad120d4e900132c38 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1680941268 "/home/steven/Projects/pozyx-thesis/thesis/main.tex" "main.pdf" "main" 1680941273
+["pdflatex"] 1694890954 "/home/steven/Projects/pozyx-thesis/thesis/main.tex" "main.pdf" "main" 1694890960
   "/etc/texmf/web2c/texmf.cnf" 1678301769 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/steven/Projects/pozyx-thesis/thesis/main.tex" 1680938877 1234 2acf725450ac96db544de34e5b67f995 ""
+  "/home/steven/Projects/pozyx-thesis/thesis/main.tex" 1694890743 1305 72d3fbcd833103d4de2525293f331a57 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -70,11 +70,11 @@
   "/usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb" 1678301799 136101 f533469f523533d38317ab5729d00c8a ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1678301817 4379155 98693266ff65f58d9f98aff394de12d2 ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1678301877 2799793 83eb4b21bb3cb2de3cd2ff8fe0c65d32 ""
-  "chapters/appendix.tex" 1678307999 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "chapters/chapter01.tex" 1680835229 2116 b8d7b9c150c2c704057b7102fd754a10 ""
-  "chapters/chapter02.tex" 1680846176 10633 3c103d3eeeb8c6a99a0e9a1c11b4ea48 ""
-  "chapters/chapter03.tex" 1680941268 9631 14d14ec839c4ef3233a051b68d1721e7 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1685820678 2799133 76eeab39c6de8cc016cd146d4fe3490a ""
+  "chapters/chapter01.tex" 1680941393 2100 1a23af2b48827cc2336aaf1de38b85cc ""
+  "chapters/chapter02.tex" 1694890784 2101 8bc9aef8094e9e7548c2e7555e4f0f8b ""
+  "chapters/chapter03.tex" 1694890954 10745 ee6ca71ff30d70428bd0586b9bc11d8d ""
+  "chapters/chapter04.tex" 1680941268 9631 14d14ec839c4ef3233a051b68d1721e7 ""
   "images//cm-5nn.png" 1680937827 250945 bad2e5c034025d2aa2ad8ac7432f53b6 ""
   "images//cm-decision.png" 1680937893 256425 67f1cf6ec9eb833de1688fa47b6256a3 ""
   "images//cm-rf.png" 1680937999 249880 a2d40ef3aa612bb29c0f008514d1005a ""
@@ -97,10 +97,10 @@
   "images//y_stds.png" 1680831880 87191 2bdc1cbbd89818e760439f4eca3537b1 ""
   "images//z_errors.png" 1680831880 98992 c0fee40f2495fb9b3db978ab55d44275 ""
   "images//z_stds.png" 1680831880 98797 6ade860a367dad80a8365bb071285877 ""
-  "main.aux" 1680941273 7401 7417d4ee4e15688a5cdd7cc582cfa377 "pdflatex"
-  "main.bbl" 1680939702 289 329c69b3bc2b2646a9b8766d01e2a0c7 "bibtex main"
-  "main.tex" 1680938877 1234 2acf725450ac96db544de34e5b67f995 ""
-  "main.toc" 1680941273 1316 381435c0833aad587449c154a7a04031 "pdflatex"
+  "main.aux" 1694890959 7584 c292859c83a3163ad120d4e900132c38 "pdflatex"
+  "main.bbl" 1694890918 289 329c69b3bc2b2646a9b8766d01e2a0c7 "bibtex main"
+  "main.tex" 1694890743 1305 72d3fbcd833103d4de2525293f331a57 ""
+  "main.toc" 1694890959 1395 2e8017a271605ca79290545041efd112 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
