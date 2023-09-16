@@ -7,12 +7,6 @@ TRANSITIONS = [
     'quiet standing',
     '#2 wash hands',
     'quiet standing',
-    '#3 wash hands',
-    'quiet standing',
-    '#4 wash hands',
-    'quiet standing',
-    '#5 wash hands',
-    'quiet standing',
     '5 seconds elapsed'
 ]
 

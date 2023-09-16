@@ -1,0 +1,4 @@
+quiet standing (Outside tub): 1682453716.9112508
+Toilet: 1682453727.0489311
+quiet standing (Outside tub): 1682453837.744587
+5 seconds elapsed: 1682453846.653273

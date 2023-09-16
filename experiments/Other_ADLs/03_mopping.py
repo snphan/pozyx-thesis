@@ -5,6 +5,12 @@ TRANSITIONS = [
     'quiet standing (living entrance)', # 5 seconds
     'mop', 
     'quiet standing (living entrance)', # 5 seconds
+    'mop', 
+    'quiet standing (living entrance)', # 5 seconds
+    'mop', 
+    'quiet standing (living entrance)', # 5 seconds
+    'mop', 
+    'quiet standing (living entrance)', # 5 seconds
     '5 seconds elapsed',
 ]
 
