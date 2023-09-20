@@ -1,16 +1,20 @@
-This thesis project will investigate how to detect fine-grained action within the meal preparation activity of daily living 
+This thesis project investigates how to detect fine-grained action within the meal preparation activity of daily living 
 (ADL) in the home without the use of privacy-intruding cameras. ADLs are common activities that an individual 
 performs inside their homes. These include walking around, eating, dressing, personal hygiene, toileting, 
 transportation, meal preparation, house cleaning, and managing medication. The meal preparation ADL was chosen as the 
-main focus because cooking is a uniquely enjoyable activity while being procedurally dense. Meal preparation can include 
+main focus because cooking is a uniquely enjoyable activity while being procedurally dense. 
+% TODO: find something that says that cooking is cognitively challenging. Or is cognitively and physically demanding
+Meal preparation can include 
 the following actions: opening the fridge, retrieving ingredients, cutting vegetables, and assembling the ingredients. 
-Monitoring these actions may be used as part of a health monitoring program by enabling the assessment of the presence and 
-length of each individual step in a goal-orientated activity. This information may help guide interventions and track 
-the effectiveness of interventions in clinical populations such as people with dementia or frailty. 
-
+Monitoring these actions may be used as part of a health monitoring program by enabling the assessment of the presence, 
+duration, and correctness of each individual step in a goal-orientated activity. Missing or incorrect steps can be indicative of 
+forgetfulness, and steps that take a long time can be indicative of low-efficacy or struggle that clinicians can address.
+Information obtained through the monitoring of the cooking task may help guide interventions 
+and track the effectiveness of interventions in clinical populations such as people with dementia, frailty and Parkinson's disease. 
+A further and more in-depth review of the background will be done in Chapter \ref{chp2}.
 % Several studies have used features from inertial data to classify these fine-grained action…
 
-It is hypothesized that the combination of context, such as hyper accurate 
+It is hypothesized that the combination of context, such as accurate 
 indoor localization (down to 30 cm), and inertial data can accurate and reliable 
 classification of fine-grained ADLs. 
 The system used for indoor localization is the Pozyx Creator Kit which provides a wrist mounted 
@@ -20,6 +24,6 @@ floorplan, and inertial data from a BNO055 which outputs 3D Acceleration, 3D ang
 
 Prior to any experiments related to classification of these cooking actions, the optimal 
 configuration of the system that provides reliable position data had to be investigated. 
-The next section details the different attempts at changing the configuration of the Pozyx 
+Chapter \ref{chp3} details the different attempts at changing the configuration of the Pozyx 
 Creator Kit to obtain the most reliable positioning data in X, Y, and Z at a satisfactory 
 sampling rate. 
