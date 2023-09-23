@@ -7,45 +7,45 @@ Warning--to sort, need author or key in noauthor_creator_nodate
 Warning--to sort, need author or key in noauthor_path_nodate
 Warning--to sort, need author or key in noauthor_hardware_nodate
 Warning--to sort, need author or key in noauthor_configuration_nodate
-You've used 18 entries,
+You've used 20 entries,
             2118 wiz_defined-function locations,
-            596 strings with 7495 characters,
-and the built_in function-call counts, 5749 in all, are:
-= -- 556
-> -- 274
+            610 strings with 7907 characters,
+and the built_in function-call counts, 6383 in all, are:
+= -- 616
+> -- 310
 < -- 4
-+ -- 113
-- -- 92
-* -- 420
-:= -- 921
-add.period$ -- 51
-call.type$ -- 18
-change.case$ -- 101
++ -- 127
+- -- 104
+* -- 464
+:= -- 1033
+add.period$ -- 58
+call.type$ -- 20
+change.case$ -- 113
 chr.to.int$ -- 0
-cite$ -- 22
-duplicate$ -- 209
-empty$ -- 463
-format.name$ -- 92
-if$ -- 1208
+cite$ -- 24
+duplicate$ -- 235
+empty$ -- 513
+format.name$ -- 104
+if$ -- 1340
 int.to.chr$ -- 0
-int.to.str$ -- 18
-missing$ -- 11
-newline$ -- 88
-num.names$ -- 29
-pop$ -- 114
+int.to.str$ -- 20
+missing$ -- 13
+newline$ -- 98
+num.names$ -- 33
+pop$ -- 127
 preamble$ -- 1
-purify$ -- 82
+purify$ -- 92
 quote$ -- 0
-skip$ -- 167
+skip$ -- 180
 stack$ -- 0
-substring$ -- 318
-swap$ -- 44
+substring$ -- 337
+swap$ -- 46
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 70
+type$ -- 78
 warning$ -- 4
-while$ -- 49
-width$ -- 20
-write$ -- 186
+while$ -- 54
+width$ -- 22
+write$ -- 209
 (There were 4 warnings)
