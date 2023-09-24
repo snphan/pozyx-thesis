@@ -3,49 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: ReHM.bib
-Warning--to sort, need author or key in noauthor_creator_nodate
-Warning--to sort, need author or key in noauthor_path_nodate
-Warning--to sort, need author or key in noauthor_hardware_nodate
-Warning--to sort, need author or key in noauthor_configuration_nodate
-You've used 20 entries,
+Warning--to sort, need author or key in noauthor_diagnosis_nodate
+You've used 38 entries,
             2118 wiz_defined-function locations,
-            610 strings with 7907 characters,
-and the built_in function-call counts, 6383 in all, are:
-= -- 616
-> -- 310
+            711 strings with 11443 characters,
+and the built_in function-call counts, 13055 in all, are:
+= -- 1254
+> -- 700
 < -- 4
-+ -- 127
-- -- 104
-* -- 464
-:= -- 1033
-add.period$ -- 58
-call.type$ -- 20
-change.case$ -- 113
++ -- 282
+- -- 238
+* -- 1023
+:= -- 2191
+add.period$ -- 114
+call.type$ -- 38
+change.case$ -- 233
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 235
-empty$ -- 513
-format.name$ -- 104
-if$ -- 1340
+cite$ -- 39
+duplicate$ -- 433
+empty$ -- 983
+format.name$ -- 238
+if$ -- 2660
 int.to.chr$ -- 0
-int.to.str$ -- 20
-missing$ -- 13
-newline$ -- 98
-num.names$ -- 33
-pop$ -- 127
+int.to.str$ -- 38
+missing$ -- 31
+newline$ -- 188
+num.names$ -- 75
+pop$ -- 229
 preamble$ -- 1
-purify$ -- 92
+purify$ -- 195
 quote$ -- 0
-skip$ -- 180
+skip$ -- 316
 stack$ -- 0
-substring$ -- 337
-swap$ -- 46
+substring$ -- 765
+swap$ -- 65
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 78
-warning$ -- 4
-while$ -- 54
-width$ -- 22
-write$ -- 209
-(There were 4 warnings)
+type$ -- 148
+warning$ -- 1
+while$ -- 122
+width$ -- 40
+write$ -- 407
+(There was 1 warning)

@@ -1,22 +1,29 @@
 \begin{thebibliography}{10}
 
-\bibitem{noauthor_configuration_nodate}
-Configuration of the {UWB} parameters ({Arduino}).
+\bibitem{noauthor_diagnosis_nodate}
+Diagnosis and {Management} of {Dementia}: {Review} {\textbar} {Dementia} and
+  {Cognitive} {Impairment} {\textbar} {JAMA} {\textbar} {JAMA} {Network}.
 
-\bibitem{noauthor_creator_nodate}
-Creator {One} {Kit} for research and prototyping - {Pozyx}.
-
-\bibitem{noauthor_hardware_nodate}
-Hardware setup.
-
-\bibitem{noauthor_path_nodate}
-{PATH}.
+\bibitem{arevalo-rodriguez_mini-mental_2015}
+Ingrid Arevalo-Rodriguez, Nadja Smailagic, Marta Roqué I~Figuls, Agustín
+  Ciapponi, Erick Sanchez-Perez, Antri Giannakou, Olga~L. Pedraza, Xavier
+  Bonfill~Cosp, and Sarah Cullum.
+\newblock Mini-{Mental} {State} {Examination} ({MMSE}) for the detection of
+  {Alzheimer}'s disease and other dementias in people with mild cognitive
+  impairment ({MCI}).
+\newblock {\em The Cochrane Database of Systematic Reviews}, 2015(3):CD010783,
+  March 2015.
 
 \bibitem{bouchard_smart_2020}
 Bruno Bouchard, Kevin Bouchard, and Abdenour Bouzouane.
 \newblock A smart cooking device for assisting cognitively impaired users.
 \newblock {\em Journal of Reliable Intelligent Environments}, 6(2):107--125,
   June 2020.
+
+\bibitem{chen_frailty_2014}
+Xujiao Chen, Genxiang Mao, and Sean~X Leng.
+\newblock Frailty syndrome: an overview.
+\newblock {\em Clinical Interventions in Aging}, 9:433--441, March 2014.
 
 \bibitem{chisholm_evaluating_2014}
 Denise Chisholm, Pamela Toto, Ketki Raina, Margo Holm, and Joan Rogers.
@@ -25,16 +32,28 @@ Denise Chisholm, Pamela Toto, Ketki Raina, Margo Holm, and Joan Rogers.
 \newblock {\em The British journal of occupational therapy}, 77(2):59--63,
   February 2014.
 
+\bibitem{choi_mhealth_2019}
+Wonchan Choi, Hua Zheng, Patricia Franklin, and Bengisu Tulu.
+\newblock {mHealth} technologies for osteoarthritis self-management and
+  treatment: {A} systematic review.
+\newblock {\em Health Informatics Journal}, 25(3):984--1003, September 2019.
+
+\bibitem{conroy_defining_2009}
+S.~Conroy.
+\newblock Defining frailty — the holy grail of geriatric medicine.
+\newblock {\em The Journal of Nutrition, Health and Aging}, 13(4):389--389,
+  April 2009.
+
 \bibitem{cook_assessing_2009}
 D.~J. Cook and M.~Schmitter-Edgecombe.
 \newblock Assessing the {Quality} of {Activities} in a {Smart} {Environment}.
 \newblock {\em Methods of Information in Medicine}, 48(05):480--485, 2009.
 
-\bibitem{edemekong_activities_2023}
-Peter~F. Edemekong, Deb~L. Bomgaars, Sukesh Sukumaran, and Caroline Schoo.
+\bibitem{edemekong_activities_2022}
+Peter~F. Edemekong, Deb~L. Bomgaars, Sukesh Sukumaran, and Shoshana~B. Levy.
 \newblock Activities of {Daily} {Living}.
 \newblock In {\em {StatPearls}}. StatPearls Publishing, Treasure Island (FL),
-  2023.
+  2022.
 
 \bibitem{government_of_canada_daily_2014}
 Statistics~Canada Government~of Canada.
@@ -42,11 +61,48 @@ Statistics~Canada Government~of Canada.
   territories, 2013 to 2063, September 2014.
 \newblock Last Modified: 2014-09-17.
 
+\bibitem{hewitt_prevalence_2018}
+Jonathan Hewitt, Sara Long, Ben Carter, Simon Bach, Kathryn McCarthy, and
+  Andrew Clegg.
+\newblock The prevalence of frailty and its association with clinical outcomes
+  in general surgery: a systematic review and meta-analysis.
+\newblock {\em Age and Ageing}, 47(6):793--800, November 2018.
+
+\bibitem{hootman_projections_2006}
+Jennifer~M. Hootman and Charles~G. Helmick.
+\newblock Projections of {US} prevalence of arthritis and associated activity
+  limitations.
+\newblock {\em Arthritis and Rheumatism}, 54(1):226--229, January 2006.
+
+\bibitem{hunter_osteoarthritis_2019}
+David~J Hunter and Sita Bierma-Zeinstra.
+\newblock Osteoarthritis.
+\newblock {\em The Lancet}, 393(10182):1745--1759, April 2019.
+
+\bibitem{inamdar_heart_2016}
+Arati~A. Inamdar and Ajinkya~C. Inamdar.
+\newblock Heart {Failure}: {Diagnosis}, {Management} and {Utilization}.
+\newblock {\em Journal of Clinical Medicine}, 5(7):62, June 2016.
+
 \bibitem{jaul_age-related_2017}
 Efraim Jaul and Jeremy Barron.
 \newblock Age-{Related} {Diseases} and {Clinical} and {Public} {Health}
-  {Implications} for the 85â€‰{Years} {Old} and {Over} {Population}.
+  {Implications} for the 85 {Years} {Old} and {Over} {Population}.
 \newblock {\em Frontiers in Public Health}, 5:335, December 2017.
+
+\bibitem{lespasio_hip_2018}
+Michelle~J Lespasio, Assem~A Sultan, Nicolas~S Piuzzi, Anton Khlopas, M~Elaine
+  Husni, George~F Muschler, and Michael~A Mont.
+\newblock Hip {Osteoarthritis}: {A} {Primer}.
+\newblock {\em The Permanente Journal}, 22:17--084, January 2018.
+
+\bibitem{lin_development_2016}
+Chung-Chih Lin, Chun-Chang Chen, Pay-Shin Lin, Ren-Guey Lee, Jing-Siang Huang,
+  Tsai-Hsuan Tsai, and Yu-Chuan Chang.
+\newblock Development of {Home}-{Based} {Frailty} {Detection} {Device} {Using}
+  {Wireless} {Sensor} {Networks}.
+\newblock {\em Journal of Medical and Biological Engineering}, 36:168--177,
+  2016.
 
 \bibitem{logan_sensors_2006}
 Beth Logan and Jennifer Healey.
@@ -69,11 +125,56 @@ Mounir Mokhtari, Bessam Abdulrazak, and Hamdi Aloulou, editors.
   volume 10898 of {\em Lecture {Notes} in {Computer} {Science}}.
 \newblock Springer International Publishing, Cham, 2018.
 
+\bibitem{norell_pejner_smart_2019}
+Margaretha Norell~Pejner, Wagner Ourique~de Morais, Jens Lundström, Hélène
+  Laurell, and Ingela Skärsäter.
+\newblock A {Smart} {Home} {System} for {Information} {Sharing}, {Health}
+  {Assessments}, and {Medication} {Self}-{Management} for {Older} {People}:
+  {Protocol} for a {Mixed}-{Methods} {Study}.
+\newblock {\em JMIR Research Protocols}, 8(4):e12447, April 2019.
+
+\bibitem{path_path_nodate}
+PATH.
+\newblock {PATH}.
+
+\bibitem{pozyx_configuration_nodate}
+Pozyx.
+\newblock Configuration of the {UWB} parameters ({Arduino}).
+
+\bibitem{pozyx_creator_nodate}
+Pozyx.
+\newblock Creator {One} {Kit} for research and prototyping - {Pozyx}.
+
+\bibitem{pozyx_hardware_nodate}
+Pozyx.
+\newblock Hardware setup.
+
+\bibitem{prieto-lhambra_osteoarthritis_2014}
+Daniel Prieto-Lhambra, David Hunter, and Nigel Arden.
+\newblock {\em Osteoarthritis: {The} {Facts}}.
+\newblock The {Facts} {Series}. Oxford University Press, Oxford, New York,
+  second edition edition, September 2014.
+
+\bibitem{reusch_management_2017}
+Jane E.~B. Reusch and JoAnn~E. Manson.
+\newblock Management of {Type} 2 {Diabetes} in 2017.
+\newblock {\em JAMA}, 317(10):1015--1016, March 2017.
+
+\bibitem{rghioui_smart_2020}
+Amine Rghioui, Jaime Lloret, Sandra Sendra, and Abdelmajid Oumnad.
+\newblock A {Smart} {Architecture} for {Diabetic} {Patient} {Monitoring}
+  {Using} {Machine} {Learning} {Algorithms}.
+\newblock {\em Healthcare}, 8(3):348, September 2020.
+
 \bibitem{rogers_performance_2014}
 J.~C. Rogers.
-\newblock Performance {Assessment} of {Self}-{Care} {Skills}.
-\newblock Technical report, American Psychological Association, April 2014.
-\newblock Type: dataset.
+\newblock Performance {Assessment} of {Self}-{Care} {Skills}, April 2014.
+
+\bibitem{sapra_diabetes_2021}
+Amit Sapra and Priyanka Bhandari.
+\newblock Diabetes {Mellitus}.
+\newblock In {\em {StatPearls}}. StatPearls Publishing, Treasure Island (FL),
+  2021.
 
 \bibitem{sarker_machine_2021}
 Iqbal~H. Sarker.
@@ -88,6 +189,11 @@ Nilotpola Sarma, Suchetana Chakraborty, and Dip~Sankar Banerjee.
 \newblock In {\em 2019 11th {International} {Conference} on {Communication}
   {Systems} \& {Networks} ({COMSNETS})}, pages 444--447, Bengaluru, India,
   January 2019. IEEE.
+
+\bibitem{savarese_global_2017}
+Gianluigi Savarese and Lars~H Lund.
+\newblock Global {Public} {Health} {Burden} of {Heart} {Failure}.
+\newblock {\em Cardiac Failure Review}, 3(1):7--11, April 2017.
 
 \bibitem{tijsen_challenging_2019}
 Lian~MJ Tijsen, Els~WC Derksen, Wilco~P Achterberg, and Bianca~I Buijck.
@@ -116,5 +222,10 @@ Kristina Yordanova, Stefan Lüdtke, Samuel Whitehouse, Frank Krüger, Adeline
   {Health} {Monitoring}.
 \newblock {\em Sensors}, 19(3):646, January 2019.
 \newblock Number: 3 Publisher: Multidisciplinary Digital Publishing Institute.
+
+\bibitem{ziaeian_epidemiology_2016}
+Boback Ziaeian and Gregg~C. Fonarow.
+\newblock Epidemiology and aetiology of heart failure.
+\newblock {\em Nature Reviews. Cardiology}, 13(6):368--378, June 2016.
 
 \end{thebibliography}
