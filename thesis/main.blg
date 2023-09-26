@@ -6,43 +6,43 @@ Database file #1: ReHM.bib
 Warning--to sort, need author or key in noauthor_diagnosis_nodate
 You've used 38 entries,
             2118 wiz_defined-function locations,
-            711 strings with 11443 characters,
-and the built_in function-call counts, 13055 in all, are:
-= -- 1254
-> -- 700
+            713 strings with 11439 characters,
+and the built_in function-call counts, 13144 in all, are:
+= -- 1265
+> -- 705
 < -- 4
-+ -- 282
-- -- 238
-* -- 1023
-:= -- 2191
++ -- 284
+- -- 240
+* -- 1034
+:= -- 2203
 add.period$ -- 114
 call.type$ -- 38
-change.case$ -- 233
+change.case$ -- 234
 chr.to.int$ -- 0
 cite$ -- 39
 duplicate$ -- 433
-empty$ -- 983
-format.name$ -- 238
-if$ -- 2660
+empty$ -- 988
+format.name$ -- 240
+if$ -- 2677
 int.to.chr$ -- 0
 int.to.str$ -- 38
 missing$ -- 31
 newline$ -- 188
 num.names$ -- 75
-pop$ -- 229
+pop$ -- 230
 preamble$ -- 1
-purify$ -- 195
+purify$ -- 196
 quote$ -- 0
-skip$ -- 316
+skip$ -- 315
 stack$ -- 0
-substring$ -- 765
+substring$ -- 784
 swap$ -- 65
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 148
 warning$ -- 1
-while$ -- 122
+while$ -- 123
 width$ -- 40
 write$ -- 407
 (There was 1 warning)
