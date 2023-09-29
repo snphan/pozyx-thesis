@@ -1,48 +1,59 @@
 This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
-The style file: plain.bst
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: ReHM.bib
-Warning--to sort, need author or key in noauthor_diagnosis_nodate
-You've used 38 entries,
-            2118 wiz_defined-function locations,
-            713 strings with 11439 characters,
-and the built_in function-call counts, 13144 in all, are:
-= -- 1265
-> -- 705
-< -- 4
-+ -- 284
-- -- 240
-* -- 1034
-:= -- 2203
-add.period$ -- 114
-call.type$ -- 38
-change.case$ -- 234
-chr.to.int$ -- 0
-cite$ -- 39
-duplicate$ -- 433
-empty$ -- 988
-format.name$ -- 240
-if$ -- 2677
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty author in noauthor_glucose_2020
+Warning--edition ordinal word "Second Edition" may be too high (or improper) for conversion in prieto-lhambra_osteoarthritis_2014
+
+Done.
+You've used 35 entries,
+            4087 wiz_defined-function locations,
+            1044 strings with 15570 characters,
+and the built_in function-call counts, 26379 in all, are:
+= -- 2190
+> -- 602
+< -- 199
++ -- 322
+- -- 108
+* -- 1502
+:= -- 4114
+add.period$ -- 75
+call.type$ -- 35
+change.case$ -- 40
+chr.to.int$ -- 426
+cite$ -- 37
+duplicate$ -- 1884
+empty$ -- 2017
+format.name$ -- 133
+if$ -- 6011
 int.to.chr$ -- 0
-int.to.str$ -- 38
-missing$ -- 31
-newline$ -- 188
-num.names$ -- 75
-pop$ -- 230
+int.to.str$ -- 35
+missing$ -- 344
+newline$ -- 184
+num.names$ -- 34
+pop$ -- 775
 preamble$ -- 1
-purify$ -- 196
-quote$ -- 0
-skip$ -- 315
+purify$ -- 0
+quote$ -- 4
+skip$ -- 1951
 stack$ -- 0
-substring$ -- 784
-swap$ -- 65
-text.length$ -- 4
+substring$ -- 1053
+swap$ -- 1625
+text.length$ -- 57
 text.prefix$ -- 0
-top$ -- 0
-type$ -- 148
-warning$ -- 1
-while$ -- 123
-width$ -- 40
-write$ -- 407
-(There was 1 warning)
+top$ -- 5
+type$ -- 35
+warning$ -- 2
+while$ -- 109
+width$ -- 37
+write$ -- 433
+(There were 2 warnings)
