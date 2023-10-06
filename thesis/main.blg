@@ -15,45 +15,45 @@ Warning--empty author in noauthor_glucose_2020
 Warning--edition ordinal word "Second Edition" may be too high (or improper) for conversion in prieto-lhambra_osteoarthritis_2014
 
 Done.
-You've used 36 entries,
+You've used 38 entries,
             4087 wiz_defined-function locations,
-            1050 strings with 15741 characters,
-and the built_in function-call counts, 27142 in all, are:
-= -- 2253
-> -- 623
-< -- 205
-+ -- 332
-- -- 112
-* -- 1548
-:= -- 4232
-add.period$ -- 77
-call.type$ -- 36
-change.case$ -- 41
-chr.to.int$ -- 438
-cite$ -- 38
-duplicate$ -- 1940
-empty$ -- 2073
-format.name$ -- 138
-if$ -- 6185
+            1064 strings with 16486 characters,
+and the built_in function-call counts, 29415 in all, are:
+= -- 2433
+> -- 705
+< -- 227
++ -- 376
+- -- 128
+* -- 1677
+:= -- 4552
+add.period$ -- 81
+call.type$ -- 38
+change.case$ -- 43
+chr.to.int$ -- 486
+cite$ -- 40
+duplicate$ -- 2090
+empty$ -- 2223
+format.name$ -- 156
+if$ -- 6711
 int.to.chr$ -- 0
-int.to.str$ -- 36
-missing$ -- 354
-newline$ -- 187
-num.names$ -- 35
-pop$ -- 796
+int.to.str$ -- 38
+missing$ -- 384
+newline$ -- 195
+num.names$ -- 37
+pop$ -- 859
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 2004
+skip$ -- 2169
 stack$ -- 0
-substring$ -- 1082
-swap$ -- 1675
-text.length$ -- 59
+substring$ -- 1196
+swap$ -- 1824
+text.length$ -- 65
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 36
+type$ -- 38
 warning$ -- 2
-while$ -- 114
-width$ -- 38
-write$ -- 443
+while$ -- 124
+width$ -- 40
+write$ -- 468
 (There were 2 warnings)
