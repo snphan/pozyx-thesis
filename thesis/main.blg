@@ -13,47 +13,49 @@ Database file #1: ReHM.bib
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 Warning--empty author in noauthor_glucose_2020
 Warning--edition ordinal word "Second Edition" may be too high (or improper) for conversion in prieto-lhambra_osteoarthritis_2014
+Warning--empty journal in mcmahon_katz_nodate
+Warning--empty year in mcmahon_katz_nodate
 
 Done.
-You've used 45 entries,
+You've used 48 entries,
             4087 wiz_defined-function locations,
-            1111 strings with 18022 characters,
-and the built_in function-call counts, 34988 in all, are:
-= -- 2919
-> -- 815
-< -- 274
-+ -- 436
-- -- 146
-* -- 2004
-:= -- 5438
-add.period$ -- 97
-call.type$ -- 45
-change.case$ -- 51
-chr.to.int$ -- 582
-cite$ -- 47
-duplicate$ -- 2488
-empty$ -- 2644
-format.name$ -- 180
-if$ -- 7985
+            1130 strings with 19123 characters,
+and the built_in function-call counts, 36878 in all, are:
+= -- 3092
+> -- 840
+< -- 288
++ -- 448
+- -- 150
+* -- 2110
+:= -- 5767
+add.period$ -- 103
+call.type$ -- 48
+change.case$ -- 55
+chr.to.int$ -- 606
+cite$ -- 52
+duplicate$ -- 2633
+empty$ -- 2781
+format.name$ -- 185
+if$ -- 8410
 int.to.chr$ -- 0
-int.to.str$ -- 45
-missing$ -- 448
-newline$ -- 226
-num.names$ -- 44
-pop$ -- 982
+int.to.str$ -- 48
+missing$ -- 471
+newline$ -- 239
+num.names$ -- 47
+pop$ -- 1027
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 2591
+skip$ -- 2735
 stack$ -- 0
-substring$ -- 1435
-swap$ -- 2179
-text.length$ -- 80
+substring$ -- 1502
+swap$ -- 2296
+text.length$ -- 86
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 45
-warning$ -- 2
-while$ -- 148
-width$ -- 47
-write$ -- 555
-(There were 2 warnings)
+type$ -- 48
+warning$ -- 4
+while$ -- 157
+width$ -- 50
+write$ -- 590
+(There were 4 warnings)
