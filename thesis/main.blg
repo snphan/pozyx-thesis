@@ -19,45 +19,45 @@ Warning--empty journal in ahs_barthel_nodate
 Warning--empty year in ahs_barthel_nodate
 
 Done.
-You've used 52 entries,
+You've used 53 entries,
             4087 wiz_defined-function locations,
-            1153 strings with 19777 characters,
-and the built_in function-call counts, 39487 in all, are:
-= -- 3294
-> -- 892
-< -- 310
-+ -- 478
-- -- 158
-* -- 2245
-:= -- 6161
-add.period$ -- 112
-call.type$ -- 52
-change.case$ -- 61
-chr.to.int$ -- 660
-cite$ -- 58
-duplicate$ -- 2823
-empty$ -- 2999
-format.name$ -- 194
-if$ -- 9007
+            1159 strings with 20015 characters,
+and the built_in function-call counts, 40330 in all, are:
+= -- 3365
+> -- 914
+< -- 318
++ -- 489
+- -- 162
+* -- 2297
+:= -- 6291
+add.period$ -- 114
+call.type$ -- 53
+change.case$ -- 62
+chr.to.int$ -- 675
+cite$ -- 59
+duplicate$ -- 2883
+empty$ -- 3058
+format.name$ -- 199
+if$ -- 9199
 int.to.chr$ -- 0
-int.to.str$ -- 52
-missing$ -- 502
-newline$ -- 255
-num.names$ -- 52
-pop$ -- 1109
+int.to.str$ -- 53
+missing$ -- 513
+newline$ -- 258
+num.names$ -- 53
+pop$ -- 1129
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 2926
+skip$ -- 2986
 stack$ -- 0
-substring$ -- 1632
-swap$ -- 2446
-text.length$ -- 90
+substring$ -- 1667
+swap$ -- 2503
+text.length$ -- 93
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 52
+type$ -- 53
 warning$ -- 6
-while$ -- 169
-width$ -- 54
-write$ -- 628
+while$ -- 174
+width$ -- 55
+write$ -- 639
 (There were 6 warnings)
