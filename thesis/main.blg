@@ -17,47 +17,50 @@ Warning--empty journal in mcmahon_katz_nodate
 Warning--empty year in mcmahon_katz_nodate
 Warning--empty journal in ahs_barthel_nodate
 Warning--empty year in ahs_barthel_nodate
+Warning--empty author in noauthor_measures_nodate
+Warning--empty journal in noauthor_measures_nodate
+Warning--empty year in noauthor_measures_nodate
 
 Done.
-You've used 62 entries,
+You've used 67 entries,
             4087 wiz_defined-function locations,
-            1214 strings with 22285 characters,
-and the built_in function-call counts, 48676 in all, are:
-= -- 4072
-> -- 1126
+            1233 strings with 23048 characters,
+and the built_in function-call counts, 50451 in all, are:
+= -- 4196
+> -- 1150
 < -- 405
-+ -- 607
-- -- 197
-* -- 2757
-:= -- 7528
-add.period$ -- 132
-call.type$ -- 62
-change.case$ -- 71
++ -- 620
+- -- 202
+* -- 2856
+:= -- 7832
+add.period$ -- 142
+call.type$ -- 67
+change.case$ -- 77
 chr.to.int$ -- 867
-cite$ -- 68
-duplicate$ -- 3448
-empty$ -- 3631
-format.name$ -- 242
-if$ -- 11124
+cite$ -- 76
+duplicate$ -- 3603
+empty$ -- 3808
+format.name$ -- 248
+if$ -- 11506
 int.to.chr$ -- 0
-int.to.str$ -- 62
-missing$ -- 609
-newline$ -- 293
-num.names$ -- 62
-pop$ -- 1317
+int.to.str$ -- 67
+missing$ -- 643
+newline$ -- 318
+num.names$ -- 64
+pop$ -- 1430
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 3610
+skip$ -- 3731
 stack$ -- 0
-substring$ -- 2124
-swap$ -- 3044
+substring$ -- 2131
+swap$ -- 3133
 text.length$ -- 116
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 62
-warning$ -- 6
-while$ -- 215
-width$ -- 64
-write$ -- 745
-(There were 6 warnings)
+type$ -- 67
+warning$ -- 9
+while$ -- 217
+width$ -- 69
+write$ -- 791
+(There were 9 warnings)
