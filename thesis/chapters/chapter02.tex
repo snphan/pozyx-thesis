@@ -350,7 +350,11 @@ Although traditional pen-and-paper assessment of ADLs can provide information re
 
 \section{Camp et al's Tech Used to Recognize ADL in Community-Dwelling Older Adults}
 \subsection{Overview}
-Camp et al's search identified a total of "21 technologies, including six wearable sensors, 13 environmental sensors, and two types of camera" \cite{camp_technology_2021}. The full list can be found in Table \ref{tab:camps-tech}. These technologies were able to detect a total of 14 different ADLs, but no single technology system was able to detect all 14 \cite{camp_technology_2021}. Table \ref{tab:camps-ADL} summarizes the ADLs detected as well as their level of granularity. 39 systems were identified and most used the environment sensors. Only 3 out of the 39 systems used wearables. However, these wearable systems were able to recognize granular activities within "feeding" such as drinking and using cutlery that was not included in the other \cite{camp_technology_2021}. 
+Camp et al.'s search identified a total of "21 [distinct] technologies, including six wearable sensors, 13 environmental sensors, and two types of camera" \cite{camp_technology_2021}. The full list can be found in Table \ref{tab:camps-tech}. These technologies were able to detect a total of 14 different ADLs, but no single technology system was able to detect all 14 \cite{camp_technology_2021}. Table \ref{tab:camps-ADL} summarizes the ADLs detected as well as their level of granularity. There were 39 systems in total identified and most used the environment sensors. Only 3 out of the 39 systems used wearables. However, these wearable systems were able to recognize granular activities within "feeding" such as drinking and using cutlery that was not included in the other \cite{camp_technology_2021}. 
+
+Though the intent of the SR was to review technology that is able to detect if an ADL action has been completed and not test if the individual is functionally able to perform the ADL, there may be some correlations with assessment scales that may be drawn. For example, the activities that technologies in Camp et al.'s review detect are present in the Barthel Index: bathing, dressing, feeding, grooming, mobility, stairs, toileting, and transfer. Sub-activities or finer-grained activities in the Barthel Index, such as activities to define feeding (cutting, or spreading butter), were not included as activities in these systems. According to Camp et al., there are few technologies that are able to recognize fine-skills such as cutlery use which have a "large influence on more general activities such as feeding, and subsequently on overall health" \cite{camp_technology_2021}. There also may be concerns with privacy which prevent these technologies from advancing deeper into exploring the detection of these sub-activities. For example, humidity and sound sensors used to detect bathing, a sub-activity of grooming, may pose a privacy risk \cite{camp_technology_2021}.
+
+The systems identified recognize ADLs by using a series of interactions with the environment sensors and/or wearable sensors. For example, "feeding" can be inferred by activity in the motion sensors in the kitchen/dining room, fridge door sensors, and power sensors attached to a microwave \cite{camp_technology_2021}. A full list of these interactions and accompanying ADL can be found in Table. Though these systems can recognize ADLs and is sufficient for the aim of monitoring functional decline by monitoring a decrease in ADL actions, Camp et al. suggest that methods to "directly [assess] ADL performance" should be considered as it will allow for identification of "exactly where an individual is having difficulty without the reliance on [time-consuming] traditional tests" \cite{camp_technology_2021}. 
 
 \begin{table}[!ht]
     \centering
@@ -413,16 +417,44 @@ Camp et al's search identified a total of "21 technologies, including six wearab
     \end{tabular}
 \end{table}
 
-\subsection{Specifics}
+\begin{table}[!ht]
+    \centering
+    \caption{How to detect each ADL based on the technology found in \cite{camp_technology_2021}}
+    \label{tab:ADL-detection}
+    \begin{tabular}[pos]{ p{0.3\textwidth} p{0.5\textwidth} }
+        \toprule
+        \textbf{ADL Detected} & \textbf{Method} \\
+        \midrule
+        Bed Usage & Pressure sensors or accelerometers attached to the bed \\
+        Dressing & Room activity and door sensors attached to specific drawers/wardrobes\\
+        Feeding & Room activity, appliance use, or door sensors attached to cupboards within the kitchen area. Wearable sensor data \\
+        Grooming & Room activity, changes in temperature/humidity, water usage or specific door usage \\
+        Household & Water usage, room activity or appliance usage \\
+        Medicine & Door sensors attached to medicine cabinets \\
+        Mobility & Room activity or
+Wearable sensors \\
+        Recreation & Room activity or power consumption\\
+        Sleep & Room presence (but inactivity), typically the living room \& bedroom \\
+        Social Interaction & Door sensors attached to the main property entrance\\
+        Stair Usage & Combined wearable sensors\\ 
+        Toileting & Room activity, specific door usage, water usage or accelerometers attached to the flush mechanism\\
+        Transferring & Room activity or pressure sensors or
+Wearable sensors\\
+        TV Usage & Power consumption/smart switch \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+\clearpage
+\section{Gadey et al's Tech for Monitoring ADL in Older Adults}
 % TODO: Talk about the following for each mentioned in the overview
 % - Type of Tech
 % - Parameters or metrics used
 % - ADL used for
 % - Criteria for each 
-\clearpage
-\section{Gadey et al's Tech for Monitoring ADL in Older Adults}
 
 \subsection{Overview}
+
 
 \subsection{Specifics}
 
