@@ -24,45 +24,45 @@ Warning--empty journal in mcmahon_lawton_nodate
 Warning--empty year in mcmahon_lawton_nodate
 
 Done.
-You've used 71 entries,
+You've used 73 entries,
             4087 wiz_defined-function locations,
-            1250 strings with 23744 characters,
-and the built_in function-call counts, 52539 in all, are:
-= -- 4360
-> -- 1186
-< -- 418
-+ -- 641
-- -- 208
-* -- 2972
-:= -- 8168
-add.period$ -- 150
-call.type$ -- 71
-change.case$ -- 81
-chr.to.int$ -- 897
-cite$ -- 82
-duplicate$ -- 3763
-empty$ -- 3982
-format.name$ -- 255
-if$ -- 11971
+            1262 strings with 24441 characters,
+and the built_in function-call counts, 54158 in all, are:
+= -- 4496
+> -- 1237
+< -- 427
++ -- 666
+- -- 219
+* -- 3072
+:= -- 8423
+add.period$ -- 154
+call.type$ -- 73
+change.case$ -- 84
+chr.to.int$ -- 912
+cite$ -- 84
+duplicate$ -- 3883
+empty$ -- 4095
+format.name$ -- 268
+if$ -- 12339
 int.to.chr$ -- 0
-int.to.str$ -- 71
-missing$ -- 672
-newline$ -- 336
-num.names$ -- 67
-pop$ -- 1508
+int.to.str$ -- 73
+missing$ -- 696
+newline$ -- 344
+num.names$ -- 69
+pop$ -- 1559
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 3881
+skip$ -- 3997
 stack$ -- 0
-substring$ -- 2205
-swap$ -- 3256
-text.length$ -- 119
+substring$ -- 2249
+swap$ -- 3362
+text.length$ -- 123
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 71
+type$ -- 73
 warning$ -- 11
-while$ -- 224
-width$ -- 73
-write$ -- 830
+while$ -- 231
+width$ -- 75
+write$ -- 854
 (There were 11 warnings)
