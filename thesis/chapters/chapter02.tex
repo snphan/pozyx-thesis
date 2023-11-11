@@ -11,6 +11,7 @@
 \section{Overview}
 In 2014, over 6 million Canadians (15.6\% of the population) were 65 years old or older. The number of older adults (65+) continues to increase; and by 2030, Statistics Canada expects there to be over 9.5 million adults over the age of 65, comprising 23\% of Canadians \cite{government_of_canada_daily_2014}. Frequently, older adults who wish to age-in-place or in the comfort of their own home must be able to perform their activities of daily living (ADLs) while bearing multiple diseases and syndromes that come with age, such as frailty, impaired cognition, gait and balance problems \cite{tijsen_challenging_2019}. These ADLs may include cooking, bathing, getting into and out of bed, and toileting all of which require complex coordination of the older adult’s cognitive, physical, visual, and perceptual abilities (a complete list may be found in Table \ref{table:ADLs}). Deficits in any of the categories mentioned can impair the older adult’s ability to go about their day. However, it is typically only after an incident or hospitalization that an older adult is assessed for their ability to perform ADLs \cite{wilkinson_comprehensive_2021}. 
 
+% TODO: Look at some of the references in intro https://www.mdpi.com/1660-4601/18/1/163 and add to here.
 The current system presents an opportunity for proactive and preventative medicine through the use of in-home monitoring. Data obtained through monitoring can be used to track functional decline. With this information, older adults, along with their clinician, can plan early interventions and prevent future incidents and hospitalization. 
 
 \renewcommand{\arraystretch}{1.25}
@@ -345,9 +346,85 @@ Several key assessment tools for BADLs and IADLs have been discussed. Table \ref
 
 \clearpage
 \section{In-Home Monitoring of ADLs}
-Although traditional pen-and-paper assessment of ADLs can provide information regarding the current ability of an individual to perform ADLs, all only provide snapshots of their current ability and further tracking requires the patient to be present for the assessment. Furthermore, most involve an evaluator training period to ensure evaluator reliability, ratings are subjective, and performance-based evaluations are lengthy \cite{noauthor_performance_2015,hall_functional_2014,bottari_iadl_2010,themes_texas_2017}. In light of these challenges, this section will explore recent advances in monitoring technology for the evaluation of ADL ability. There will be a focus on the type of technology used, the parameters evaluated, the ADL it is used for and the criteria for assessing function. Information will be drawn primarily from two systematic reviews: Camp et al's "Technology Used to Recognize Activities of Daily Living in Community-Dwelling Older Adults" \cite{camp_technology_2021} and Gadey et al.'s "Technologies for monitoring activities of daily living in older adults: a systematic review" \cite{gadey_technologies_2023}.
+Although traditional pen-and-paper assessment of ADLs can provide information regarding the current ability of an individual to perform ADLs, all only provide snapshots of their current ability and further tracking requires the patient to be present for the assessment. Furthermore, most involve an evaluator training period to ensure evaluator reliability, ratings are subjective, and performance-based evaluations are lengthy \cite{noauthor_performance_2015,hall_functional_2014,bottari_iadl_2010,themes_texas_2017}. There are also issues with measurement of functional performance in a clinical setting as opposed to an at-home setting that may skew observations. For example, it may be easier to stand-up from a firm higher chair in clinical settings than a soft sofa found at home \cite{camp_technology_2021}. In light of these challenges, this section will explore recent advances in monitoring technology for the evaluation of ADL ability. There will be a focus on the type of technology used, the parameters or metrics evaluated, the ADL it is used for and the criteria for assessing function. Information will be drawn primarily from two systematic reviews: Camp et al's "Technology Used to Recognize Activities of Daily Living in Community-Dwelling Older Adults" \cite{camp_technology_2021} and Gadey et al.'s "Technologies for monitoring activities of daily living in older adults: a systematic review" \cite{gadey_technologies_2023}.
 
+\section{Camp et al's Tech Used to Recognize ADL in Community-Dwelling Older Adults}
+\subsection{Overview}
+Camp et al's search identified a total of "21 technologies, including six wearable sensors, 13 environmental sensors, and two types of camera" \cite{camp_technology_2021}. The full list can be found in Table \ref{tab:camps-tech}. These technologies were able to detect a total of 14 different ADLs, but no single technology system was able to detect all 14 \cite{camp_technology_2021}. Table \ref{tab:camps-ADL} summarizes the ADLs detected as well as their level of granularity. 39 systems were identified and most used the environment sensors. Only 3 out of the 39 systems used wearables. However, these wearable systems were able to recognize granular activities within "feeding" such as drinking and using cutlery that was not included in the other \cite{camp_technology_2021}. 
 
+\begin{table}[!ht]
+    \centering
+    \caption{Types of technologies identified in Camp et al's SR \cite{camp_technology_2021}.}
+    \label{tab:camps-tech}
+    \begin{tabular}[pos]{ p{0.2\textwidth} p{0.5\textwidth} }
+        \toprule
+        \textbf{Category} & \textbf{Technology} \\
+        \midrule
+        \multirow{13}{10em}{Environment} & Accelerometer \\
+        & Barometer \\
+        & Door Contact \\
+        & Force/Pressure \\
+        & Grid-Eye (Infrared array sensor) \\
+        & Humidity \\
+        & Hydro \\
+        & Light \\
+        & Motion \\
+        & Power Consumption \\
+        & Sound \\
+        & Temperature \\
+        & RFID Tag \\
+        \midrule
+        \multirow{6}{10em}{Wearable} & Wearable Accelerometer \\
+        & Wearable Altimeter \\
+        & Wearable Barometer \\
+        & Wearable Gyroscope \\
+        & Wearable Light \\
+        & Wearable Temperature \\
+        \midrule
+        \multirow{2}{10em}{Camera} & Depth Camera \\
+        & Video Camera \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Types of ADLs detected \cite{camp_technology_2021}. For Feeding there was separation in some studies between eating, meal preparation, drinking, and type of meal (breakfast, lunch, and dinner). For Grooming, some studies specified brushing teeth, showering, shaving, and hair styling. Finally for Social Interaction, most studies used the "front door usage," but some specified the time away from home, and the number of visits \cite{camp_technology_2021}.}
+    \label{tab:camps-ADL}
+    \begin{tabular}[pos]{ p{0.5\textwidth} }
+        \toprule
+        \textbf{ADL Detected} \\
+        \midrule
+        Bed Usage \\
+        Dressing \\
+        Feeding \\
+        Grooming \\
+        Household \\
+        Medicine \\
+        Mobility \\
+        Recreation \\
+        Sleep \\
+        Social Interaction \\
+        Stair Usage \\ 
+        Toileting \\
+        Transferring \\
+        TV Usage \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+\subsection{Specifics}
+% TODO: Talk about the following for each mentioned in the overview
+% - Type of Tech
+% - Parameters or metrics used
+% - ADL used for
+% - Criteria for each 
+\clearpage
+\section{Gadey et al's Tech for Monitoring ADL in Older Adults}
+
+\subsection{Overview}
+
+\subsection{Specifics}
 
 % TODO: Choose like 3-4 diseases (frailty dementia cardiovascular disease ) at the end and mention that because their prevlence is higher or something we focus on them.
 
