@@ -349,7 +349,6 @@ Several key assessment tools for BADLs and IADLs have been discussed. Table \ref
 Although traditional pen-and-paper assessment of ADLs can provide information regarding the current ability of an individual to perform ADLs, all only provide snapshots of their current ability and further tracking requires the patient to be present for the assessment. Furthermore, most involve an evaluator training period to ensure evaluator reliability, ratings are subjective, and performance-based evaluations are lengthy \cite{noauthor_performance_2015,hall_functional_2014,bottari_iadl_2010,themes_texas_2017}. There are also issues with measurement of functional performance in a clinical setting as opposed to an at-home setting that may skew observations. For example, it may be easier to stand-up from a firm higher chair in clinical settings than a soft sofa found at home \cite{camp_technology_2021}. In light of these challenges, this section will explore recent advances in monitoring technology for the evaluation of ADL ability. There will be a focus on the type of technology used, the parameters or metrics evaluated, the ADL it is used for and the criteria for assessing function. Information will be drawn primarily from two systematic reviews: Camp et al's "Technology Used to Recognize Activities of Daily Living in Community-Dwelling Older Adults" \cite{camp_technology_2021} and Gadey et al.'s "Technologies for monitoring activities of daily living in older adults: a systematic review" \cite{gadey_technologies_2023}.
 
 \section{Camp et al's Tech Used to Recognize ADL in Community-Dwelling Older Adults}
-\subsection{Overview}
 Camp et al.'s search identified a total of "21 [distinct] technologies, including six wearable sensors, 13 environmental sensors, and two types of camera" \cite{camp_technology_2021}. The full list can be found in Table \ref{tab:camps-tech}. These technologies were able to detect a total of 14 different ADLs, but no single technology system was able to detect all 14 \cite{camp_technology_2021}. Table \ref{tab:camps-ADL} summarizes the ADLs detected as well as their level of granularity. There were 39 systems in total identified and most used the environment sensors. Only 3 out of the 39 systems used wearables. However, these wearable systems were able to recognize granular activities within "feeding" such as drinking and using cutlery that was not included in the others \cite{camp_technology_2021}. 
 
 Though the intent of the SR was to review technology that is able to detect if an ADL action has been completed and not test if the individual is functionally able to perform the ADL, there may be some correlations with assessment scales that may be drawn. For example, the activities that technologies in Camp et al.'s review detect are present in the Barthel Index: bathing, dressing, feeding, grooming, mobility, stairs, toileting, and transfer. Sub-activities or finer-grained activities in the Barthel Index, such as activities to define feeding (cutting, or spreading butter), were not included as activities in these systems. According to Camp et al., there are few technologies that are able to recognize fine-skills such as cutlery use which have a "large influence on more general activities such as feeding, and subsequently on overall health" \cite{camp_technology_2021}. There also may be concerns with privacy which prevent these technologies from advancing deeper into exploring the detection of these sub-activities. For example, humidity and sound sensors used to detect bathing, a sub-activity of grooming, may pose a privacy risk \cite{camp_technology_2021}.
@@ -447,11 +446,11 @@ Wearable sensors\\
 
 \clearpage
 \section{Gadey et al's Tech for Monitoring ADL in Older Adults}
-Compared to Camp et al.'s article which focusses on technology to detect the completion of an ADL, Gadey et al's SR focusses more generally on the "extent and diversity" of technologies that can be used for monitoring ADLs in older adults. From 16 articles, the SR yielded 48 technologies with categories of "health-related technology, ambient appliance mounted, ambient location, motion-based, visual or interactive". There is a further category of "ambient" that is not mentioned explicitly in the article but appears as a category. After summarizing Table 4 in Gadey et al.'s article, 26 distinct technologies were found and are listed in Table \ref{tab:gadey-tech} \cite{gadey_technologies_2023}. There may have been additional technologies identified in the SR, but were grouped under more general terms such as "appliance sensors" \cite{gadey_technologies_2023} leading to the discrepancy in the number of technologies identified. 
+Compared to Camp et al.'s article which focusses on technology to detect the completion of an ADL, Gadey et al's SR focusses more generally on the "extent and diversity" of technologies that can be used for monitoring ADLs in older adults. From 16 articles, the SR yielded 48 technologies with categories of "health-related technology, ambient appliance mounted, ambient location, motion-based, visual or interactive". There is a further category of "ambient" that is not mentioned explicitly in the article but appears as a category. After summarizing Table 4 in Gadey et al.'s article, 26 distinct technologies were found and are listed in Table \ref{tab:gadey-tech} \cite{gadey_technologies_2023}. There may have been additional technologies identified in the SR, but were grouped under more general terms such as "appliance sensors" \cite{gadey_technologies_2023}. 
 
-% TODO: Add ADLs
-% Add Algorithms used
-% Add Discussion
+There were both Basic ADLs and Instrumental ADLs assessed throughout the 16 articles. In terms of BADLs, walking, transferring, stair climbing, eating, bathing, sleeping, toileting, dressing, and grooming were monitored and assessed. Out of these, "walking" was monitored and assessed the most with 11/16 articles \cite{gadey_technologies_2023}. There were 10 IADLs monitored and assessed: cooking, dishwashing, housework, managing medication, watching TV, phone use, and typing/writing. Out of these IADLs, cooking appeared the most at 6/16 articles \cite{gadey_technologies_2023}.
+
+The authors report that within the 16 articles selected wearables and Inertial Measurement Units (IMUs) were the most common technology applied and were used primarily for gait analysis. The accelerometer in the IMU was the most common in the activity recognition, and the entire IMU can be used for detecting postures and activity or inactivity. The article does not go into detail about the algorithms or methods used to detect the ADLs mentioned, but provides the suite of technologies (Wearable+Health, Wearable+Ambient, Wearables alone, etc.) used to detect certain ADLs. However, in the current state, it seems like the technologies and methods available can only detect activity and distinguish between general ADL classes \cite{gadey_technologies_2023}. An ideal monitoring solution would be able to detect changes in living patterns that may indicate early physical or cognitive decline \cite{gadey_technologies_2023}. It is not only the quantity of ADLs that needs to be monitored but also its quality (or how an ADL is being performed).
 
 \begin{table}[!ht]
     \centering
@@ -498,18 +497,16 @@ Compared to Camp et al.'s article which focusses on technology to detect the com
     \end{tabular}
 \end{table}
 
-
-
-\subsection{Overview}
-
-
-\subsection{Specifics}
-
 % TODO: Choose like 3-4 diseases (frailty dementia cardiovascular disease ) at the end and mention that because their prevlence is higher or something we focus on them.
 
 \clearpage
-\section{Narrowing Down}
+\section{Motivation}
+Both Camp et al. and Gadey et al. place an emphasis on the monitoring of the quality or performance of ADL. In Camp et al.'s case, doing so would allow a team of healthcare providers to pinpoint "exactly where an individual is having difficulty without the reliance on [time-consuming] traditional tests" \cite{camp_technology_2021}. In Gadey et al.'s case, the capability of ADL quality monitoring would allow for the early detection of physical or cognitive decline.
 
+To this end, the IADL of cooking or meal preparation presents an opportunity to monitor the quality or performance of an older adult wanting to age-in-place. Cooking is a "cognitive complex task, which requires multiple steps" \cite{sikkes_qualitative_2014} and coordination between physical and cognitive functionality. One of the most impacted IADLs after traumatic brain injury (TBI) is cooking \cite{dubuc_perceived_2019}. Additionally, cooking is "essential for independent living" \cite{dubuc_perceived_2019} and focus group interviews with stakeholders for a smart-home city project revealed that being able to "prepare my own meals" was ranked as one of the highest needs for adults with TBI \cite{levasseur_identifying_2016}. There are also safety concern with preparation of a hot meal and it poses risks such as "fires [or] burns" \cite{dubuc_perceived_2019} which monitoring may have a role in preventing. 
+
+
+\clearpage
 There is an abundance of assessments that may be used to pinpoint problems with the patient’s ADLs. One of these assessments is the Performance Assessment of Self-Care Skills (PASS) where patients are asked to perform select activities and are assessed by their healthcare provider on their ability to perform each task. 
 
 % TODO: Put in more of the assessments here
