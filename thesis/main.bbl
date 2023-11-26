@@ -499,6 +499,15 @@ S.~A. Sikkes and J.~d. Rotrou, ``\BIBforeignlanguage{en}{A qualitative review
   \url{https://www.futuremedicine.com/doi/10.2217/nmt.14.24}
 \BIBentrySTDinterwordspacing
 
+\bibitem{bouchard_smart_2020}
+\BIBentryALTinterwordspacing
+B.~Bouchard, K.~Bouchard, and A.~Bouzouane, ``\BIBforeignlanguage{en}{A smart
+  cooking device for assisting cognitively impaired users},''
+  \emph{\BIBforeignlanguage{en}{Journal of Reliable Intelligent Environments}},
+  vol.~6, no.~2, pp. 107--125, Jun. 2020. [Online]. Available:
+  \url{https://link.springer.com/10.1007/s40860-020-00104-3}
+\BIBentrySTDinterwordspacing
+
 \bibitem{dubuc_perceived_2019}
 \BIBentryALTinterwordspacing
 E.~Dubuc, M.~Gagnon-Roy, M.~Couture, N.~Bier, S.~Giroux, and C.~Bottari,
@@ -512,25 +521,10 @@ E.~Dubuc, M.~Gagnon-Roy, M.~Couture, N.~Bier, S.~Giroux, and C.~Bottari,
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/1440-1630.12611}
 \BIBentrySTDinterwordspacing
 
-\bibitem{levasseur_identifying_2016}
-\BIBentryALTinterwordspacing
-M.~Levasseur, H.~Pigot, M.~Couture, N.~Bier, B.~Swaine, P.-Y. Therriault, and
-  S.~Giroux, ``Identifying participation needs of people with acquired brain
-  injury in the development of a collective community smart home,''
-  \emph{Disability and Rehabilitation: Assistive Technology}, vol.~11, no.~8,
-  pp. 636--644, Nov. 2016, publisher: Taylor \& Francis \_eprint:
-  https://doi.org/10.3109/17483107.2015.1029536. [Online]. Available:
-  \url{https://doi.org/10.3109/17483107.2015.1029536}
-\BIBentrySTDinterwordspacing
-
-\bibitem{bouchard_smart_2020}
-\BIBentryALTinterwordspacing
-B.~Bouchard, K.~Bouchard, and A.~Bouzouane, ``\BIBforeignlanguage{en}{A smart
-  cooking device for assisting cognitively impaired users},''
-  \emph{\BIBforeignlanguage{en}{Journal of Reliable Intelligent Environments}},
-  vol.~6, no.~2, pp. 107--125, Jun. 2020. [Online]. Available:
-  \url{https://link.springer.com/10.1007/s40860-020-00104-3}
-\BIBentrySTDinterwordspacing
+\bibitem{malani_joy_2020}
+P.~Malani, J.~Kullgren, E.~Solway, J.~Wolfson, C.~Leung, D.~Singer, and
+  M.~Kirch, ``The {Joy} of {Cooking} and its {Benefits} for {Older} {Adults},''
+  University of Michigan, Tech. Rep., Jun. 2020.
 
 \bibitem{yared_cooking_2015}
 \BIBentryALTinterwordspacing
@@ -542,11 +536,6 @@ R.~Yared, B.~Abdulrazak, T.~Tessier, and P.~Mabilleau,
   0.4em\relax Corfu Greece: ACM, Jul. 2015, pp. 1--4. [Online]. Available:
   \url{https://dl.acm.org/doi/10.1145/2769493.2769516}
 \BIBentrySTDinterwordspacing
-
-\bibitem{malani_joy_2020}
-P.~Malani, J.~Kullgren, E.~Solway, J.~Wolfson, C.~Leung, D.~Singer, and
-  M.~Kirch, ``The {Joy} of {Cooking} and its {Benefits} for {Older} {Adults},''
-  University of Michigan, Tech. Rep., Jun. 2020.
 
 \bibitem{logan_sensors_2006}
 B.~Logan and J.~Healey, ``Sensors to {Detect} the {Activities} of {Daily}
