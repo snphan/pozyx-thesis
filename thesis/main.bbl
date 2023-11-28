@@ -537,6 +537,14 @@ R.~Yared, B.~Abdulrazak, T.~Tessier, and P.~Mabilleau,
   \url{https://dl.acm.org/doi/10.1145/2769493.2769516}
 \BIBentrySTDinterwordspacing
 
+\bibitem{cook_learning_2010}
+\BIBentryALTinterwordspacing
+D.~J. Cook, ``Learning {Setting}-{Generalized} {Activity} {Models} for {Smart}
+  {Spaces},'' \emph{IEEE intelligent systems}, vol. 2010, no.~99, p.~1, Sep.
+  2010. [Online]. Available:
+  \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3068197/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{logan_sensors_2006}
 B.~Logan and J.~Healey, ``Sensors to {Detect} the {Activities} of {Daily}
   {Living},'' in \emph{2006 {International} {Conference} of the {IEEE}
@@ -583,20 +591,6 @@ D.~J. Cook and M.~Schmitter-Edgecombe, ``\BIBforeignlanguage{en}{Assessing the
   \emph{\BIBforeignlanguage{en}{Methods of Information in Medicine}}, vol.~48,
   no.~05, pp. 480--485, 2009. [Online]. Available:
   \url{http://www.thieme-connect.de/DOI/DOI?10.3414/ME0592}
-\BIBentrySTDinterwordspacing
-
-\bibitem{sarker_machine_2021}
-\BIBentryALTinterwordspacing
-I.~H. Sarker, ``\BIBforeignlanguage{en}{Machine {Learning}: {Algorithms},
-  {Real}-{World} {Applications} and {Research} {Directions}},''
-  \emph{\BIBforeignlanguage{en}{SN Computer Science}}, vol.~2, no.~3, p. 160,
-  Mar. 2021. [Online]. Available:
-  \url{https://doi.org/10.1007/s42979-021-00592-x}
-\BIBentrySTDinterwordspacing
-
-\bibitem{path_path_nodate}
-\BIBentryALTinterwordspacing
-PATH, ``{PATH}.'' [Online]. Available: \url{https://pathplatform.ca/}
 \BIBentrySTDinterwordspacing
 
 \bibitem{pozyx_hardware_nodate}
