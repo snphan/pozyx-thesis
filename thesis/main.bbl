@@ -593,6 +593,15 @@ D.~J. Cook and M.~Schmitter-Edgecombe, ``\BIBforeignlanguage{en}{Assessing the
   \url{http://www.thieme-connect.de/DOI/DOI?10.3414/ME0592}
 \BIBentrySTDinterwordspacing
 
+\bibitem{dawadi_automated_2013}
+\BIBentryALTinterwordspacing
+P.~N. Dawadi, D.~J. Cook, M.~Schmitter-Edgecombe, and C.~Parsey, ``Automated
+  {Assessment} of {Cognitive} {Health} {Using} {Smart} {Home} {Technologies},''
+  \emph{Technology and health care : official journal of the European Society
+  for Engineering and Medicine}, vol.~21, no.~4, pp. 323--343, 2013. [Online].
+  Available: \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4143248/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{pozyx_hardware_nodate}
 \BIBentryALTinterwordspacing
 Pozyx, ``\BIBforeignlanguage{en}{Hardware setup}.'' [Online]. Available:
