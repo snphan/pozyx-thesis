@@ -602,6 +602,26 @@ P.~N. Dawadi, D.~J. Cook, M.~Schmitter-Edgecombe, and C.~Parsey, ``Automated
   Available: \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4143248/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{chen_measuring_2021}
+\BIBentryALTinterwordspacing
+P.-W. Chen, N.~A. Baune, I.~Zwir, J.~Wang, V.~Swamidass, and A.~W. Wong,
+  ``Measuring {Activities} of {Daily} {Living} in {Stroke} {Patients} with
+  {Motion} {Machine} {Learning} {Algorithms}: {A} {Pilot} {Study},''
+  \emph{International Journal of Environmental Research and Public Health},
+  vol.~18, no.~4, p. 1634, Feb. 2021. [Online]. Available:
+  \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7915561/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{pan_fine-grained_2020}
+\BIBentryALTinterwordspacing
+S.~Pan, M.~Berges, J.~Rodakowski, P.~Zhang, and H.~Y. Noh, ``Fine-{Grained}
+  {Activity} of {Daily} {Living} ({ADL}) {Recognition} {Through}
+  {Heterogeneous} {Sensing} {Systems} {With} {Complementary} {Spatiotemporal}
+  {Characteristics},'' \emph{Frontiers in Built Environment}, vol.~6, 2020.
+  [Online]. Available:
+  \url{https://www.frontiersin.org/articles/10.3389/fbuil.2020.560497}
+\BIBentrySTDinterwordspacing
+
 \bibitem{pozyx_hardware_nodate}
 \BIBentryALTinterwordspacing
 Pozyx, ``\BIBforeignlanguage{en}{Hardware setup}.'' [Online]. Available:
