@@ -1,17 +1,6 @@
-% TODO: 
-% - Background on ADLs
-% - Background on coking
-% - Background on trying to assess cooking
-% - Market analysis on cooking stuff
-% - Background on technologies used to track cooking
-% - Background on remote monitoring
-%
-
-
 \section{Overview}
 In 2014, over 6 million Canadians (15.6\% of the population) were 65 years old or older. The number of older adults (65+) continues to increase; and by 2030, Statistics Canada expects there to be over 9.5 million adults over the age of 65, comprising 23\% of Canadians \cite{government_of_canada_daily_2014}. Frequently, older adults who wish to age-in-place or in the comfort of their own home must be able to perform their activities of daily living (ADLs) while bearing multiple diseases and syndromes that come with age, such as frailty, impaired cognition, gait and balance problems \cite{tijsen_challenging_2019}. These ADLs may include cooking, bathing, getting into and out of bed, and toileting all of which require complex coordination of the older adult’s cognitive, physical, visual, and perceptual abilities (a complete list may be found in Table \ref{table:ADLs}). Deficits in any of the categories mentioned can impair the older adult’s ability to go about their day. However, it is typically only after an incident or hospitalization that an older adult is assessed for their ability to perform ADLs \cite{wilkinson_comprehensive_2021}. 
 
-% TODO: Look at some of the references in intro https://www.mdpi.com/1660-4601/18/1/163 and add to here.
 The current system presents an opportunity for proactive and preventative medicine through the use of in-home monitoring. Data obtained through monitoring can be used to track functional decline. With this information, older adults, along with their clinician, can plan early interventions and prevent future incidents and hospitalization. 
 
 \renewcommand{\arraystretch}{1.25}
@@ -46,14 +35,8 @@ To better understand the role of in-home monitoring, the diseases and conditions
 
 This section reviews the current literature on the disease and conditions associated that affect the ability to perform ADLs as older adults age. In terms of functionally being able to perform one's ADLs, both physical and cognitive ability are required. Peter et al., in their exploration of ADLs, mention frailty and dementia as conditions limiting ADL performance \cite{edemekong_activities_2022}. In addition to physical and cognitive abilities, sensory decline with hearing, vision and vestibular function (associated with dizziness) occur as one ages \cite{jaul_age-related_2017}. Several chronic conditions may also be present in older adults such as cardiovascular disease including heart failure and ischemic heart disease; diabetes mellitus; osteoarthritis; and osteoporosis \cite{jaul_age-related_2017}.
 
-% NOTE: Diseases/Conditions should have the following structure
-% Prevalence
-% Definition
-% Diagnosis
-% How it manifests (signs and symptoms.)
 
 \subsection{Frailty}
-
 
 Frailty is a syndrome present in 20-50\% of the middle and older aged population (ages 50+ years) \cite{hewitt_prevalence_2018} and is associated with ageing and co-morbidities, but not caused by them \cite{conroy_defining_2009}. Individuals with frailty are at “higher risk for adverse health outcomes such as illnesses, hospitalization, disability and mortality”. To define frailty, there are 2 models: the frailty phenotype and the frailty index \cite{chen_frailty_2014}. The frailty phenotype (also known as the Fried’s Definition of Cardiovascular Health Study) defines frailty as meeting three out of five of the following criteria: “weakness, slowness, low level of physical activity, self-reported exhaustion and unintentional weight loss,” whereas the frailty index uses a comprehensive geriatric assessment to determine cumulative deficits \cite{chen_frailty_2014}. 
 
@@ -497,8 +480,6 @@ The authors report that within the 16 articles selected wearables and Inertial M
     \end{tabular}
 \end{table}
 
-% TODO: Choose like 3-4 diseases (frailty dementia cardiovascular disease ) at the end and mention that because their prevlence is higher or something we focus on them.
-
 \clearpage
 \section{Motivation}
 Both Camp et al. and Gadey et al. place an emphasis on the monitoring of the quality or performance of ADL. In Camp et al.'s case, doing so would allow a team of healthcare providers to pinpoint "exactly where an individual is having difficulty without the reliance on [time-consuming] traditional tests" \cite{camp_technology_2021}. In Gadey et al.'s case, the capability of ADL quality monitoring would allow for the early detection of physical or cognitive decline.
@@ -530,7 +511,6 @@ Following Dawadi et al.'s suggestion to search for methods/sensors that can dete
     \item Chen et al. used 5 IMUs each containing an 3D accelerometer and 3D gyroscope. 2 were placed at each wrist, 2 on each upper arm and one on the hip. These IMUs were used to detect 19 ADL subtasks: brush teeth, mixing powders, spreading butter/jam, eating with hands, eating with utensils, buttoning shirt/coat, put and take off the coat, moving items horizontally, reaching up, reaching down, washing dishes, chopping, pan stirring, serve on a plate, sweeping, vacuuming, wiping horizontal surface, wiping vertical surface, and folding clothes \cite{chen_measuring_2021}. From each axis of each sensor, 3 second windows were created and 4 statistical features were extracted: standard deviation, mean, slope (from linear regression), and auto-correlation (for repetitive actions). For feature selection, the authors used XGBoost since XGBoost has "better efficiency and controls for overfitting" \cite{chen_measuring_2021} compared to the other models. After the features were selected, the Decision Tree, Random Forest, SVM, and XGBoost were tested to obtain the optimal model based on accuracy, recall, precision, and ROC AUC \cite{chen_measuring_2021}.
     \item Pan et al. detected fine-grained actions using a combination of structural vibration sensing and single-point electrical load sensing \cite{pan_fine-grained_2020}. 8 activities were classified: kettle use, stove use, put on stove, use microwave, open/close microwave door, put down food, use vacuum, and footsteps. Segments of the signal from both types of sensors with significantly higher energy were extracted as events. Then, from each sensor within each event segment, the power spectral density was calculated, concatenated together and used as a feature vector \cite{pan_fine-grained_2020}. SVM was chosen as the model for classification of the 8 activities mentioned previously. 
 \end{itemize}
-% Maybe do this search and see if there is anything on fine-grained detection. Then if there is none, then that is exactly what we tackle...
 
 \section{Next Steps}
 Though there was some degree of success in the methods that the previous articles used to detect subtasks within ADLs, there may be some limitations. In Chen et al.'s approach, there may be too many sensors involved and may pose a challenge for older adults to put on and take off every day for continuous monitoring. Pan et al.'s usage of vibrational sensors is novel, but by design of environment sensors which continuously run, there may be ethical issues with control (autonomy) and the older adult will not be able to freely turn the system off. Furthermore, Pan et al.'s models are trained only on able-bodied individuals meaning there is no indication of performance on individuals with impairments. Judging from the limitations present in the articles scoped out so far, a first step in the endeavor of monitoring and evaluating cooking in older adults may be to develop a method that is practical, accurate and robust to variation caused by impairments in detecting these subtasks. 
