@@ -161,7 +161,13 @@ for anchor in ANCHOR_CONFIG:
 
 
                     while keep_adding: 
-                        ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name)
+                        fig, (ax1, ax2) = plt.subplots(2,1, height_ratios=[5,2], figsize=(15,20))
+
+                        ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name, ax=ax1)
+                        # ax2 = utils.plot_pozyx_data_with_timings(cleaned_data, ['GYRO_X','GYRO_Y','GYRO_Z'], labels, ylim=(-500, 500), ylabel="Angular Velocity (dps)", ax=ax2)
+                        # ax2.set_title(label_fn + " GYRO")
+                        ax2 = utils.plot_pozyx_data_with_timings(cleaned_data, ['Heading','Roll','Pitch'], labels, ylim=(-200, 360), ylabel="Orientation (deg)", ax=ax2)
+                        ax2.set_title(label_fn + " Orientation")
 
                         pts = []
                         while len(pts) < 2:
