@@ -162,7 +162,11 @@ for anchor in ANCHOR_CONFIG:
 
                     while keep_adding: 
                         ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name)
-                        pts = np.array(plt.ginput(n=2, timeout=-1, mouse_add=MouseButton.RIGHT, mouse_pop=MouseButton.MIDDLE))
+
+                        pts = []
+                        while len(pts) < 2:
+                            pts = np.array(plt.ginput(n=2, timeout=-1, mouse_add=MouseButton.RIGHT, mouse_pop=MouseButton.MIDDLE))
+
                         if actions:
                             label_created = False
                             while not label_created:
