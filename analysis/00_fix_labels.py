@@ -57,9 +57,9 @@ for anchor in ANCHOR_CONFIG:
 
                 output_fp.parent.mkdir(exist_ok=True, parents=True)
 
-                add_labels = input("Add Labels (y/n)? ").lower()
+                add_labels = input("Add Labels (y/i/n)? ").lower()
                     
-                if add_labels != "y":
+                if add_labels == "n":
                     if output_fp.exists(): 
                         if skip_all: continue
                         selection = input(f"Overwrite {output_fp.name}? (y/n/skip_all) ").lower()
@@ -144,7 +144,7 @@ for anchor in ANCHOR_CONFIG:
                     # PLOTTING
                     ######################################################################
                 
-                    keep_adding = True
+                    keep_adding = add_labels
                     labels = []
                     if label_fp.exists():                         
                         labels = utils.extract_time_labels(label_fp)
@@ -159,10 +159,10 @@ for anchor in ANCHOR_CONFIG:
                         with open(actions_fp, 'r') as f:
                             actions = f.read().splitlines()
 
-
-                    while keep_adding: 
+                    
+                    while keep_adding in ["i", "y"]: 
+                        prev_end = labels[-1]["Timestamp"] if labels else 0  # Keep track of the end time of each action for chained actions (OPEN, GRAB, CLOSE)
                         fig, (ax1, ax2) = plt.subplots(2,1, height_ratios=[5,2], figsize=(15,20))
-
                         ax = utils.plot_pozyx_data_with_timings(cleaned_data, ['POS_X','POS_Y', 'POS_Z'], labels, title=label_fp.name, ax=ax1)
                         # ax2 = utils.plot_pozyx_data_with_timings(cleaned_data, ['GYRO_X','GYRO_Y','GYRO_Z'], labels, ylim=(-500, 500), ylabel="Angular Velocity (dps)", ax=ax2)
                         # ax2.set_title(label_fn + " GYRO")
@@ -170,31 +170,64 @@ for anchor in ANCHOR_CONFIG:
                         ax2.set_title(label_fn + " Orientation")
 
                         pts = []
-                        while len(pts) < 2:
-                            pts = np.array(plt.ginput(n=2, timeout=-1, mouse_add=MouseButton.RIGHT, mouse_pop=MouseButton.MIDDLE))
+                        if keep_adding == "y":
+                            while len(pts) < 2:
+                                pts = np.array(plt.ginput(n=2, timeout=-1, mouse_add=MouseButton.RIGHT, mouse_pop=MouseButton.MIDDLE))
+                        if keep_adding == "i":
+                            plt.draw()
+                            plt.pause(0.001)
+                            new_begin = input("BEGIN: ")
+                            new_end = input("END: ")
+
+                            try:
+                                if len(new_end.split(":")) == 2:
+                                    end_time = new_end.split(":")
+                                    parsed_end = float(end_time[0]) * 60 + float(end_time[1])
+                                else:
+                                    parsed_end = float(new_end)
+
+                                if new_begin == "p": parsed_begin = prev_end
+                                elif len(new_begin.split(":")) == 2:
+                                    begin_time = new_begin.split(":")
+                                    parsed_begin = float(begin_time[0]) * 60 + float(begin_time[1])
+                                else:
+                                    parsed_begin = float(new_begin)
+                            except ValueError:
+                                print("invalid input")
+
+                            pts = np.array([[parsed_begin], [float(parsed_end)]])
+
+                        plt.close()
 
                         if actions:
                             label_created = False
                             while not label_created:
                                 try:
                                     actions_options = "\n".join([f"({ind}) {action}" for ind, action in enumerate(actions)])
-                                    action_ind = input(f"\nChoose an action:\n{actions_options}\n\n")
+                                    action_ind = input(f"\nChoose an action or (C)ancel: \n{actions_options}\n\n")
+                                    if action_ind.lower() == "c": break
                                     action_name = actions[int(action_ind)]
                                     confirm = input("Confirm Label: " + action_name + " (y/n)? ")
                                     if confirm == "y":
                                         label_created = True
                                 except ValueError as e:
                                     print("Invalid Option")
+                            if action_ind.lower() != "c":
+                                labels.append({'Timestamp': pts[:, 0][0], 'Label': 'BEGIN_' + action_name})
+                                labels.append({'Timestamp': pts[:, 0][1], 'Label': 'END_' + action_name})
+                            else: print("\nCancelled label.\n")
                         else:
-                            label_name = input("What is the label name?: ")
-                        labels.append({'Timestamp': pts[:, 0][0], 'Label': 'BEGIN_' + action_name})
-                        labels.append({'Timestamp': pts[:, 0][1], 'Label': 'END_' + action_name})
+                            label_name = input("What is the label name or (C)ancel?: ")
+                            if label_name.lower() != "c":
+                                labels.append({'Timestamp': pts[:, 0][0], 'Label': label_name})
+                            else: print("\nCancelled label.\n")
+
 
                         with open(output_fp, 'w') as f:
                             write_text = ('\n').join([f"{label['Label']}: {str(float(label['Timestamp']) + start_time)}" for label in labels])
                             f.write(write_text)
 
-                        keep_adding = True if input("Keep Adding (y/n)? ").lower() == "y" else False
+                        keep_adding = input("Keep Adding (y/i/n)? ").lower()
 
-                        plt.close()
+
                 
