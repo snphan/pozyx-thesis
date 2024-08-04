@@ -32,7 +32,7 @@ def extract_time_labels(fp):
 
     Returns
     -------
-    List[{'Timestamp': float, 'Label': str}]
+    List[{'Timestamp': str, 'Label': str}]
     """
     with open(fp) as f:
         labels = f.readlines()
@@ -167,21 +167,21 @@ def plot_pozyx_locations_with_timings(data: pd.DataFrame, labels: list[dict], ti
             ax.axvline(float(label['Timestamp']), color="black")
     return ax
 
-def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000), ylabel="Position (mm)"):
+def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], ax=None, title="Data with Timings", ylim=(-1000, 15000), ylabel="Position (mm)"):
     """
     Args
     ----
 
     labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>} 
     """
-    ax = data.loc[:, columns].plot(figsize=(20,10))
+    ax = data.loc[:, columns].plot(figsize=(20,10), ax=ax)
     ax.set_title(title)
     ax.set_ylim(ylim)
     ax.set_ylabel(ylabel)
     for label in labels:
         if label["Label"] != "10 sec elapsed":
             ax.axvline(float(label['Timestamp']), color="red", alpha=0.5)
-            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", alpha=0.5, size=18)
+            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", alpha=0.5, size=10)
         else:
             ax.axvline(float(label['Timestamp']), color="black")
     return ax
