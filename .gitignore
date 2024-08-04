@@ -6,3 +6,5 @@
 *.synctex.gz
 *.toc
 *.csv
+*.txt
+*.pyc
