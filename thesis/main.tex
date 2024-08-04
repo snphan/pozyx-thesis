@@ -1,6 +1,17 @@
 \documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage{array, booktabs, caption}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{csquotes}
+\usepackage{longtable, booktabs}
+\usepackage{siunitx}
+
 \graphicspath{ {images/} }
 
 \title{
@@ -9,7 +20,7 @@
     {\includegraphics[width=\textwidth]{university.png}}
 }
 \author{Steven Phan}
-\date{01 December 2023}
+\date{08 April 2023}
 
 \begin{document}
 \maketitle
@@ -32,15 +43,19 @@
 \chapter{Introduction}
 \input{chapters/chapter01}
 
-\chapter{System Tuning at the Independent Living Suite}
+\chapter{Literature Review}\label{chp2}
 \input{chapters/chapter02}
 
+\chapter{System Testing and Tuning at the Independent Living Suite}\label{chp3}
+\input{chapters/chapter03}
+
+\chapter{Pilot Testing of Detecting Activities to make a Sandwich}
+\input{chapters/chapter04}
 % --------------------------------------------------
-\appendix
-\chapter{Appendix}
-\input{chapters/appendix}
+% \appendix
+% \chapter{Appendix}
+% \input{chapters/appendix}
 
-
-\bibliographystyle{plain}
+\bibliographystyle{IEEEtran}
 \bibliography{ReHM}
 \end{document}
