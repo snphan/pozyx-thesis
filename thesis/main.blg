@@ -1,50 +1,68 @@
 This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
-The style file: plain.bst
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: ReHM.bib
-Warning--to sort, need author or key in noauthor_creator_nodate
-Warning--to sort, need author or key in noauthor_hardware_nodate
-Warning--to sort, need author or key in noauthor_configuration_nodate
-You've used 3 entries,
-            2118 wiz_defined-function locations,
-            503 strings with 4182 characters,
-and the built_in function-call counts, 464 in all, are:
-= -- 36
-> -- 3
-< -- 0
-+ -- 3
-- -- 0
-* -- 17
-:= -- 51
-add.period$ -- 3
-call.type$ -- 3
-change.case$ -- 9
-chr.to.int$ -- 0
-cite$ -- 6
-duplicate$ -- 21
-empty$ -- 70
-format.name$ -- 0
-if$ -- 112
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty author in noauthor_glucose_2020
+Warning--edition ordinal word "Second Edition" may be too high (or improper) for conversion in prieto-lhambra_osteoarthritis_2014
+Warning--empty journal in mcmahon_katz_nodate
+Warning--empty year in mcmahon_katz_nodate
+Warning--empty journal in ahs_barthel_nodate
+Warning--empty year in ahs_barthel_nodate
+Warning--empty author in noauthor_measures_nodate
+Warning--empty journal in noauthor_measures_nodate
+Warning--empty year in noauthor_measures_nodate
+Warning--empty journal in mcmahon_lawton_nodate
+Warning--empty year in mcmahon_lawton_nodate
+
+Done.
+You've used 80 entries,
+            4087 wiz_defined-function locations,
+            1307 strings with 27119 characters,
+and the built_in function-call counts, 61103 in all, are:
+= -- 5114
+> -- 1406
+< -- 498
++ -- 760
+- -- 247
+* -- 3467
+:= -- 9501
+add.period$ -- 168
+call.type$ -- 80
+change.case$ -- 92
+chr.to.int$ -- 1062
+cite$ -- 91
+duplicate$ -- 4348
+empty$ -- 4548
+format.name$ -- 303
+if$ -- 13933
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 0
-newline$ -- 12
-num.names$ -- 0
-pop$ -- 24
+int.to.str$ -- 80
+missing$ -- 772
+newline$ -- 377
+num.names$ -- 76
+pop$ -- 1685
 preamble$ -- 1
-purify$ -- 6
-quote$ -- 0
-skip$ -- 30
+purify$ -- 0
+quote$ -- 4
+skip$ -- 4529
 stack$ -- 0
-substring$ -- 15
-swap$ -- 3
-text.length$ -- 0
+substring$ -- 2612
+swap$ -- 3812
+text.length$ -- 144
 text.prefix$ -- 0
-top$ -- 0
-type$ -- 12
-warning$ -- 3
-while$ -- 0
-width$ -- 4
-write$ -- 17
-(There were 3 warnings)
+top$ -- 5
+type$ -- 80
+warning$ -- 11
+while$ -- 263
+width$ -- 82
+write$ -- 952
+(There were 11 warnings)

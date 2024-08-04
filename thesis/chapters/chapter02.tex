@@ -1,101 +1,520 @@
-The Pozyx Creator Kit comes with anchors and several tags. Anchors are mounted 
-on the walls and are used to position the tags. Multiple tags may be positioned
-at the same time.
-The Pozyx Creator kit uses ultrawideband (UWB) signals with the two-way ranging protocol to localize the tag. 
-The tag is mounted on custom 3D printed wearables which the participant can wear as 
-a wrist-watch or a necklace. Through trial-and-error and consultation with the Pozyx Creator Documentation
-\cite{noauthor_hardware_nodate,noauthor_configuration_nodate}
-it was determined that the accuracy of the system depends on factors listed below:
+\section{Overview}
+In 2014, over 6 million Canadians (15.6\% of the population) were 65 years old or older. The number of older adults (65+) continues to increase; and by 2030, Statistics Canada expects there to be over 9.5 million adults over the age of 65, comprising 23\% of Canadians \cite{government_of_canada_daily_2014}. Frequently, older adults who wish to age-in-place or in the comfort of their own home must be able to perform their activities of daily living (ADLs) while bearing multiple diseases and syndromes that come with age, such as frailty, impaired cognition, gait and balance problems \cite{tijsen_challenging_2019}. These ADLs may include cooking, bathing, getting into and out of bed, and toileting all of which require complex coordination of the older adult’s cognitive, physical, visual, and perceptual abilities (a complete list may be found in Table \ref{table:ADLs}). Deficits in any of the categories mentioned can impair the older adult’s ability to go about their day. However, it is typically only after an incident or hospitalization that an older adult is assessed for their ability to perform ADLs \cite{wilkinson_comprehensive_2021}. 
+
+The current system presents an opportunity for proactive and preventative medicine through the use of in-home monitoring. Data obtained through monitoring can be used to track functional decline. With this information, older adults, along with their clinician, can plan early interventions and prevent future incidents and hospitalization. 
+
+\renewcommand{\arraystretch}{1.25}
+\begin{table}[h!]
+    \centering
+    \caption{Complete list of Basic ADLs and Instrumental ADLs. Adapted from \cite{edemekong_activities_2022}.}
+    \label{table:ADLs}
+    \begin{tabular}{ p{0.9in} p{1.5in} p{2.7in} } 
+    \hline
+    \textbf{Category} & \textbf{Name} & \textbf{Description} \\
+    \hline
+    \multirow{6}{4em}{Basic ADLs} & Ambulating & Ability to move from one position to another and get around the house. \\ 
+    & Feeding & The ability to feed oneself. \\ 
+    & Personal Hygiene & The ability to maintain hygiene for oneself. Includes dental, nails and hair hygiene. \\ 
+    & Continence & The ability to put on clothes, shoes, pants, etc. \\ 
+    & Toileting & The ability to use the toilet appropriately and clean oneself after. \\ 
+    \hline
+    \multirow{6}{4em}{Instrumental ADLs} & Transportation and Shopping & Ability to arrange transportation for oneself or drive. Also, the ability to procure groceries, clothing and any other daily necessities. \\
+    & Managing Finances & Ability to manage assets and pay the bills. \\
+    & Meal preparation & End-to-end ability to put a meal onto the table. Involves both purchasing of groceries, cooking, plating and brining to the dining table. \\
+    & Housecleaning and home maintenance & Cleaning kitchen after eating and keeping living areas reasonably clean and tidy. The ability to maintain the home and arrange repairs if needed. \\
+    & Managing communication with other & The ability to use phone and mail to communicate with others. \\
+    & Managing Medication & Ability to obtain medications and take them as directed. \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+To better understand the role of in-home monitoring, the diseases and conditions that older adults may face as they age must be understood. Accordingly, the next sections will be organized as follows: first, an overview of the disease or condition including its definition, prevalence and symptoms will be presented; next, current assessment tools for ADLs will be discussed; finally, current attempts at in-home monitoring for ADLs will be investigated as well as what data and how the data is being used.
+
+\section{Background for Diseases and Conditions in Aging}\label{sec:bg_disease}
+
+This section reviews the current literature on the disease and conditions associated that affect the ability to perform ADLs as older adults age. In terms of functionally being able to perform one's ADLs, both physical and cognitive ability are required. Peter et al., in their exploration of ADLs, mention frailty and dementia as conditions limiting ADL performance \cite{edemekong_activities_2022}. In addition to physical and cognitive abilities, sensory decline with hearing, vision and vestibular function (associated with dizziness) occur as one ages \cite{jaul_age-related_2017}. Several chronic conditions may also be present in older adults such as cardiovascular disease including heart failure and ischemic heart disease; diabetes mellitus; osteoarthritis; and osteoporosis \cite{jaul_age-related_2017}.
+
+
+\subsection{Frailty}
+
+Frailty is a syndrome present in 20-50\% of the middle and older aged population (ages 50+ years) \cite{hewitt_prevalence_2018} and is associated with ageing and co-morbidities, but not caused by them \cite{conroy_defining_2009}. Individuals with frailty are at “higher risk for adverse health outcomes such as illnesses, hospitalization, disability and mortality”. To define frailty, there are 2 models: the frailty phenotype and the frailty index \cite{chen_frailty_2014}. The frailty phenotype (also known as the Fried’s Definition of Cardiovascular Health Study) defines frailty as meeting three out of five of the following criteria: “weakness, slowness, low level of physical activity, self-reported exhaustion and unintentional weight loss,” whereas the frailty index uses a comprehensive geriatric assessment to determine cumulative deficits \cite{chen_frailty_2014}. 
+
+\subsection{Dementia}
+
+Worldwide, 47 million people live with dementia, and the number is only expected to increase. By 2050, it is projected that 131 million individuals will be living with dementia \cite{noauthor_diagnosis_nodate}. In the US, the prevalence of dementia in older adults above the age of 68 is 15\% \cite{noauthor_diagnosis_nodate}. Dementia is an umbrella term describing a gradual decline in cognitive abilities in several domains to the point of impairing social or occupational function \cite{noauthor_diagnosis_nodate}. It involves a slow onset and gradual loss of memory, typically paired with the inability to retain new information and ability to perform daily activities \cite{noauthor_diagnosis_nodate}. Prior to diagnosing dementia, there is typically a long history of cognitive decline combined with mention of cognitive decline from close friends and family \cite{noauthor_diagnosis_nodate}. When diagnosing dementia, a common tool that is used is the Mini Mental State Examination (MMSE): a paper test that lists several simple tasks such as spelling a word backwards, and asking about the day of the week, etc. \cite{arevalo-rodriguez_mini-mental_2015}. 
+
+\subsection{Hearing Loss}
+The prevalence of hearing loss increases with age and at around 85 years or older, about half of all
+older adults experience hearing impairments \cite{desai_trends_2001}. Hearing loss is associated with a decreased quality of life and impairs speech processing. Reduced conversational ability may lead to social isolation which is associated with depression and cognitive decline \cite{jaul_age-related_2017}.
+
+\subsection{Vision Loss}
+Similar to hearing loss, the prevalence of vision loss increases with age. In the UK, it was found that 23\% of older adults ages 85-89 had severe vision loss and this increases to 37\% for older adults older than 90 years \cite{evans_prevalence_2002}. Older adults with vision loss are reported to have slower walking speeds and have difficulty doing physical activities \cite{swenor_aging_2020}. Vision loss can also "predict cognitive decline and risk of dementia" \cite{swenor_aging_2020}.
+
+\subsection{Dizziness}
+In 2000, Tinetti et al., found that 24\% of their sample American population over age 72 experience dizziness \cite{tinetti_dizziness_2000}. The cause of dizziness in the older population is multifactorial, but the most common cause is peripheral vestibular dysfunction (the part of the ear responsible for balance) \cite{iwasaki_dizziness_2014}. As one ages, the number of vestibular hair cells and neurons decrease which impairs the older adult's ability to sense changes in orientation \cite{iwasaki_dizziness_2014}. As a result, their balance and postural stability deteriorates and they are at higher risk of falling \cite{iwasaki_dizziness_2014}.
+
+\subsection{Heart Failure} 
+Heart Failure affects at least 26 million people worldwide and the number of people affected continues to grow \cite{savarese_global_2017}. The American College of Cardiology (ACC) Foundation and American Heart Association (AHA) define Heart failure (HF) as “a complex clinical syndrome that results from any structural or functional impairment of ventricular filling or ejection of blood \cite{ziaeian_epidemiology_2016}.” There are two types of HF: HF with reduced ejection fraction and HF with preserved ejection fraction. HF with reduced ejection fraction occurs at an ejection fraction $\leq$40\% and and HF with preserved ejection fraction occurs at an ejection fraction $\geq$50\% \cite{ziaeian_epidemiology_2016}. Though patients with HF present with a variety symptoms, some include shortness of breath, lethargy, fatigue, reduced exercise tolerance, wheezing, and ankle swelling \cite{watson_clinical_2000}.
+
+\subsection{Ischemic Heart Disease}
+Ischemic heart disease (IHD) is also called coronary heart disease (CHD) or coronary artery disease (CAD) \cite{criteria_ischemic_2010} and between the periods of 2003 to 2006 it was estimated that 17.6 million or 7.9\% of Americans age 20 or older had CAD \cite{criteria_ischemic_2010}. Similar to the other conditions, prevalence of IHD increases with age: in 2017 the National Health and Nutrition Examination Survey reported a prevalence of 30.6\% in men and 21.7\% in women over the age of 80 \cite{madhavan_coronary_2018}. IHD manifests due to a condition called atherosclerosis which is a buildup of plaque in the blood vessels \cite{criteria_ischemic_2010}. Atherosclerosis reduces the diameter of the blood vessel which reduces the supply of blood to an organ. The condition when an organ doesn't get enough blood and oxygen is referred to as ischemia. In the case of Ischemic Heart Disease, the heart does not receive enough blood and oxygen \cite{criteria_ischemic_2010}. As a result, IHD may cause symptoms such as fatigue and angina pectoris which is the discomfort that is felt when the heart muscle does not get enough oxygen \cite{criteria_ischemic_2010}.
+
+\subsection{Diabetes Mellitus}
+Diabetes occurs when the body cannot control its blood sugar levels \cite{sapra_diabetes_2021}. People who have diabetes are at risk of damaging blood vessels in their eyes, kidneys and nerves \cite{sapra_diabetes_2021}. Diabetes mellitus can come in two main subtypes: type 1 diabetes mellitus (T1DM) or type 2 diabetes mellitus (T2DM) \cite{sapra_diabetes_2021}. T1DM occurs due to the destruction of insulin producing beta-cells from an autoimmune process, while T2DM appears when cells develop a resistance to insulin and fail to use insulin that is being produced. The full extent of T2DM occurs when a cell’s resistance to insulin overtakes the body’s ability to produce insulin \cite{sapra_diabetes_2021}. Diabetes affects 1 in 11 adults. 90\% of adults have T2DM and the remaining 10\% have T1DM. Onset for people with T1DM gradually increases from birth and peaks at ages 4 to 6 years and again from 10 to 14 years \cite{sapra_diabetes_2021}. 
+Signs and symptoms of diabetes include being overweight/obese, blurry vision, yeast infections, numbness, and neuropathic pain \cite{sapra_diabetes_2021}. T1DM is diagnosed based on a history of "fasting glucose over 126 mg/dL, random glucose over 200 mg/dL, or hemoglobin A1C exceeding (HbA1C) 6.5\%" \cite{sapra_diabetes_2021}. The early stages of T2DM uses fasting glucose and HbA1C as well, but Sapra and Bhandari do not provide a specific level. A precursor to T2DM, prediabetes can be diagnosed with a glucose level of 100 to 125 mg/dL or a 2-hour post-oral glucose tolerance test (testing blood sugar levels one hour after ingesting 75 g of glucose dissolved into 250 ml to 300 ml of water \cite{noauthor_glucose_2020}) glucose level of 140 to 200 mg/dL \cite{sapra_diabetes_2021}. 
+
+\subsection{Osteoarthritis}
+Osteoarthritis affects approximately 27 million Americans \cite{lespasio_hip_2018} and onsets in a third of adults during the typical working age of 45-64 years \cite{hootman_projections_2006}. There are about 315 million visits to the doctor, and 744 000 hospital admissions per year in the US for osteoarthritis. These figures add up to a total of 68 million days off work \cite{prieto-lhambra_osteoarthritis_2014}.
+Osteoarthritis is the most common type of joint disorder. It is a disease characterized by the mechanical destruction and failure of a synovial joint \cite{hunter_osteoarthritis_2019}. In order of the most common location, the knee ranks first, followed by the hand and the hip \cite{hunter_osteoarthritis_2019}. High-risk factors or factors that greatly increase the chance of having osteoarthritis include obesity and previous joint injury \cite{prieto-lhambra_osteoarthritis_2014}. 
+Osteoarthritis typically presents as debilitating pain, and is accompanied by stiffness, reduced range of motion, joint instability, swelling, muscle weakness, and fatigue \cite{hunter_osteoarthritis_2019}. Clinical diagnosis is based on the symptoms that the patient presents with such as pain, and functional limitations \cite{hunter_osteoarthritis_2019}. Additionally, diagnostic criteria such as those from the American College of Rheumatology may also be used \cite{hunter_osteoarthritis_2019,altman_development_1986}.
+
+\subsection{Osteoporosis}
+Osteoporosis is characterized by a reduction in bone mass and structural deterioration inside of the bone \cite{compston_osteoporosis_2019}. It is estimated that over 200 million people have osteoporosis and incidence increases with age \cite{porter_osteoporosis_2023}. Over the age of 80, it is estimated that 70\% of people have osteoporosis \cite{porter_osteoporosis_2023}. This condition leads to an increased risk of bone fractures at all bone locations, with hip and vertebral fractures being historically associated with osteoporosis \cite{compston_osteoporosis_2019}. Typically, there is a long "latent period," where osteoporosis goes undetected, before it manifests clinically as a vertebral, rib or hip fracture \cite{glaser_osteoporosis_1997}. One of the earliest symptoms of osteoporosis occurs as a result vertebral compression fractures \cite{glaser_osteoporosis_1997}. The individual may experience acute back pain at rest or during activity such as bending, standing from a seated position and lifting an object \cite{glaser_osteoporosis_1997}. Individuals with hip fractures experience pain and an inability to bear weight which leads to reduced functional status and quality of life \cite{compston_osteoporosis_2019}. In 2010, 2.7 million hip fractures occurred worldwide \cite{compston_osteoporosis_2019} and as one ages, the incidence of hip fractures increases exponentially \cite{compston_osteoporosis_2019}. 
+
+\section{Traditional Assessment of ADLs}\label{sec:Trad ADL Assessment}
+The traditional assessment of ADLs often involves a pen and paper test. Some tools may require a trained clinician to ask the patient to perform some tasks related to the ADL and observe their performance \cite{pashmdarfard_assessment_2020}. Based on the criteria outlined in the assessment tool, a score is assigned and helps the clinician later identify deficits and plan care accordingly \cite{mcmahon_katz_nodate}. Other tools may require the clinician to check patient medical records, use direct observation or interview the patient directly to assign scores \cite{katz_for_the_association_of_rheumatology_health_professionals_outcomes_measures_task_force_measures_2003}. 
+
+Pashmdarfard and Azad in their systematic review of ADL assessment tools identified 8 tools assessing Basic ADLs and 5 tools assessing Instrumental ADLs \cite{pashmdarfard_assessment_2020}. The Basic ADLs assessment tools are as follows:
 
 \begin{itemize}
-    \item Number of anchors
-    \item Position of anchors
+    \item Barthel index
+    \item Katz Index of Independence in ADLs
+    \item Functional Independence Measure
+    \item ADL Profile
+    \item ADL Questionnaire
+    \item Australian Therapy Outcome Measures
+    \item Melbourn Low-Vision ADL Index
+    \item Self-Assessment Parkinson's disease (PD) Disability Scale 
 \end{itemize}
 
-These variables were modified to achieve satisfactory actual position error
-and standard deviation below the expected error of 30 cm for UWB systems. The 
-protocol for obtaining data and evaluating the actual position error and 
-standard deviation will be described.
+And the Instrumental ADL assessment tools are as follows:
 
-% ----------------------------------------------------------------------------------------------------
-\section{Methodology}
-This protocol tests the X, Y, and Z positional accuracy of the Pozyx Creator system in the Independent
-Living Suite (ILS) at the Glenrose Rehabilitation Hospital by having a participant stand at 
-a specific location in each room. Permanent appliances or furniture such as the stove
-or dining table were used as much as possible to ensure that the experiment is repeatable.
-
-\subsection{Setup}
-Masking tape was used to mark the locations where the participant should place their feet.
-The following procedure was followed to place the tape:
-\begin{enumerate}
-    \item Using a measuring tape, measure 1 meter out from the middle of the 
-    appliance or furniture and place a 20 cm piece of tape centered on, perpendicular to
-    and underneath the measuring tape (the tips of the participant's toes should be 1 meter
-    away from the appliance).\label{step 1}
-    \item Place parallel tape on the sides of the tape placed in Step \ref{step 1} to constrain
-    the feet to a box. (The participant should have their toes on the tape perpendicular to the
-    measuring tape and usually facing the appliance or furniture).
-    Figure \ref{fig:tape} outlines some examples of tape placements.
-\end{enumerate}
-
-
-\begin{figure}[ht]
-    \label{fig:tape}
-    \centering
-    \includegraphics[width=\textwidth, angle=-90]{tape.jpg}
-    \caption{Box tape placement at the stove, fridge, and dining table. Participant's toes 
-    and sides of feet should touch the tape.}
-\end{figure}
-
-Following the tape placement guidelines outlined at the beginning of this section,
-tape was placed at or near the following locations. Refer to the AUTOCAD floor plan for 
-the location of the rooms (Figure \ref{fig:floorplan}):
 \begin{itemize}
-    \item The Hallway between Living Room and Kitchen facing the Dining Table.
-    \item The Living Room facing the Desk.
-    \item The Bedroom facing the bed.
-    \item The Hallway between the bedroom and the bathroom, facing away from the wall.
-    \item Bathroom facing the toilet.
-    \item Kitchen facing the stove.
-    \item The Hallway between Living Room and Kitchen facing the Dining Table.
+    \item Frenchay Activities Index
+    \item ADL Profile Instrumental
+    \item Lawton Instrumental ADL Scale
+    \item Performance Assessment of Self-Care Skills
+    \item Texas Functional Living Scale
 \end{itemize}
 
-\begin{figure}[ht]
-    \label{fig:floorplan}
-    \centering
-    \includegraphics[width=\textwidth]{floorplan}
-    \caption{Floor plan of the ILS.}
-\end{figure}
-
-
-\subsection{Protocol}
-A stopwatch python script was created with predetermined labels and used as the ground truth 
-for positions. A single participant wore the tag on a 3D printed necklace mount (Figure \ref{fig:necklace}). 
-The measuring tape was used to measure the height from the ground and height when squatting.
-For this participant, the standing height was \textbf{144cm} and the squatting height was \textbf{68.5cm}.
+\clearpage
+\subsection{Barthel index}
+There are 10 activities related to Basic ADLs that are assessed by the Barthel Index: bowels, bladder, grooming, toilet use, feeding, transfer, mobility, dressing, stairs, and bathing \cite{ahs_barthel_nodate}. Total possible scores range from 0-20 with 20 being highly functional and 0 indicating high disability. Scores can be obtained through self-report, by proxy (reports from someone who is familiar with the individual), or through observation. A version of the Barthel Index used at Alberta Health Services is provided in Figure \ref{fig:barthel-index}.
 
 \begin{figure}[ht]
-    \label{fig:necklace}
     \centering
-    \includegraphics[width=\textwidth]{necklace}
-    \caption{The Pozyx tag mounted in a custom 3D printed necklace mount.}
+    \includegraphics*[width=0.7\textwidth]{barthel-index}
+    \caption{Alberta Health Services (AHS) adaptation of the Barthel Index \cite{ahs_barthel_nodate}}
+    \label{fig:barthel-index}
 \end{figure}
 
-The protocol had the following steps:
+\clearpage
+\subsection{Katz Index of Independence in ADLs}
+The Katz Index evaluates 6 categories for Basic ADLs: bathing, dressing, toileting, transfers, continence, and feeding for older adults. Though the Katz Index is binary (either independent or dependent), the evaluator is given 3 choices for each category and must select one for each: independence, intermediate dependence and full dependence \cite{katz_studies_1963}. Figure \ref{fig:katz-index} shows the evaluation form a clinician would use. Adequacy or overall performance in the 6 functions is given as a grade (A, B, C, D, E, F, and other) based on the type of dependence. The description of these grades may be found in Figure \ref{fig:katz-grades}. The results of this assessment can be used to describe functional level at the onset of an illness such as hip fracture \cite{katz_studies_1963}. It may also be used to compare treatment effectiveness between a control and treatment group, acts as a guide for hospital admittance, as well as guide progress during therapy \cite{katz_studies_1963}.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[t]{.4\textwidth}
+        \centering
+        \includegraphics*[width=\linewidth]{katz-index}
+        \caption{Evaluation form from the Katz Index of Independence in ADLs \cite{katz_studies_1963}}
+        \label{fig:katz-index}
+    \end{subfigure}
+    ~~~
+    \begin{subfigure}[t]{.4\textwidth}
+        \centering
+        \includegraphics*[width=\linewidth]{katz-grades}
+        \caption{Grades for determining adequacy outlined in \cite{katz_studies_1963}}
+        \label{fig:katz-grades}
+    \end{subfigure}
+    \caption{The Katz Index of Independence in ADLs \cite{katz_studies_1963}}
+\end{figure}
+
+\clearpage
+\subsection{Functional Independence Measure}
+The Functional Independence Measure (FIM) is frequently used for patients who have experienced stroke \cite{davidson_functional_2014}. FIM is based off of the Barthel Index and contains 18 items that tests independence in "self-care activities, mobility, locomotion, communication, sphincter control, and congnition" \cite{davidson_functional_2014}. Each item is rated from 1 (total assistance) to 7 (independent) for a total score that ranges from 18 to 126--a higher score indicates higher independence \cite{davidson_functional_2014}. If the level of dependence can not be evaluated, then the lowest score of 1 is given \cite{davidson_functional_2014}. Unfortunately, the FIM is proprietary and cannot be reproduced here \cite{noauthor_fimtm_nodate}. 
+
+\clearpage
+\subsection{ADL Profile}
+The ADL Profile was created to assess ADL function in head injured people whose deficits lie mostly with "complex home and community activities" \cite{dutil_development_1990}. Accordingly, 10 domains were chosen for assessment: personal hygiene, dressing, feeding, health care, meal preparation and home management, and use of public services, transportation, financial management and time management \cite{dutil_development_1990}. Tasks are devised for each domain and the clinician would observe the patient performing the task. Following the completion of a task the clinician would rate the patient on a 3-point ordinal scale with 0 indicating dependence and 2 indicating independence based on their ability to perform the 10 operations common to all of the tasks \cite{dutil_development_1990}. See Figure \ref{fig:adl-profile} for an example of a score sheet for the ADL Profile.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[width=0.7\textwidth]{adl-profile}
+    \caption{Example of a score sheet for some tasks in the ADL profile \cite{dutil_development_1990}. Columns show the operations for each of the tasks.}
+    \label{fig:adl-profile}
+\end{figure}
+
+Since Dutil et al's 1990 paper on the ADL profile, several other sources seem to have indicated that there have been some updates to the ADL Profile. Notably, the scoring system has expanded to a 4-point ordinal scale with 0 being independent and 3 being completely dependent \cite{pashmdarfard_assessment_2020,bottari_iadl_2010}. Furthermore the assessment includes a questionnaire for 3 items that are assessed through a semi-structured interview with the person or their caregiver(s) \cite{pashmdarfard_assessment_2020,bottari_iadl_2010}.  
+
+\subsection{ADL Questionnaire}
+The ADL Questionnaire was developed for individuals with Alzheimer's Disease. It is applicable to a wide range of dementia syndromes and can be used to track functional decline over time \cite{kennedy_activities_2004}. It assess six areas: "self-care, household care, employment and recreation, shopping and money, travel, and communication" \cite{kennedy_activities_2004}. The primary caregiver assigns a score from 0 (no problem) to 3 (unable to perform) for each areas by comparing current level of ability to the level of ability before the onset of dementia" \cite{kennedy_activities_2004}. Impairment is then calculated by formula \ref{eq:adl-quest} (Note that all scores with "9" are excluded because either the patient has never done the activity or the caregiver doesn't know): 
+
+\begin{equation}
+    \text{Functional Impairment} = \frac{\text{Sum of all ratings}}{3 * \text{total number of items rated}} * 100\%
+    \label{eq:adl-quest}
+\end{equation}
+
+Impairment is the rated by ranges: 0-33\% indicates none to mild impairment, 34-66\% indicates moderate impairment and $>66\%$ indicates sever impairment. An excerpt of the questionnaire is provided in Figure \ref{fig:adl-quest}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[width=0.8\textwidth]{adl-quest}
+    \caption{Excerpt of the questions asked in the ADL questionnaire~\cite{kennedy_activities_2004}}
+    \label{fig:adl-quest}
+\end{figure}
+
+\clearpage
+\subsection{Australian Therapy Outcome Measures}
+The Australian Therapy Outcome Measures (AuTOM) is based on the UK Therapy Outcome Measures \cite{perry_therapy_2004} and is used for evaluating therapy outcome measures across speech pathology, occupational therapy and physiotherapy. A core scale was developed with categories of impairment of structure or function, activity limitations, participation restriction and well-being each rated from 0 (most impairment) to 5 (no impairment). ADLs seem to reside in the occupational therapy domain which have 12 domains \cite{perry_therapy_2004}:
+
 \begin{enumerate}
-    \item At the first location (Hallway Between Living Room and Kitchen) stand still for 10 seconds
-    \item Squatt still for 10 seconds.
-    \item Move to next position.
-    \item Repeat steps 1-3 until all of the positions have been reached.
-    \item Finally return to the first position (Hallway Between Living Room and Kitchen)
+    \item learning and applying knowledge
+    \item self-care
+    \item functional walking and mobility
+    \item domestic life: inside house
+    \item upper limb use
+    \item domestic life: outside house
+    \item carrying out daily life tasks and routines
+    \item interpersonal interactions and relationships
+    \item transfers
+    \item work, employment and education
+    \item using transport
+    \item community life, recreation, leisure and play
 \end{enumerate}
 
-There were 5 trials for each configuration.
+\clearpage
+\subsection{Melbourn Low-Vision ADL Index}
+The Melbourn Low-Vision ADL Index was created to address the need to assess the ADL performance of individuals with vision impairment \cite{haymes_development_2001}. The index contains both task-based observational rating as well as questionnaire self-reported rating. For both ratings a scale of 0 (unsatisfactory) to 4 (satisfactory) was used. For the task-based observational rating, standardized descriptions at each score were developed to reduce the variability. Performance was evaluated based on speed, accuracy and independence and it was suggested that the evaluator time the task to better assess speed of execution \cite{haymes_development_2001}. The list of tasks is shown in Table \ref{tab:MLVAI}.
 
-\subsection{Analysis}
-Trials for each configuration were aggregated, transition periods were removed, 
-data of interest was time normalized and the mean and standard deviation of each
-location while standing and squatting were recorded.
+\begin{table}[ht]
+    \centering
+    \caption{Observational and questionnaire items in the Melbourn Low-Vision ADL Index \cite{haymes_development_2001}}
+    \label{tab:MLVAI}
+    \begin{tabular}{ c c }
+        \hline
+        \textbf{Observational} & \textbf{Questionnaire} \\
+        \hline
+        Reading newspaper print & Eating \\
+        Reading newspaper headlines & Bathing \\
+        Reading a letter with typed print & Dressing \\ 
+        Using a telephone book & Grooming \\
+        Reading an account & Mobility \\
+        Reading a medicine label & Housework \\
+        Reading packet labels & Shopping \\
+        Recognizing faces & Preparing meals \\
+        Using a telephone & Managing medication \\
+        Writing a check & \\
+        Identifying coins & \\
+        Pouring & \\
+        Naming colors & \\
+        Buttoning a shirt & \\
+        Threading a sewing needle & \\
+        Telling the time: wrist watch & \\
+        Telling the time: wall clock & \\
+        Reading a digital display & \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Self-Assessment PD Disability Scale} 
+The Self-Assessment PD Disability Scale is a self-report scale that bases its assessment on the degree of PD's interference on the individual's daily life \cite{brown_accuracy_1989}---and not on the "amplitude of tremors, or speed of foot tapping" \cite{brown_accuracy_1989}. Accordingly, the individual themself should know PD's degree of interference on their daily life. There are a total of 24 items on the questionnaire with 11 assessing gross mobility and 13 assessing fine coordination. The individual is asked to rate themselves on a 5-point scale with 1 indicating no interference and 5 indicating maximum interference from PD \cite{brown_accuracy_1989}. The total score ranges from 24 to 120 with higher scores indicating higher disability \cite{brown_accuracy_1989}. The full list of items can be found in Table \ref{tab:SAPDDS}.
+
+\begin{table}[ht]
+    \centering
+    \caption{Items for the Self-Assessment PD Disability Scale \cite{brown_accuracy_1989}}
+    \label{tab:SAPDDS}
+    \begin{tabular}[pos]{ c c }
+        \hline
+        \textbf{Gross Mobility} & \textbf{Fine Coordination} \\
+        \hline
+        Getting out of bed & Brushing teeth \\
+        Getting out of chair & Washing \\
+        Walking around home & Opening tins \\
+        Walking outside, eg. to shops & Pouring milk from bottle \\
+        Traveling by public transport & Making cup of tea \\
+        Walking up stairs & Holding cup and saucer \\
+        Walking downstairs & Washing and drying dishes \\
+        Getting into bath & Using knife and fork \\
+        Getting out of bath & Inserting electrical plug \\
+        Getting undressed & Dialing telephone \\
+        Picking up object from floor & Holding and reading newspaper \\
+        & Writing letter \\
+        & Getting dressed \\
+        \hline 
+    \end{tabular}
+\end{table}
 
 
-% ----------------------------------------------------------------------------------------------------
+\clearpage
+\subsection{Frenchay Activities Index}
+The Frenchay Activities Index (FAI) was created with 2 goals: first to "provide accurate information for pre-morbid lifestyle for individuals with stroke" and second "record changes in activities following stroke, at specific intervals" \cite{holbrook_activities_1983}. Through factor analysis, 3 factors were identified: "domestic chores", "leisure/work" and "outdoor activities" \cite{holbrook_activities_1983}. The assessment is questionnaire-based and includes 15 items that represent these 3 factors. Each item is given a score of 1 to 4 with 4 indicating more activity. The questionnaire is show in Figure \ref{fig:frenchay}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[width=0.55\textwidth]{frenchay}
+    \caption{The questionnaire used in the Frenchay Activities Index.}
+    \label{fig:frenchay}
+\end{figure}
+
+\clearpage
+\subsection{ADL Profile Instrumental}
+The ADL Profile Instrumental v2 is an updated version of the ADL Profile designed specifically to assess Instrumental ADLs in patients with Traumatic Brain Injury \cite{bottari_iadl_2010}. The scoring system uses a 5-level ordinal scale to finely rate independence \cite{bottari_iadl_2010}. Rather than a separate task for each category of evaluation, a single scenario was given to the patient to assess a total of 8 categories: 6 related to the goal of preparing a meal including "dressing to go outdoors, going to the grocery store, shopping for food, preparing a hot meal for guests, having a meal with guests, and cleaning up after the meal" and 2 related to complex single tasks including "obtaining information, making a budget" \cite{bottari_iadl_2010}. In total, there are 29 scores for 5 tasks with 4 operations and 3 tasks with 3 operations \cite{bottari_iadl_2010}. The scenario prompt involved the following script followed by observation of the patient performing the task:
+
+\begin{displayquote}
+    \textit{"We would like to know how you manage in your everyday activities, that is, activities that  you  generally  do  inside and outside  of  your  home. More specifically, we would like to know, following your accident, if any changes have occurred in your ability to carry out your everyday tasks. Without knowing it, you invited my assistant and me to have lunch with you. Please get ready to receive us. We will assume any incurred expenses for a maximum of \$20. Can you tell me in your own words what I have just explained to you? Would you agree to do this? Can you now tell me in your own words what you are going to do?"} \cite{bottari_iadl_2010}
+\end{displayquote}
+
+
+
+\clearpage
+\subsection{Lawton Instrumental ADL Scale}
+The Lawton Instrumental ADL Scale was made for older adults and assesses 8 items: telephoning, shopping, food preparation, housekeeping, laundering, use of transportation, use of medicine, and financial behavior \cite{lawton_assessment_1969}. Unlike some of the other scales, there is a distinction in the scoring system between males and females. Males are rated on a 5-point scale whereas females are rated on a 8-point scale. Each item assessed has score of 1 for being able to or somewhat able to perform the task (see Figure \ref{fig:lawton-scale}), a score of 0 would indicate that the older adult is unable to perform the task. Women are assessed on all 8 items whereas men are assess on a subset of the items since the "list of representative activities is is smaller" \cite{lawton_assessment_1969}. The list for men include telephoning, shopping, use of transportation, use of medicine, and financial behavior. The Lawton IADL Scale provides a snapshot of what services or treatments the older adult needs (or does not need) and can be re-applied at periodic intervals to update treatment goals \cite{lawton_assessment_1969}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[width=\textwidth]{lawton-scale}
+    \caption{The Lawton Instrumental ADL Scale, the blank "score" column shows the items that males are not assessed on \cite{lawton_assessment_1969}.}
+    \label{fig:lawton-scale}
+\end{figure}
+
+\clearpage
+\subsection{Performance Assessment of Self-Care Skills}
+The Performance Assessment of Self-Care Skills (PASS) is a performance-based observational tool in which the clinician asks the patient to perform the required task for each of the ADLs assessed and evaluates their performance \cite{pashmdarfard_assessment_2020}. PASS assesses an individual’s ability to perform ADLs by judging 3 parameters: independence, safety and adequacy. There are concrete guidelines and identifiers mentioned for scoring each parameter in Performance Assessment of Self-Care Skills \cite{rogers_performance_2014}. For instance, the safety category has a maximum score of 3. At a score of 3, there are no risks observed; at a score of 2, there are minor risks observed, but no assistance is needed; at a score of 1, there are obvious risks to safety and assistance is required to complete a task; Finally, at a score of 0, there are risks to safety of such severity that the task had to be stopped. PASS is used around the world; has been translated to multiple languages including Spanish, Hebrew and Mandarin; has a test-retest reliability of 89\%-90\%; and an inter-observer agreement of 96\%-97\% \cite{chisholm_evaluating_2014} making it a reliable tool for assessing ADLs. However, as much as the PASS is reliable and comprehensive, it is also time-consuming and may be strenuous for the older adults \cite{pashmdarfard_assessment_2020}. 
+
+
+\subsection{Texas Functional Living Scale}
+The Texas Functional Living Scale is a performance-based assessment tool that was created to evaluate the IADL ability of individuals with cognitive impairment. 15 to 20 minutes are required to evaluate 21 items that target 5 functional areas: Dressing, Time, Money, Communication and Memory \cite{cullum_performance-based_2001}. The minimum score for each item is 0, and the maximum score varies depending on the item. Altogether, the maximum score attainable is 52, with "higher scores indicating better performance" \cite{cullum_performance-based_2001}. Examples of items on the Texas Functional Living Scale is shown in Figure \ref{fig:tfls}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[width=\textwidth]{tfls}
+    \caption{An example of some items on The Texas Functional Living Scale.}
+    \label{fig:tfls}
+\end{figure}
+
+\subsection{Summary}
+Several key assessment tools for BADLs and IADLs have been discussed. Table \ref{tab:assess-summary} summarizes the category of ADL it assesses, what condition it is used for primarily, method of assessment as well as the length of assessment.
+
+\clearpage
+\begin{table}
+    \footnotesize
+    \centering
+    \setlength\LTcapwidth{\textwidth}
+    \setlength\LTleft{0pt}
+    \caption{Summary of the ADL Assessment tools discussed.}
+    \label{tab:assess-summary}
+    \begin{longtable}{@{\extracolsep{\fill}} p{.20\textwidth} p{.1\textwidth} p{.22\textwidth} p{.22\textwidth} p{.10\textwidth}}
+        \toprule
+        \textbf{Name} & \textbf{Type} & \textbf{Condition} & \textbf{Method} & \textbf{Length} \\
+        \midrule
+        Barthel Index & BADL & N/A & Observation/Self Questionnaire & 2-5 min \cite{staff_original_2008} \\
+        Katz Index of Independence in ADLs & BADL & Older Adults or Chronically Ill & Observation Questionnaire & $<$5 min \cite{noauthor_measures_nodate} \\
+        Functional Independence Measure & BADL & Stroke & Observation Questionnaire & 30 min \cite{hall_functional_2014} \\
+        ADL Profile & BADL & Head Injured & Performance & 30-60 min \cite{noauthor_adl_nodate} \\
+        ADL Questionnaire & BADL &  Alzheimer & Questionnaire & 5-10 min \cite{kennedy_activities_2004} \\
+        Australian Therapy Outcome Measures & BADL & N/A & Observation Questionnaire & $<$5 min \cite{cunsworth2014_austoms_2019} \\
+        Melbourn Low-Vision ADL Index & BADL & Visually Impaired & Performance & 20 min \cite{haymes_development_2001} \\
+        Self-Assessment PD Disability Scale & BADL & Parkinson's & Self Questionnaire & 5 min \cite{noauthor_self-assessment_2013} \\
+        Frenchay Activities Index & IADL & Stroke & Questionnaire & 5 min \cite{schuling_frenchay_1993} \\
+        ADL Profile Instrumental & IADL & Head Injured & Performance & 3 hours \cite{bottari_iadl_2010} \\ 
+        Lawton Instrumental ADL Scale & IADL & Older Adults & Self Questionnaire & 10-15 min \cite{mcmahon_lawton_nodate} \\
+        Performance of Self-Care Skills & IADL \& BADL & Older Adults & Performance & 3 hours \cite{noauthor_performance_2015} \\
+        Texas Functional Living Scale & IADL & Cognitive Impairment & Performance & 15-20 min \cite{themes_texas_2017} \\
+        \bottomrule 
+    \end{longtable}
+\end{table}
+
+
+\clearpage
+\section{In-Home Monitoring of ADLs}
+Although traditional pen-and-paper assessment of ADLs can provide information regarding the current ability of an individual to perform ADLs, all only provide snapshots of their current ability and further tracking requires the patient to be present for the assessment. Furthermore, most involve an evaluator training period to ensure evaluator reliability, ratings are subjective, and performance-based evaluations are lengthy \cite{noauthor_performance_2015,hall_functional_2014,bottari_iadl_2010,themes_texas_2017}. There are also issues with measurement of functional performance in a clinical setting as opposed to an at-home setting that may skew observations. For example, it may be easier to stand-up from a firm higher chair in clinical settings than a soft sofa found at home \cite{camp_technology_2021}. In light of these challenges, this section will explore recent advances in monitoring technology for the evaluation of ADL ability. There will be a focus on the type of technology used, the parameters or metrics evaluated, the ADL it is used for and the criteria for assessing function. Information will be drawn primarily from two systematic reviews: Camp et al's "Technology Used to Recognize Activities of Daily Living in Community-Dwelling Older Adults" \cite{camp_technology_2021} and Gadey et al.'s "Technologies for monitoring activities of daily living in older adults: a systematic review" \cite{gadey_technologies_2023}.
+
+\subsection{Camp et al's Tech Used to Recognize ADL in Community-Dwelling Older Adults}
+Camp et al.'s search identified a total of "21 [distinct] technologies, including six wearable sensors, 13 environmental sensors, and two types of camera" \cite{camp_technology_2021}. The full list can be found in Table \ref{tab:camps-tech}. These technologies were able to detect a total of 14 different ADLs, but no single technology system was able to detect all 14 \cite{camp_technology_2021}. Table \ref{tab:camps-ADL} summarizes the ADLs detected as well as their level of granularity. There were 39 systems in total identified and most used the environment sensors. Only 3 out of the 39 systems used wearables. However, these wearable systems were able to recognize granular activities within "feeding" such as drinking and using cutlery that was not included in the others \cite{camp_technology_2021}. 
+
+Though the intent of the SR was to review technology that is able to detect if an ADL action has been completed and not test if the individual is functionally able to perform the ADL, there may be some correlations with assessment scales that may be drawn. For example, the activities that technologies in Camp et al.'s review detect are present in the Barthel Index: bathing, dressing, feeding, grooming, mobility, stairs, toileting, and transfer. Sub-activities or finer-grained activities in the Barthel Index, such as activities to define feeding (cutting, or spreading butter), were not included as activities in these systems. According to Camp et al., there are few technologies that are able to recognize fine-skills such as cutlery use which have a "large influence on more general activities such as feeding, and subsequently on overall health" \cite{camp_technology_2021}. There also may be concerns with privacy which prevent these technologies from advancing deeper into exploring the detection of these sub-activities. For example, humidity and sound sensors used to detect bathing, a sub-activity of grooming, may pose a privacy risk \cite{camp_technology_2021}.
+
+The systems identified recognize ADLs by using a series of interactions with the environment sensors and/or wearable sensors. For example, "feeding" can be inferred by activity in the motion sensors in the kitchen/dining room, fridge door sensors, and power sensors attached to a microwave \cite{camp_technology_2021}. A full list of these interactions and accompanying ADL can be found in Table \ref{tab:ADL-detection}. Though these systems can recognize ADLs and is sufficient for the aim of monitoring functional decline by monitoring a decrease in ADL actions, Camp et al. suggest that methods to "directly [assess] ADL performance" should be considered as it will allow for identification of "exactly where an individual is having difficulty without the reliance on [time-consuming] traditional tests" \cite{camp_technology_2021}. 
+
+\begin{table}[!ht]
+    \centering
+    \caption{Types of technologies identified in Camp et al's SR \cite{camp_technology_2021}.}
+    \label{tab:camps-tech}
+    \begin{tabular}[pos]{ p{0.2\textwidth} p{0.5\textwidth} }
+        \toprule
+        \textbf{Category} & \textbf{Technology} \\
+        \midrule
+        \multirow{13}{10em}{Environment} & Accelerometer \\
+        & Barometer \\
+        & Door Contact \\
+        & Force/Pressure \\
+        & Grid-Eye (Infrared array sensor) \\
+        & Humidity \\
+        & Hydro \\
+        & Light \\
+        & Motion \\
+        & Power Consumption \\
+        & Sound \\
+        & Temperature \\
+        & RFID Tag \\
+        \midrule
+        \multirow{6}{10em}{Wearable} & Wearable Accelerometer \\
+        & Wearable Altimeter \\
+        & Wearable Barometer \\
+        & Wearable Gyroscope \\
+        & Wearable Light \\
+        & Wearable Temperature \\
+        \midrule
+        \multirow{2}{10em}{Camera} & Depth Camera \\
+        & Video Camera \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Types of ADLs detected \cite{camp_technology_2021}. For Feeding there was separation in some studies between eating, meal preparation, drinking, and type of meal (breakfast, lunch, and dinner). For Grooming, some studies specified brushing teeth, showering, shaving, and hair styling. Finally for Social Interaction, most studies used the "front door usage," but some specified the time away from home, and the number of visits \cite{camp_technology_2021}.}
+    \label{tab:camps-ADL}
+    \begin{tabular}[pos]{ p{0.5\textwidth} }
+        \toprule
+        \textbf{ADL Detected} \\
+        \midrule
+        Bed Usage \\
+        Dressing \\
+        Feeding \\
+        Grooming \\
+        Household \\
+        Medicine \\
+        Mobility \\
+        Recreation \\
+        Sleep \\
+        Social Interaction \\
+        Stair Usage \\ 
+        Toileting \\
+        Transferring \\
+        TV Usage \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+    \centering
+    \caption{How to detect each ADL based on the technology found in \cite{camp_technology_2021}}
+    \label{tab:ADL-detection}
+    \begin{tabular}[pos]{ p{0.3\textwidth} p{0.5\textwidth} }
+        \toprule
+        \textbf{ADL Detected} & \textbf{Method} \\
+        \midrule
+        Bed Usage & Pressure sensors or accelerometers attached to the bed \\
+        Dressing & Room activity and door sensors attached to specific drawers/wardrobes\\
+        Feeding & Room activity, appliance use, or door sensors attached to cupboards within the kitchen area. Wearable sensor data \\
+        Grooming & Room activity, changes in temperature/humidity, water usage or specific door usage \\
+        Household & Water usage, room activity or appliance usage \\
+        Medicine & Door sensors attached to medicine cabinets \\
+        Mobility & Room activity or
+Wearable sensors \\
+        Recreation & Room activity or power consumption\\
+        Sleep & Room presence (but inactivity), typically the living room \& bedroom \\
+        Social Interaction & Door sensors attached to the main property entrance\\
+        Stair Usage & Combined wearable sensors\\ 
+        Toileting & Room activity, specific door usage, water usage or accelerometers attached to the flush mechanism\\
+        Transferring & Room activity or pressure sensors or
+Wearable sensors\\
+        TV Usage & Power consumption/smart switch \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Gadey et al's Tech for Monitoring ADL in Older Adults}
+Compared to Camp et al.'s article which focusses on technology to detect the completion of an ADL, Gadey et al's SR focusses more generally on the "extent and diversity" of technologies that can be used for monitoring ADLs in older adults. From 16 articles, the SR yielded 48 technologies with categories of "health-related technology, ambient appliance mounted, ambient location, motion-based, visual or interactive". There is a further category of "ambient" that is not mentioned explicitly in the article but appears as a category. After summarizing Table 4 in Gadey et al.'s article, 26 distinct technologies were found and are listed in Table \ref{tab:gadey-tech} \cite{gadey_technologies_2023}. There may have been additional technologies identified in the SR, but were grouped under more general terms such as "appliance sensors" \cite{gadey_technologies_2023}. 
+
+There were both Basic ADLs and Instrumental ADLs assessed throughout the 16 articles. In terms of BADLs, walking, transferring, stair climbing, eating, bathing, sleeping, toileting, dressing, and grooming were monitored and assessed. Out of these, "walking" was monitored and assessed the most with 11/16 articles \cite{gadey_technologies_2023}. There were 10 IADLs monitored and assessed: cooking, dishwashing, housework, managing medication, watching TV, phone use, and typing/writing. Out of these IADLs, cooking appeared the most at 6/16 articles \cite{gadey_technologies_2023}.
+
+The authors report that within the 16 articles selected wearables and Inertial Measurement Units (IMUs) were the most common technology applied and were used primarily for gait analysis. The accelerometer in the IMU was the most common in the activity recognition, and the entire IMU can be used for detecting postures and activity or inactivity. The article does not go into detail about the algorithms or methods used to detect the ADLs mentioned, but provides the suite of technologies (Wearable+Health, Wearable+Ambient, Wearables alone, etc.) used to detect certain ADLs. However, in the current state, it seems like the technologies and methods available can only detect activity and distinguish between general ADL classes \cite{gadey_technologies_2023}. An ideal monitoring solution would be able to detect changes in living patterns that may indicate early physical or cognitive decline \cite{gadey_technologies_2023}. It is not only the quantity of ADLs that needs to be monitored but also its quality (or how an ADL is being performed).
+
+\begin{table}[!ht]
+    \centering
+    \scriptsize
+    \caption{Types of technologies identified in Gadey et al's SR \cite{gadey_technologies_2023}. Each system, and not each technology, identified was given categories of health-related technology, ambient appliance mounted, ambient location, motion-based, visual or interactive. This Table is a best effort interpretation of the overlapping categorization of technologies. Where there was overlap (systems containing technology belonging to 2 or more categories), technologies that appeared in at least 2 different systems having the same categorization were grouped into that identifying category.}
+    \label{tab:gadey-tech}
+    \begin{tabular}[pos]{ p{0.4\textwidth} p{0.5\textwidth} }
+        \toprule
+        \textbf{Category} & \textbf{Technology} \\
+        \midrule
+        Health-Related & Weight Scale \\
+        & BP measurement \\
+        & O2Sat \\
+        & Glucometer \\
+        & Heart Rate \\
+        & ECG \\
+        & Electrooculography \\
+        & Body Temperature Thermometer \\
+        \midrule
+        Ambient Appliance Mounted & Electricity sensor \\
+        & Flow sensors \\
+        & Door Contact \\
+        \midrule
+        Ambient Location & Force sensor \\
+        & Motion sensor \\
+        & Magnetic sensor \\
+        \midrule
+        Ambient & Hygrometer (humidity) \\
+        & Microphones \\
+        & Pressure sensors \\
+        & Force Sensing Insole \\
+        & Barometer \\
+        & Ambient Temperature \\
+        \midrule 
+        Motion-Based & Accelerometer \\
+        & Gyroscope \\
+        & Magnetometer \\
+        \midrule
+        Visual & Stereoscopic Camera \\
+        \midrule
+        Interactive & Task List \\
+        & Alerts \\
+        \bottomrule 
+    \end{tabular}
+\end{table}
+
+\clearpage
+\section{Motivation}
+Both Camp et al. and Gadey et al. place an emphasis on the monitoring of the quality or performance of ADL. In Camp et al.'s case, doing so would allow a team of healthcare providers to pinpoint "exactly where an individual is having difficulty without the reliance on [time-consuming] traditional tests" \cite{camp_technology_2021}. In Gadey et al.'s case, the capability of ADL quality monitoring would allow for the early detection of physical or cognitive decline.
+
+Though there are 6 IADLs that can be focussed on, refer to Table \ref{table:ADLs}, the method and technology required to monitor and evaluate each is expected to differ. Also considering the scope and time constraints of this thesis, it is reasonable to approach the problem one ADL at a time. Accordingly, the IADL of cooking or meal preparation was chosen as the focus of this thesis since it presents an opportunity to monitor the quality or performance of an older adult wanting to age-in-place. Cooking is a "cognitive complex task, which requires multiple steps" \cite{sikkes_qualitative_2014} and coordination between physical and cognitive functionality. Moreover, cooking was identified to be critical in terms of sustaining a healthy lifestyle in older adults \cite{bouchard_smart_2020} and was found to be the highest ranked necessity "for independent living" in interviews with older adults \cite{dubuc_perceived_2019}. Though cooking is essential, it is one of the most impacted IADLs after traumatic brain injury (TBI) meaning that decline in ability to cook may be indicative of cognitive decline. Older adults also cook frequently, with 53\% of older adults ages 65-80 reported to cook at home 6-7 days a week \cite{malani_joy_2020}. Despite the health benefits and enjoyment gained from cooking, cooking is fraught with risks \cite{yared_cooking_2015}. There are safety concerns with the preparation of a hot meal and it poses risks such as "fires, burns" \cite{dubuc_perceived_2019}, injuries from improper knife use, and injuries from falls due to an unsafe kitchen environment \cite{yared_cooking_2015} which monitoring and proactive intervention may have a role in preventing. 
+
+In pursuit of monitoring the cooking IADL, the next sections will be dedicated to scoping methodologies for monitoring and evaluating cooking. It will look at how cooking is monitored, the technologies involved, and the accompanying algorithms or models used to evaluate cooking.
+
+\section{Monitoring Cooking}\label{sec:monitoring-cooking}
+Before cooking can be assessed, the first step in monitoring cooking is detecting the activity at a macro scale and separating it from all of the other IADLs and BADls. 
+
+The literature already presents several different ways to detect meal preparation or cooking. Cook achieved this through the use of environment sensors such as motion sensors, door contact sensors, temperature sensors, light sensors, water flow sensors, stove-top burner use sensors and sensors on specific items \cite{cook_learning_2010}. The data collected from this system can then be used in a Naive Bayes Classifier, Hidden Markov Model (HMM), or Conditional Random Field, which are traditionally "robust in the presence of moderate amount of noise, are designed to handle sequential data, and generate probability distributions over the class labels" \cite{cook_learning_2010}, to classify the activities. Cook also explored using the output probability distributions of each of these models as inputs to a boosted tree classifier to improve classification accuracy \cite{cook_learning_2010}. Logan and Healy used a modified form of AdaBoost with simple linear weak learners to distinguish meal preparation and eating through accelerometer, video capture, and audio capture data \cite{logan_sensors_2006}. Sarma et al. used Long short-term memory (LSTM) to determine various ADLs from datasets containing motion sensors, door closure sensors and temperature sensors data \cite{sarma_activity_2019}. Chibaudel et al. detected cooking by noting the physical location of the participant and their refrigerator usage through door sensors placed in the refrigerator and motion sensors in the kitchen \cite{mokhtari_smart_2018}. Yordanova et al. used Decision Trees (DT), Computational Causal Behavior Models (CCBM), and HMM to process data from the full-scale SPHERE Smart Home system consisting of temperature sensors, humidity sensors, luminosity and motion sensors, water and electricity usage sensors, cameras, and door contact sensors to classify the preparation of a wide range of recipes as "cooking" \cite{yordanova_analysing_2019}.
+
+Although there have been many studies involving the detection of the cooking ADL, few studies assess the quality of cooking and provide feedback to the user. One attempt at assessing quality involved quantifying the number of departures from a given task. Cook and Schmitter-Edgecombe used motion sensors, analog sensors for water and stove usage, open/shut sensors for the status of cabinets, and load sensors for the absent/present status of items to assess the quality of ADLs including meal preparation. If a correct sequence of tasks was done and if the task was done efficiently, then an activity is considered normal. Any significant departures from this "correct sequence" and normal time required to complete each step was only left with a tag of "anomalous" \cite{cook_assessing_2009}. There is no further information with respect to how much of an anomaly the error was or what to do about it. Similarly, in Menghi et al.'s study, errors were identified in a series of tasks, but nothing was done to evaluate the severity of the error and no feedback was given to the user \cite{mokhtari_smart_2018}. 
+
+To address these shortcomings, Dawadi et al. performed an exploratory study to map smart-home sensors readings to ADL performance ratings based on a custom scale (Figure \ref{fig:dawadi-score}). The criteria for performance was based on whether "important steps are skipped, performed out of sequence or performed incorrectly" (such as forgetting to close the fridge or leaving on a burner) \cite{dawadi_automated_2013}. Tasks completed inaccurately or inefficiently may be indicative of a cognitive health condition \cite{dawadi_automated_2013}. 8 activities were selected including sweeping and preparing microwavable soup. After completing each activity, each participant was rated by two observers based on the scale in Figure \ref{fig:dawadi-score}. Features were extracted from the sensor readings obtained during each activity such as duration of activity, sensor count, unrelated sensors, door sensor count, item sensor count, etc. Then, Support Vector Machines (SVMs) were trained on the features extracted and observer score labels to predict a score from sensor reading inputs. The authors note that though predicting task quality based on smart home sensor readings is possible, there is only moderate correlation between the predictions and the observer ratings \cite{dawadi_automated_2013}. The authors take the evaluation one step further and attempt to classify the cognitive health of the participants as cognitively healthy (CH), mild cognitive impairment (MCI) and dementia (D) based on the performance scores. Using SVM trained on the performance score and health status of the participant, the AUC score was calculated. For MCI vs. D was 0.56 and for D vs. CH it was 0.72 when considering all activities. This means that the classifier was almost no better than random guessing for the MCI vs. D case but had better predictability for the D vs CH case. Though it is possible to perform a "limited health assessment" with task performance, the authors mention that the accuracy may be improved with additional tasks or features obtainable from sensors that can provide "finer resolution" such as wearable sensors \cite{dawadi_automated_2013}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[width=\textwidth]{dawadi-score}
+    \caption{Scoring Criteria for Dawadi et al.'s experiment.}
+    \label{fig:dawadi-score}
+\end{figure}
+
+Based on the articles reviewed thus far, detecting the cooking activity alone may not be indicative of ADL cooking quality. However, detecting subtasks within the cooking activity and evaluating metrics or features such as steps skipped, performed out of sequence, and duration of these subtasks can be correlated with a performance score (like in Dawadi et al. study \cite{dawadi_automated_2013}). Although Dawadi et al.'s approach was able to predict performance scores and distinguish between cognitively healthy and dementia patients, there are potentially two limitations. First Dawadi's sensor suite provides only a coarse resolution of the appliance/item sensors which limited the subtasks that could be detected to item and appliance interactions. Thus, Dawadi et al. proposed searching for methods/sensors that may provide finer resolution such as wearables \cite{dawadi_automated_2013} as a next step. Second, features extracted from the sensor readings were used to predict performance scores that were custom-made. Though the scale is reasonable for evaluating performance, it may not be as well-validated as a scale devised in the observational traditional assessments for ADLs.  
+
+Following Dawadi et al.'s suggestion to search for methods/sensors that can detect finer-grained activities, there have been other attempts at the classification of the subtasks of cooking and other ADLs: 
+\begin{itemize}
+    \item Chen et al. used 5 IMUs each containing an 3D accelerometer and 3D gyroscope. 2 were placed at each wrist, 2 on each upper arm and one on the hip. These IMUs were used to detect 19 ADL subtasks: brush teeth, mixing powders, spreading butter/jam, eating with hands, eating with utensils, buttoning shirt/coat, put and take off the coat, moving items horizontally, reaching up, reaching down, washing dishes, chopping, pan stirring, serve on a plate, sweeping, vacuuming, wiping horizontal surface, wiping vertical surface, and folding clothes \cite{chen_measuring_2021}. From each axis of each sensor, 3 second windows were created and 4 statistical features were extracted: standard deviation, mean, slope (from linear regression), and auto-correlation (for repetitive actions). For feature selection, the authors used XGBoost since XGBoost has "better efficiency and controls for overfitting" \cite{chen_measuring_2021} compared to the other models. After the features were selected, the Decision Tree, Random Forest, SVM, and XGBoost were tested to obtain the optimal model based on accuracy, recall, precision, and ROC AUC \cite{chen_measuring_2021}.
+    \item Pan et al. detected fine-grained actions using a combination of structural vibration sensing and single-point electrical load sensing \cite{pan_fine-grained_2020}. 8 activities were classified: kettle use, stove use, put on stove, use microwave, open/close microwave door, put down food, use vacuum, and footsteps. Segments of the signal from both types of sensors with significantly higher energy were extracted as events. Then, from each sensor within each event segment, the power spectral density was calculated, concatenated together and used as a feature vector \cite{pan_fine-grained_2020}. SVM was chosen as the model for classification of the 8 activities mentioned previously. 
+\end{itemize}
+
+\section{Next Steps}
+Though there was some degree of success in the methods that the previous articles used to detect subtasks within ADLs, there may be some limitations. In Chen et al.'s approach, there may be too many sensors involved and may pose a challenge for older adults to put on and take off every day for continuous monitoring. Pan et al.'s usage of vibrational sensors is novel, but by design of environment sensors which continuously run, there may be ethical issues with control (autonomy) and the older adult will not be able to freely turn the system off. Furthermore, Pan et al.'s models are trained only on able-bodied individuals meaning there is no indication of performance on individuals with impairments. Judging from the limitations present in the articles scoped out so far, a first step in the endeavor of monitoring and evaluating cooking in older adults may be to develop a method that is practical, accurate and robust to variation caused by impairments in detecting these subtasks. 
+
+Toward the development of a practical and accurate method for detecting cooking subtasks, it is hypothesized that a positional + IMU sensor placed on the dominant wrist in a wrist-watch form-factor would satisfy these ethical, practical and functional requirements. The older adult will be in full control of the system and can choose to not be monitored by taking off this watch satisfying autonomy \cite{chung_ethical_2016}. Also, no cameras or video capture is used, alleviating concerns with privacy \cite{demiris_privacy_2009}. In regard to practicality, there is only one wearable involved and not 5 \cite{chen_measuring_2021}. Finally, since certain subtasks occur only within certain areas in the kitchen, it is expected that the addition of the positional data will reduce misclassification from confounding motions in different locations that IMUs alone may not be able to separate. Positional data will also provide contextual information about interaction with appliances, or items within the kitchen without the need to instrument every item single item and appliance in the kitchen. For example, the opening action occurring near the fridge is indicative of opening the fridge as opposed to at the cabinet which means that the older adult opened the cabinet. 
+
+The rest of this thesis will work toward validating the performance and accuracy of the proposed IMU + positional sensor system for detecting cooking subtasks. Like in Chen et al's study, datasets of "atomic actions" or singular subtasks such as chopping, pan stirring, and washing dishes \cite{chen_measuring_2021} will be created from an able-bodied individual with simulated impairments (eg. blind-fold to simulate visual impairments \cite{leo_negotiated_2014}). Feature extraction and feature selection will be performed to obtain a best set of features for predicting a subtask. Multiple models will be trained and evaluated for time-series classification including but not limited to, Random Forests, SVM, Convolutional Neural Networks (CNN) for stacked time series and LSTM. Subsequently, goal-based tasks, such as making a sandwich or preparing canned soup, which contain a collection of the aforementioned subtasks will be performed (normally and with simulated impairments) and used to validate the trained model. However, prior to this classification task there are 2 items that must be addressed: first, testing the proposed system and characterizing performance such as accuracy, and second determining the subtasks and goal-based tasks to be used for this thesis.
