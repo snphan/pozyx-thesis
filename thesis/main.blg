@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2024)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: IEEEtran.bst
@@ -22,47 +22,49 @@ Warning--empty journal in noauthor_measures_nodate
 Warning--empty year in noauthor_measures_nodate
 Warning--empty journal in mcmahon_lawton_nodate
 Warning--empty year in mcmahon_lawton_nodate
+Warning--empty journal in yinPredictionAnalysisTime2023
+Warning--empty year in yinPredictionAnalysisTime2023
 
 Done.
-You've used 80 entries,
+You've used 81 entries,
             4087 wiz_defined-function locations,
-            1307 strings with 27119 characters,
-and the built_in function-call counts, 61103 in all, are:
-= -- 5114
-> -- 1406
-< -- 498
-+ -- 760
-- -- 247
-* -- 3467
-:= -- 9501
-add.period$ -- 168
-call.type$ -- 80
-change.case$ -- 92
+            1314 strings with 27374 characters,
+and the built_in function-call counts, 61472 in all, are:
+= -- 5143
+> -- 1410
+< -- 499
++ -- 762
+- -- 248
+* -- 3488
+:= -- 9575
+add.period$ -- 170
+call.type$ -- 81
+change.case$ -- 93
 chr.to.int$ -- 1062
-cite$ -- 91
-duplicate$ -- 4348
-empty$ -- 4548
-format.name$ -- 303
-if$ -- 13933
+cite$ -- 94
+duplicate$ -- 4380
+empty$ -- 4579
+format.name$ -- 304
+if$ -- 14009
 int.to.chr$ -- 0
-int.to.str$ -- 80
-missing$ -- 772
-newline$ -- 377
-num.names$ -- 76
-pop$ -- 1685
+int.to.str$ -- 81
+missing$ -- 778
+newline$ -- 382
+num.names$ -- 77
+pop$ -- 1700
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 4529
+skip$ -- 4557
 stack$ -- 0
-substring$ -- 2612
-swap$ -- 3812
-text.length$ -- 144
+substring$ -- 2613
+swap$ -- 3829
+text.length$ -- 145
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 80
-warning$ -- 11
-while$ -- 263
-width$ -- 82
-write$ -- 952
-(There were 11 warnings)
+type$ -- 81
+warning$ -- 13
+while$ -- 264
+width$ -- 83
+write$ -- 962
+(There were 13 warnings)
