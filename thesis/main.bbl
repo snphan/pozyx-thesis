@@ -374,6 +374,21 @@ Pozyx, ``\BIBforeignlanguage{en}{Hardware setup}.'' [Online]. Available: \url{ht
 ------, ``\BIBforeignlanguage{en}{Configuration of the {UWB} parameters ({Arduino})}.'' [Online]. Available: \url{https://docs.pozyx.io/creator/configuration-of-the-uwb-parameters-arduino}
 \BIBentrySTDinterwordspacing
 
+\bibitem{zhangIntroductionMachineLearning2016}
+\BIBentryALTinterwordspacing
+Z.~Zhang, ``Introduction to machine learning: K-nearest neighbors,'' vol.~4, no.~11, p. 218. [Online]. Available: \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4916348/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{ScipyStatsMode}
+\BIBentryALTinterwordspacing
+Scipy.stats.mode — {{SciPy}} v0.7 {{Reference Guide}} ({{DRAFT}}). [Online]. Available: \url{https://docs.scipy.org/doc/scipy-0.7.x/reference/generated/scipy.stats.mode.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{faouziTimeSeriesClassification2024}
+\BIBentryALTinterwordspacing
+J.~Faouzi, ``Time {{Series Classification}}: {{A Review}} of {{Algorithms}} and {{Implementations}},'' in \emph{Time {{Series Analysis}} - {{Recent Advances}}, {{New Perspectives}} and {{Applications}}}, J.~Rocha, C.~M.~Viana, and S.~Oliveira, Eds.\hskip 1em plus 0.5em minus 0.4em\relax IntechOpen. [Online]. Available: \url{https://www.intechopen.com/chapters/1185930}
+\BIBentrySTDinterwordspacing
+
 \bibitem{yinPredictionAnalysisTime2023}
 \BIBentryALTinterwordspacing
 Y.~Yin, ``Prediction and analysis of time series data based on granular computing,'' vol.~17. [Online]. Available: \url{https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2023.1192876/full}
