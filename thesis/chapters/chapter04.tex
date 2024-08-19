@@ -48,7 +48,7 @@ Support Vector Machines (SVM) involves finding a hyperplane that best separates 
     \label{fig:svm-hyperplane}
 \end{figure}
 
-The linearly separable case is rare in real life. Instead, datapoints from one class may seem to mix with the other class at the optimal boundary (Figure \ref{fig:svm-hyperplane-non-linearly-separable}). To still find this optimal boundary, a positive slack factor $zeta_i$ is introduced and controlled by a parameter $C$ that controls the width of the margin. A lower $C$ allows for a wider margin that may improve generalizability in real life at the cost of more misclassification of the training datatset, whereas a higher $C$ tightens the margin and minimizes the classification errors in the training dataset but may decrease generalizability in real life \cite{cervantesComprehensiveSurveySupport2020}.  
+The linearly separable case is rare in real life. Instead, datapoints from one class may seem to mix with the other class at the optimal boundary (Figure \ref{fig:svm-hyperplane-non-linearly-separable}). To still find this optimal boundary, a positive slack factor $\zeta_i$ is introduced and controlled by a parameter $C$ that controls the width of the margin. A lower $C$ allows for a wider margin that may improve generalizability in real life at the cost of more misclassification of the training datatset, whereas a higher $C$ tightens the margin and minimizes the classification errors in the training dataset but may decrease generalizability in real life \cite{cervantesComprehensiveSurveySupport2020}.  
 
 \begin{figure}[ht]
     \centering
@@ -73,6 +73,8 @@ SVM can also be used separate data that is not separable by a linear hyperplane 
     \caption{SVM non-linear classifier (green line) \cite{cervantesComprehensiveSurveySupport2020}.}
     \label{fig:svm-hyperplane-non-linearly-classifier}
 \end{figure}
+
+Since SVM can only separate between 2 classes as a binary classifier, a further step must be done to separate multiple classes. Scikit-learn uses a one vs. rest strategy by default. For each class a decision boundary between itself and the rest of the samples are created. For an unlabeled point a probability of membership to each class is calculated and an argmax function is used to determine the membership \cite{12MulticlassMultioutput}. 
 
 \clearpage
 \subsection{Random Forests}
