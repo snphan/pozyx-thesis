@@ -164,7 +164,22 @@ Then the dual optimization problem is shown in Equation \ref{eq:svm-dual} and th
 
 The solution to the Lagrangian Multipliers $\alpha_i$ can be found using quadratic programming. It is observed that $\alpha_i > 0$ are called the support vectors and all other $\alpha_i = 0$ \cite{cervantesComprehensiveSurveySupport2020}. Once $\alpha_i$ is found, $\mathbf{w}$ can be found using the training data and $\alpha_i$ in Equation \ref{eq:lagrangian-partial-deriv}. Since the support vectors have been found and known to fall on hyperplane H1 and H2, and the normal $\mathbf{w}$ has been found, the optimal $b$ can be found by isolating for $b$ in H2: $(\mathbf{w} \cdot x_{H2}) + b = 1$ or H1: $(\mathbf{w} \cdot x_{H1}) + b = -1$ for a support vector that falls on H2 or H1 respectively.
 
-\subsubsection{Theory of SVM: Not Linearly Separable}
+\subsubsection{Theory of SVM: Not Linearly Separable}\label{sec:not-linearly-separable}
+The optimization problem for the not linearly separable case is very similar to the linearly separable case, only now there is the addition of a slack variables $\zeta_i$ to the constraint (see Figure \ref{fig:svm-hyperplane-non-linearly-separable}). The optimization problem then becomes (Equation \ref{eq:soft-margin-opt}) \cite{cervantesComprehensiveSurveySupport2020} with the squared sum of the slack variables modified by a weight $C$ added to the original cost function:
+
+\begin{equation}
+    \label{eq:soft-margin-opt}
+    \begin{split}
+    & \min ||\mathbf{w}||^2 + C \sum_{i=1}^n \zeta_i^2 \\
+    & \text{s.t.} \; y_i (\mathbf{w} \cdot x_i + b) \geq 1 - \zeta_i \; \forall \; i \\
+    & \:\: \zeta_i \ge 0
+    \end{split}
+\end{equation}
+
+A higher $C$ increases the cost of permitting slack variables and therefore a higher $C$ tends toward perfectly separating the data. The problem is solved in a similar way using Lagrangian Duality and details can be found in Cervantes et al.'s article \cite{cervantesComprehensiveSurveySupport2020}
+
+\subsubsection{Tunable Parameters}
+In SVM the tunable parameters are $C$, the type of kernel selected and the kernel's tunable parameter(s). In Section \ref{sec:not-linearly-separable}, it was discussed that the larger the $C$ the larger the penalty on slack variables and therefore the classifier tends toward perfect separation of the data points. It doesn't seem like there is agreement on what kernel and what kernel parameter is appropriate for a specific application \cite{cervantesComprehensiveSurveySupport2020}. However, in practice it is common for datasets with many features to use the basic linear kernel \cite{cervantesComprehensiveSurveySupport2020}. If the data requires non-linear separation, the Gaussian Kernel is most widely used and its parameter $\sigma$ can be appropriately chosen using a grid search \cite{cervantesComprehensiveSurveySupport2020}.
 
 
 \clearpage
