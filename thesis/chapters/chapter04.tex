@@ -179,13 +179,44 @@ The optimization problem for the not linearly separable case is very similar to 
 A higher $C$ increases the cost of permitting slack variables and therefore a higher $C$ tends toward perfectly separating the data. The problem is solved in a similar way using Lagrangian Duality and details can be found in Cervantes et al.'s article \cite{cervantesComprehensiveSurveySupport2020}
 
 \subsubsection{Tunable Parameters}
-In SVM the tunable parameters are $C$, the type of kernel selected and the kernel's tunable parameter(s). In Section \ref{sec:not-linearly-separable}, it was discussed that the larger the $C$ the larger the penalty on slack variables and therefore the classifier tends toward perfect separation of the data points. It doesn't seem like there is agreement on what kernel and what kernel parameter is appropriate for a specific application \cite{cervantesComprehensiveSurveySupport2020}. However, in practice it is common for datasets with many features to use the basic linear kernel \cite{cervantesComprehensiveSurveySupport2020}. If the data requires non-linear separation, the Gaussian Kernel is most widely used and its parameter $\sigma$ can be appropriately chosen using a grid search \cite{cervantesComprehensiveSurveySupport2020}.
+In SVM the tunable parameters are $C$, the type of kernel selected and the kernel's tunable parameter(s). In Section \ref{sec:not-linearly-separable}, it was discussed that the larger the $C$ the larger the penalty on slack variables and therefore the classifier tends toward perfect separation of the data points. It doesn't seem like there is agreement on what kernel and what kernel parameter is appropriate for a specific application \cite{cervantesComprehensiveSurveySupport2020}. However, in practice it is common for datasets with many features to use the basic linear kernel \cite{cervantesComprehensiveSurveySupport2020}. If the data requires non-linear separation, the Gaussian Kernel is most widely used and its parameter $\sigma$ can be appropriately chosen using a search \cite{cervantesComprehensiveSurveySupport2020}.
 
 
 \clearpage
 \subsection{Random Forests}
+\subsubsection{Overview}
+Random Forests consist of Decision Trees that must be first discussed \cite{liuNewMachineLearning2012}. A decision tree can be built upon features that are categorical (eg. has astigmatism) or numerical (eg. age). Training a decision tree results in a the structure shown in Figure \ref{fig:decision-tree} with nodes representing the feature and edges representing the options or ranges of values that the feature can take. Typically, the classifier starts at a starting point called the root node. Edges extend uni-directional from the root node presents a decision that the classifier must make based on the features of the new data point. Picking an option or range of values (choosing one of the edges extending from the node) advances the classifier along that edge to the next node in the next level of the tree. The classifier repeats this decision process until there is no more next node; the classifier has reached a "leaf" node and can classify the data point.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{decision-tree.png}
+    \caption{Example of a Decision Tree \cite{leeDecisionTreesTheory}}
+    \label{fig:decision-tree}
+\end{figure}
+
+Random Forests extend the use of Decision Trees by training multiple trees, classifying the new data with each tree and doing a majority vote on the output of each decision tree \cite{breimanRandomForests2001}. Each Decision Tree is trained using a random subset of data drawn from the original training data with replacement. These trees are grown to maximum depth without pruning using the Classification and Regression Tree (CART) methodology and at each node a random subset of features is used \cite{breimanRandomForests2001}. In situations where there are many features with each feature providing only a small amount of information (eg. medical diagnosis), the single decision tree will have an accuracy slightly better than random classification, whereas using a Random Forest can produce improved accuracy \cite{breimanRandomForests2001}.
+
+\subsubsection{Classification and Regression Tree (CART) Methodology}
+The Classification and Regression Tree (CART) method to grow trees outlined by Breiman et al. has the objectivet of splitting the dataset $L$ at each node such that the descendent nodes--nodes one level down--are "purer" than the parent node. Purity in sklearn's implementation of decision trees can be evaluated using Gini's Impurity and Entropy \cite{10DecisionTrees} and the most common, Gini's Impurity, is shown in Equation \ref{eq:gini} \cite{10DecisionTrees}.
+
+\begin{equation}
+    \label{eq:gini}
+    \text{G} = \sum_k p_{mk}(1-p_{mk})
+\end{equation}
+
+Where $p_{mk}$ is the proportion or probability of observing a class $k$ in subset $Q_m$
+
+\begin{equation}
+    p_{mk} = \frac{1}{n_m} \sum_{y \in Q_m}I(y=k)
+\end{equation}
+
+At some node $m$, some subset of the data at node $m$ designated as $Q_m$, and $k$ classes. At each node, candidate splits $\theta = (j, t_m)$ consisting of a feature $j$ and threshold $t_m$ are evaluated for impurity. According to the source code for sklearn, these candidate splits are chosen by randomly selecting a feature, sorting the feature's values, and using each of the feature's values as a threshold $t_m$ for a candidate split (ie. the thresholds $t_m$ are the values of feature $j$ for the datapoints in the subset $Q_m$). This process is repeated until the max number of features to be evaluated (an input argument in the Decision Tree Classifier) is reached. The candidate split $\theta$ that minimizes the (Gini) impurity is selected to split the data in a binary fashion with 2 descendant nodes \cite{ScikitlearnSklearnTree}. The same process repeats at the descendent nodes recursively until a termination condition (eg. max depth of tree) is reached or the descendant node only contains a single class.
+
+\subsubsection{Tunable Parameters}
+The tunable parameters for Random Forests are similar to Decision Trees and the full list may be found on sklearn's Documentation page for Random Forests \cite{RandomForestClassifier}. Sklearn mentions that the default values for controlling the size of the tree (eg. max\_depth, min\_samples\_leaf) leads to large, unpruned and fully grown trees which may be very memory intensive. They recommend to control these parameters to limit the memory consumption \cite{RandomForestClassifier}. Otherwise, similar to other ML methods, a grid search should be used to find the optimal hyperparameters for the training dataset \cite{probstHyperparametersTuningStrategies2019}. Parameters that should be considered for tuning in order of highest positive effect on the Area Under the Curve (AUC) is mtry (max\_features in sklearn), sample size drawn for training a tree, and the minimum number of observations in a terminal node (min\_samples\_leaf in sklearn) \cite{probstHyperparametersTuningStrategies2019}.
 
 \subsection{Wavelets}
+
 
 \section{Neural Networks}
 \subsection{Deep Nerual Networks}
