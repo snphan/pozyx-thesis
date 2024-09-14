@@ -1,4 +1,4 @@
-Based on the findings in Chapter \ref{chp3}, it was determined that Machine Learning (ML) would be a suitable method for classifying the data obtained from the Pozyx system. Prior to attempting any experimentation, this chapter will conduct a survey of the current ML techniques available for the classification of Time Series Data. 
+Based on the findings in Chapter \ref{chp3}, it was determined that Machine Learning (ML) would be a suitable method for classifying the data obtained from the Pozyx system. Prior to attempting any experimentation, this chapter will conduct a survey of the current ML techniques available for the classification of Time Series Data. These techniques can be split into the Classic ML methods and Neural Networks. 
 
 
 \section{Classic Machine Learning Methods}
@@ -278,12 +278,30 @@ To classify multiple classes, the authors of \cite{yeTimeSeriesShapelets2009} pr
 \end{figure}
 
 \section{Neural Networks}
-\subsection{Deep Neural Networks}
-\subsection{Convultional Neural Networks}
-\subsection{Recurrent Neural Networks}
-\subsection{Long Short Term Memory}
+Neural networks are loosely based on the biological structure of the brain; it consists of nodes called neurons which are connected to each other. Some input $x$ passes through the trained layers of neurons and produces an output $f(x,\theta)$ that can be used in applications such as classification (single point output) and forecasting (vector output) \cite{robertsPrinciplesDeepLearning2022b}. An example of a neural network is shown in Figure \ref{fig:neural-net}. Each neuron is a simple function consisting of a weighted sum of the incoming signal added to some bias $b$, and the result $z$ is passed to an activation function $\sigma(z)$ which determines if the neuron \textit{fires} or not. A very simple example of an activation function called the perceptron is shown in Equation \ref{eq:perceptron}. Note that due to the loss of information in the perceptron (ie. no information on the strength of activation), however, it is not used in neural networks found in literature \cite{robertsPrinciplesDeepLearning2022b}.
 
-\section{Large Language Models}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{neural-net.png}
+    \caption{A neural network with input $x$ and output $f(x, \theta)$. The input is transformed at each intermediate layer $s^{(1)}, s^{(2)}, s^{(3)}$ until it reaches the output. \cite{robertsPrinciplesDeepLearning2022b}.}
+    \label{fig:neural-net}
+\end{figure}
+
+\begin{equation}
+    \label{eq:perceptron}
+    \sigma(z) = \begin{cases} 
+        1, & z \geq 0 \\
+        0, & z < 1
+    \end{cases}
+\end{equation}
+
+There are also different types of layers depending on the type of input $x$ and the application of the neural network. The following subsections will briefly discuss these different types of layers used in their respective neural network. These layers include the linear layers, convolutional layers, recurrent layers, long short term memory (LSTM) layers and transformer layers.
+
+\subsection{Deep Neural Networks (DNN)}
+\subsection{Convolutional Neural Networks (CNN)}
+\subsection{Recurrent Neural Networks (RNN)}
+\subsection{Long Short Term Memory (LSTM) Neural Networks}
+\subsection{Transformer Neural Networks}
 
 \section{Feature Extraction}
 Time series data is a series of data that each consists of a value at an associated timestamp. In terms of the system investigated in this thesis, this could be a series of position in the x-axis measured at time $t_1, t_2, t_3...$ respectively. The data can be said to be indexed by time \cite{yinPredictionAnalysisTime2023} typically in ascending order.

@@ -435,6 +435,11 @@ P.~Probst, M.~Wright, and A.-L. Boulesteix, ``Hyperparameters and {{Tuning Strat
 L.~Ye and E.~Keogh, ``Time series shapelets: A new primitive for data mining,'' in \emph{Proceedings of the 15th {{ACM SIGKDD}} International Conference on {{Knowledge}} Discovery and Data Mining}.\hskip 1em plus 0.5em minus 0.4em\relax ACM, pp. 947--956. [Online]. Available: \url{https://dl.acm.org/doi/10.1145/1557019.1557122}
 \BIBentrySTDinterwordspacing
 
+\bibitem{robertsPrinciplesDeepLearning2022b}
+\BIBentryALTinterwordspacing
+D.~A. Roberts, S.~Yaida, and B.~Hanin, \emph{The {{Principles}} of {{Deep Learning Theory}}}. [Online]. Available: \url{http://arxiv.org/abs/2106.10165}
+\BIBentrySTDinterwordspacing
+
 \bibitem{yinPredictionAnalysisTime2023}
 \BIBentryALTinterwordspacing
 Y.~Yin, ``Prediction and analysis of time series data based on granular computing,'' vol.~17. [Online]. Available: \url{https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2023.1192876/full}
