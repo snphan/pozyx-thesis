@@ -6,6 +6,11 @@ A level-1 auxiliary file: chapters/chapter02.aux
 A level-1 auxiliary file: chapters/chapter03.aux
 A level-1 auxiliary file: chapters/chapter04.aux
 A level-1 auxiliary file: chapters/chapter05.aux
+I couldn't open auxiliary file chapters/chapter06.aux
+---line 28 of file main.aux
+ : \@input{chapters/chapter06.aux
+ :                               }
+I'm skipping whatever remains of this command
 The style file: IEEEtran.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -46,7 +51,7 @@ Warning--empty year in yinPredictionAnalysisTime2023
 Done.
 You've used 94 entries,
             4087 wiz_defined-function locations,
-            1394 strings with 30269 characters,
+            1395 strings with 30291 characters,
 and the built_in function-call counts, 68507 in all, are:
 = -- 5697
 > -- 1543
@@ -85,4 +90,4 @@ warning$ -- 26
 while$ -- 292
 width$ -- 96
 write$ -- 1092
-(There were 26 warnings)
+(There was 1 error message)
