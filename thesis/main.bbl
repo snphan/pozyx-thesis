@@ -389,6 +389,52 @@ Scipy.stats.mode — {{SciPy}} v0.7 {{Reference Guide}} ({{DRAFT}}). [Online]. A
 J.~Faouzi, ``Time {{Series Classification}}: {{A Review}} of {{Algorithms}} and {{Implementations}},'' in \emph{Time {{Series Analysis}} - {{Recent Advances}}, {{New Perspectives}} and {{Applications}}}, J.~Rocha, C.~M.~Viana, and S.~Oliveira, Eds.\hskip 1em plus 0.5em minus 0.4em\relax IntechOpen. [Online]. Available: \url{https://www.intechopen.com/chapters/1185930}
 \BIBentrySTDinterwordspacing
 
+\bibitem{cervantesComprehensiveSurveySupport2020}
+\BIBentryALTinterwordspacing
+J.~Cervantes, F.~Garcia-Lamont, L.~Rodríguez-Mazahua, and A.~Lopez, ``A comprehensive survey on support vector machine classification: {{Applications}}, challenges and trends,'' vol. 408, pp. 189--215. [Online]. Available: \url{https://linkinghub.elsevier.com/retrieve/pii/S0925231220307153}
+\BIBentrySTDinterwordspacing
+
+\bibitem{12MulticlassMultioutput}
+\BIBentryALTinterwordspacing
+1.12. {{Multiclass}} and multioutput algorithms. scikit-learn. [Online]. Available: \url{https://scikit-learn/stable/modules/multiclass.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{liuNewMachineLearning2012}
+Y.~Liu, Y.~Wang, and J.~Zhang, ``New {{Machine Learning Algorithm}}: {{Random Forest}},'' in \emph{Information {{Computing}} and {{Applications}}}, B.~Liu, M.~Ma, and J.~Chang, Eds.\hskip 1em plus 0.5em minus 0.4em\relax Springer, pp. 246--252.
+
+\bibitem{leeDecisionTreesTheory}
+V.~E. Lee and L.~Liu, ``Decision {{Trees}}: {{Theory}} and {{Algorithms}}.''
+
+\bibitem{breimanRandomForests2001}
+\BIBentryALTinterwordspacing
+L.~Breiman, ``Random {{Forests}},'' vol.~45, no.~1, pp. 5--32. [Online]. Available: \url{https://doi.org/10.1023/A:1010933404324}
+\BIBentrySTDinterwordspacing
+
+\bibitem{10DecisionTrees}
+\BIBentryALTinterwordspacing
+1.10. {{Decision Trees}}. scikit-learn. [Online]. Available: \url{https://scikit-learn/stable/modules/tree.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{ScikitlearnSklearnTree}
+\BIBentryALTinterwordspacing
+Scikit-learn/sklearn/tree/splitter.pyx at main · scikit-learn/scikit-learn · {{GitHub}}. [Online]. Available: \url{https://github.com/scikit-learn/scikit-learn/blob/0b0b90b75102226d27e3947b9766729325d7042c/sklearn/tree/\_splitter.pyx}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RandomForestClassifier}
+\BIBentryALTinterwordspacing
+{{RandomForestClassifier}}. scikit-learn. [Online]. Available: \url{https://scikit-learn/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{probstHyperparametersTuningStrategies2019}
+\BIBentryALTinterwordspacing
+P.~Probst, M.~Wright, and A.-L. Boulesteix, ``Hyperparameters and {{Tuning Strategies}} for {{Random Forest}},'' vol.~9, no.~3, p. e1301. [Online]. Available: \url{http://arxiv.org/abs/1804.03515}
+\BIBentrySTDinterwordspacing
+
+\bibitem{yeTimeSeriesShapelets2009}
+\BIBentryALTinterwordspacing
+L.~Ye and E.~Keogh, ``Time series shapelets: A new primitive for data mining,'' in \emph{Proceedings of the 15th {{ACM SIGKDD}} International Conference on {{Knowledge}} Discovery and Data Mining}.\hskip 1em plus 0.5em minus 0.4em\relax ACM, pp. 947--956. [Online]. Available: \url{https://dl.acm.org/doi/10.1145/1557019.1557122}
+\BIBentrySTDinterwordspacing
+
 \bibitem{yinPredictionAnalysisTime2023}
 \BIBentryALTinterwordspacing
 Y.~Yin, ``Prediction and analysis of time series data based on granular computing,'' vol.~17. [Online]. Available: \url{https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2023.1192876/full}

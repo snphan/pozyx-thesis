@@ -11,6 +11,13 @@
 \usepackage{csquotes}
 \usepackage{longtable, booktabs}
 \usepackage{siunitx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Custom Macros
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
 \includeonly{chapters/chapter04}
 \graphicspath{ {images/} }
 

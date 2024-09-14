@@ -2,7 +2,7 @@ Based on the findings in Chapter \ref{chp3}, it was determined that Machine Lear
 
 
 \section{Classic Machine Learning Methods}
-\subsection{k-Nearest Neighbours (kNN)}
+\subsection{k-Nearest Neighbours (kNN)} \label{sec:knn}
 \subsubsection{Overview}
 The k-Nearest Neighbours is a classifier that assigns a class to an unlabeled observation by looking at the class of $k$ neighbours and choosing the class that appears the most within these $k$ neighbours. The "nearest neighbours" are determined through a measure of Euclidean-Distance $D$ between a neighbour $p$ and unlabeled point $q$ with $n$ features is shown in Equation \ref{eq:distance} \cite{zhangIntroductionMachineLearning2016}
 
@@ -196,6 +196,16 @@ Random Forests consist of Decision Trees that must be first discussed \cite{liuN
 
 Random Forests extend the use of Decision Trees by training multiple trees, classifying the new data with each tree and doing a majority vote on the output of each decision tree \cite{breimanRandomForests2001}. Each Decision Tree is trained using a random subset of data drawn from the original training data with replacement. These trees are grown to maximum depth without pruning using the Classification and Regression Tree (CART) methodology and at each node a random subset of features is used \cite{breimanRandomForests2001}. In situations where there are many features with each feature providing only a small amount of information (eg. medical diagnosis), the single decision tree will have an accuracy slightly better than random classification, whereas using a Random Forest can produce improved accuracy \cite{breimanRandomForests2001}.
 
+In time series data, features can be extracted by taking the mean, standard deviation and slope of random subsequences in sequence labelled a certain class \ref{fig:time-series-rf}. The number of features is then 3 * the number of subsequences extracted. These features are used to train a random forest and new sequences of time series data can be classified by following the same methodology for feature extraction \cite{faouziTimeSeriesClassification2024}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{time-series-random-forest.png}
+    \caption{Decision Trees used for time-series classification. Mean, standard deviation and slope of random subsequences in a time-series sequence defining a class are used as features. \cite{faouziTimeSeriesClassification2024}}
+    \label{fig:time-series-rf}
+\end{figure}
+
+
 \subsubsection{Classification and Regression Tree (CART) Methodology}
 The Classification and Regression Tree (CART) method to grow trees outlined by Breiman et al. has the objectivet of splitting the dataset $L$ at each node such that the descendent nodes--nodes one level down--are "purer" than the parent node. Purity in sklearn's implementation of decision trees can be evaluated using Gini's Impurity and Entropy \cite{10DecisionTrees} and the most common, Gini's Impurity, is shown in Equation \ref{eq:gini} \cite{10DecisionTrees}.
 
@@ -215,18 +225,66 @@ At some node $m$, some subset of the data at node $m$ designated as $Q_m$, and $
 \subsubsection{Tunable Parameters}
 The tunable parameters for Random Forests are similar to Decision Trees and the full list may be found on sklearn's Documentation page for Random Forests \cite{RandomForestClassifier}. Sklearn mentions that the default values for controlling the size of the tree (eg. max\_depth, min\_samples\_leaf) leads to large, unpruned and fully grown trees which may be very memory intensive. They recommend to control these parameters to limit the memory consumption \cite{RandomForestClassifier}. Otherwise, similar to other ML methods, a grid search should be used to find the optimal hyperparameters for the training dataset \cite{probstHyperparametersTuningStrategies2019}. Parameters that should be considered for tuning in order of highest positive effect on the Area Under the Curve (AUC) is mtry (max\_features in sklearn), sample size drawn for training a tree, and the minimum number of observations in a terminal node (min\_samples\_leaf in sklearn) \cite{probstHyperparametersTuningStrategies2019}.
 
-\subsection{Wavelets}
+\subsection{Shapelet Transform}
 
+\subsubsection{Overview}
+A shapelet is a small but discriminating subsection of a time series waveform that represents a class \cite{yeTimeSeriesShapelets2009}. To classify with shapelets, the authors in \cite{yeTimeSeriesShapelets2009} propose using a decision tree with split criteria based on the inclusion shapelets from a shapelet dictionary (inclusion is determined by the distance between a subsequence from a new time-series signal and the shapelet being less than some threshold--Figure \ref{fig:single-shapelet} shows that the inclusion threshold distance is 5.1). Shapelets address some of the shortcomings of using kNN-DTW presented in Section \ref{sec:knn} that result in large time and space complexity and limit its applicability. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{single-shapelet.png}
+    \caption{Example of a shapelet and the criteria for classifying a new time-series \cite{yeTimeSeriesShapelets2009}.}
+    \label{fig:single-shapelet}
+\end{figure}
+
+
+\subsubsection{Determining Shapelets}
+The authors in \cite{yeTimeSeriesShapelets2009} mention that the total number of possible shapelets can be calculated by the following equation
+
+\begin{equation}
+    \sum_{l=MINLEN}^{MAXLEN} \sum_{T_i \in D} (m_i - l + 1)
+\end{equation}
+
+for every timeseries $T_i$ in dataset $D$, $l$ is the length of a candidate shapelet and $m_i$ is the length of the $i$-th timeseries in the dataset $D$. For the Trace dataset with has 200 instances, each with length of 275. If $MINLEN=3$ and $MAXLEN=275$, the total number of candidates would be 7,480,200. A brute force approach (Algorithm \ref{alg:shapelet-brute}) would be inefficient at finding the best shapelet. The time complexity is $O(\bar{m}^3k^2)$ for average length of timeseries $\bar{m}$, so the authors propose a pruning strategy to find the best shapelets for classification.
+
+\begin{algorithm}
+\caption{Brute Force approach for finding the best shapelet \cite{yeTimeSeriesShapelets2009}, $bsf\_gain$ is the information gain calculated using Entropy.}\label{alg:shapelet-brute}
+\begin{algorithmic}
+    \State $candidates \gets \text{GenerateCandidates}(D, MAXLEN, MINLEN)$
+    \State $bsf\_gain \gets 0$
+    \ForEach {$\mathcal{S}$ in $candidates$}
+        \State $gain \gets \text{CheckCandidates}(D, \mathcal{S})$
+        \If{$gain > bsf\_gain$}
+            \State $bsf\_gain \gets gain$
+            \State $bsf\_shapelet \gets \mathcal{S}$
+        \EndIf
+    \EndFor
+    \State \Return $bsf\_shapelet$
+\end{algorithmic}
+\end{algorithm}
+
+To speed up the calculations, the authors use the \textit{early abandon} method in the $\text{CheckCandidates}(D, \mathcal{S})$ function. Instead of calculating the entire Euclidean distance between the shapelet and the subsection of the time series, a minimum distance variable (initialized to infinity) is used to track the minimum distance calculated. If, at any point in the Euclidean distance calculation, the minimum distance is exceeded, the calculation is stopped and moves onto the next step. If the full distance between the shapelet and the subsection of the timeseries is less than the minimum distance in memory, then the minimum distance is updated \cite{yeTimeSeriesShapelets2009}.
+
+Another optimization involves \textit{entropy pruning} which occurs once again at the $\text{CheckCandidates}(D, \mathcal{S})$ function. Another variable is created to store the best so far information gain. Since the minimum distance calculation between the timeseries and the candidate shapelet is the most costly, these distances are calculated one by one. At each distance calculation, the optimal split point is determined for the distances already calculated and the information gain in the most ideal situation (the rest of Class A on one side and the rest of Class B on the other) is calculated. If the information gain in the most ideal situation is less than the best so far gain, then the candidate shapelet can be pruned and no further minimum distance calculations will need to be done. Otherwise, continue calculating the minimum distances between the timeseries and the candidate shapelet and checking the information gain for the ideal situation at each step. If after calculating all of the distances between the candidate shapelet and the the timeseries dataset and the information gain is still greater than the best so far information gain, then the best so far gain is updated and the process continues until all of the candidate shapelets have been considered \cite{yeTimeSeriesShapelets2009}.
+
+\subsubsection{Multi-Class Classification with Shapelets}
+To classify multiple classes, the authors of \cite{yeTimeSeriesShapelets2009} proposed growing a decision tree. At each node a shapelet is found using the optimized Algorithm \ref{alg:shapelet-brute} outlined in the previous subsection. The split point identified using the shapelet at the node splits the dataset into a left and right subset of data. On the left and right subset of data, the optimized Algorithm \ref{alg:shapelet-brute} is used to find the shapelet and the split point for that subset of data. The process continues recursively until a leaf node is reached. This process creates a decision tree and a dictionary of shapelets shown in Figure \ref{fig:shapelet-dictionary} that can be used for classifying time-series data.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{shapelet-dict.png}
+    \caption{An example of a shapelet based decision tree \cite{yeTimeSeriesShapelets2009}.}
+    \label{fig:shapelet-dictionary}
+\end{figure}
 
 \section{Neural Networks}
-\subsection{Deep Nerual Networks}
+\subsection{Deep Neural Networks}
 \subsection{Convultional Neural Networks}
 \subsection{Recurrent Neural Networks}
 \subsection{Long Short Term Memory}
 
 \section{Large Language Models}
 
- 
 \section{Feature Extraction}
 Time series data is a series of data that each consists of a value at an associated timestamp. In terms of the system investigated in this thesis, this could be a series of position in the x-axis measured at time $t_1, t_2, t_3...$ respectively. The data can be said to be indexed by time \cite{yinPredictionAnalysisTime2023} typically in ascending order.
 
