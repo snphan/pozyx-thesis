@@ -51,45 +51,45 @@ Warning--empty journal in yinPredictionAnalysisTime2023
 Warning--empty year in yinPredictionAnalysisTime2023
 
 Done.
-You've used 95 entries,
+You've used 96 entries,
             4087 wiz_defined-function locations,
-            1400 strings with 30486 characters,
-and the built_in function-call counts, 68898 in all, are:
-= -- 5723
-> -- 1556
+            1404 strings with 30609 characters,
+and the built_in function-call counts, 69154 in all, are:
+= -- 5738
+> -- 1557
 < -- 541
-+ -- 838
++ -- 839
 - -- 274
-* -- 3834
-:= -- 10769
-add.period$ -- 198
-call.type$ -- 95
-change.case$ -- 110
+* -- 3839
+:= -- 10811
+add.period$ -- 199
+call.type$ -- 96
+change.case$ -- 111
 chr.to.int$ -- 1149
-cite$ -- 123
-duplicate$ -- 4945
-empty$ -- 5216
+cite$ -- 124
+duplicate$ -- 4969
+empty$ -- 5247
 format.name$ -- 338
-if$ -- 15695
+if$ -- 15753
 int.to.chr$ -- 0
-int.to.str$ -- 95
-missing$ -- 885
-newline$ -- 448
+int.to.str$ -- 96
+missing$ -- 891
+newline$ -- 453
 num.names$ -- 90
-pop$ -- 2009
+pop$ -- 2033
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 5128
+skip$ -- 5147
 stack$ -- 0
 substring$ -- 2839
-swap$ -- 4218
+swap$ -- 4228
 text.length$ -- 158
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 95
+type$ -- 96
 warning$ -- 28
 while$ -- 293
-width$ -- 97
-write$ -- 1101
+width$ -- 98
+write$ -- 1109
 (There was 1 error message)
