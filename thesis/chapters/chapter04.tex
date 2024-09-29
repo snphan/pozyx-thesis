@@ -338,18 +338,18 @@ Where $L$ is the total number of layers (the depth of the neural network), and $
 
 \clearpage
 \subsubsection{Training the Neural Network: Gradient Descent}
-Training a neural network involves repeatedly updating the weights $W_{ij}$ and biases $b_i$ of the model using a gradient-based method such as gradient descent. Gradient-based methods optimize (minimize) a \textit{loss} function that calculates the error between the output layer result $z^{(L)}(x)$ and the human-annotated labels $y$; the goal of the optimization of the loss function is to decrease the error between the output layer result and the labels. Though the choice of loss function depends on the application, an example of a loss function $\mathfrak{L}$ can mean-squared error (MSE) shown in Equation \ref{eq:mse}\footnote{Note that the subscript $\delta$ in $(z(x_\delta;\theta), y_\delta)$ is a placeholder to show what dataset $x$ and $y$ are from (ie. training $(x_\alpha, y_\alpha)_{\alpha \in \mathfrak{A}}$ or testing $(x_\beta, y_\beta)_{\beta \in \mathfrak{B}}$)}.
+Training a neural network involves repeatedly updating the weights $W_{ij}$ and biases $b_i$ of the model using a gradient-based method such as gradient descent. Gradient-based methods optimize (minimize) a \textit{loss} function that calculates the error between the output layer result $z^{(L)}(x)$ and the human-annotated labels $y$; the goal of the optimization of the loss function is to decrease the error between the output layer result and the labels. Though the choice of loss function depends on the application, an example of a loss function $\mathcal{L}$ can mean-squared error (MSE) shown in Equation \ref{eq:mse}\footnote{Note that the subscript $\delta$ in $(z(x_\delta;\theta), y_\delta)$ is a placeholder to show the $\delta$-th data point in a certain dataset that $x$ and $y$ are from (ie. training dataset $\mathcal{A}$ has data points $(x_\alpha, y_\alpha)_{\alpha \in \mathcal{A}}$ or testing dataset $\mathcal{B}$ has data points $(x_\beta, y_\beta)_{\beta \in \mathcal{B}}$)} \cite{robertsPrinciplesDeepLearning2022b}.
 
 \begin{equation}
     \label{eq:mse}
-    \mathfrak{L}_{MSE}(z(x_\delta;\theta), y_\delta) = \frac{1}{2}\left[z(x_\delta; \theta)-y_\delta \right]^2
+    \mathcal{L}_{MSE}(z(x_\delta;\theta), y_\delta) = \frac{1}{2}\left[z(x_\delta; \theta)-y_\delta \right]^2
 \end{equation}
 
 
-With the objective of minimizing the loss in mind, training a simple neural network may have the following steps:
+With the objective of minimizing the loss in mind, training a simple neural network may have the following steps \cite{robertsPrinciplesDeepLearning2022b}:
 
 \begin{enumerate}
-    \item Model parameters $W_{ij}^{(l)}$ and $b_i^{(l)}$ intialized by independently sampling from an easy to sample distribution such as a zero-mean Gaussian Distribution with variances
+    \item Model parameters $W_{ij}^{(l)}$ and $b_i^{(l)}$ (collectively referred to as $\theta$ hereon) initialized by independently sampling from an easy to sample distribution such as a zero-mean Gaussian Distribution with variances
     \begin{equation}
         \begin{split}
             \mathbb{E}[b_{i_1}^{(l)}b_{i_2}^{(l)}] &= \delta_{i_1 i_2} C_b^{(l)} \\
@@ -364,8 +364,72 @@ With the objective of minimizing the loss in mind, training a simple neural netw
             0 & \text{if} \: i_1 \neq i_2
         \end{cases}
     \end{equation}
-    \item Predictions  
+
+    \item Using the initial weights and biases, the data from the training dataset $\mathcal{A}$ is passed through the neural network using Equation \ref{eq:recursive-nn} which predicts the last layer $z^{(L)}(x_\alpha;\theta)_{\alpha \in \mathcal{A}}$. The loss is then calculated as the average of the loss for each training sample in the training dataset $\mathcal{A}$\ and is shown in Equation \ref{eq:loss}     
+    \begin{equation}
+        \label{eq:loss}
+        \mathcal{L}_{\mathcal{A}}(\theta) \equiv \frac{1}{|\mathcal{A}|} \sum_{\alpha \in \mathcal{A}}\mathcal{L}\left( z^{(L)}(x_\alpha;\theta), y_\alpha \right)
+    \end{equation}
+
+    Also note that there can be multiple neurons in the output layer which the label $y_\alpha$ should match in size. The losses from each $i$-th output neuron with the corresponding $i$-th portion of the label for the data point $\alpha$ are summed together. In other words:
+    \begin{equation}
+        \mathcal{L}_{\mathcal{A}}(\theta) \equiv \frac{1}{|\mathcal{A}|} \sum_{\alpha \in \mathcal{A}} \sum_{i=1}^{n_L} \mathcal{L}\left( z_i^{(L)}(x_\alpha;\theta), y_{i;\alpha} \right)
+    \end{equation}
+
+
+    \item The gradient of this loss is calculated with respect to each model parameter $\theta_\mu$ and is used to iteratively update the model parameters in the negative direction of the gradient\footnote{While Equation \ref{eq:grad-descent} guarantees at least a local minimum with a small learning rate $\eta$. A popular variant of gradient descent called \textbf{Stochastic gradient descent} (SGD) uses a random subset of the training data $\mathcal{S}_t \in \mathcal{A}$. $\mathcal{S}_t$ is called a batch and training is organized into "epochs" which is a complete pass through the training dataset. Using SGD has the advantage of better generalization and scalability since training time scales with a fixed size $\mathcal{S}_t$ instead of the entire training set $\mathcal{A}$ (since Equation \ref{eq:grad-descent} requires the calculation of the gradient for all data points in the data set used, the computation scales linearly with the set used. Assuming that the gradient can be approximated with $\mathcal{S}_t$, computing the gradient with a smaller subset $\mathcal{S}_t$ is faster than the full $\mathcal{A}$ because there are less gradients to calculate).}
+    \begin{equation}
+        \label{eq:grad-descent}
+        \theta_\mu(t+1) = \theta_\mu(t) - \eta \left. {\frac{d\mathcal{L}_\mathcal{A}}{d\theta_\mu}}\right|_{\theta_\mu = \theta_\mu(t)}
+    \end{equation}
+    Where $\eta$ is a positive hyperparameter called the learning rate and dictates the size of the step in the direction of the negative gradient, $\mu$ is added as a subscript to account for all parameters ($[W_{ij}^{(1)}, b_i^{(1)}, ..., W_{ij}^{(L)}, b_i^{(L)}]$), $t$ is the number of steps in the iterative training process usually starting at $t=0$.
+
+    The derivative $d\mathcal{L}_\mathcal{A} / d\theta_\mu$ is done iteratively starting at the last layer and propagating the results backwards layer by layer. This step is called \textbf{backpropagation} and using the chain rule, it is shown generalized for any parameter $\theta_\mu$ in Equation \ref{eq:gradient_of_param}\footnote{Note that the $dz^{(L)}_{i;\alpha}/d\theta_\mu$ term evaluates to zero if the $i$-th $z_{i;\alpha}^{(L)}$ doesn't depend on the parameter $\theta_\mu$.}:
+
+    \begin{equation}
+        \label{eq:gradient_of_param}
+        \frac{d\mathcal{L}_\mathcal{A}}{d\theta_\mu} = \sum^{n_{L}}_{i=1} \sum_{\alpha\in\mathcal{A}} \frac{\partial\mathcal{L}_\mathcal{A}}{\partial z_{i;\alpha}^{(L)}} \frac{dz_{i;\alpha}^{(L)}}{d\theta_\mu}
+    \end{equation}
+
+     Starting at the last layer $L$ and using the definition of $z_i^{(l+1)}$ in Equation \ref{eq:recursive-nn}, parameters associated with the $m$-th output neuron $m = 1,...,n_L$ can be calculated as\footnote{note that the sum from $i$ to $n_L$ vanishes because $dz_{i;\alpha}^{(L)}/\theta_\mu^{(L)}$ will evaluate to zero if $i \neq m$}:
+
+    \begin{equation}
+        \begin{split}
+        & \frac{d\mathcal{L}_\mathcal{A}}{d b_m^{(L)}} = \sum^{n_{L}}_{i=1} \sum_{\alpha\in\mathcal{A}} \frac{\partial\mathcal{L}_\mathcal{A}}{\partial z_{i;\alpha}^{(L)}} \frac{dz_{i;\alpha}^{(L)}}{db_m^{(L)}} = \sum_{\alpha\in\mathcal{A}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_{m;\alpha}^{(L)}} (1) \\
+        & \frac{d\mathcal{L}_\mathcal{A}}{dW_{mj}^{(L)}} = \sum^{n_{L}}_{i=1} \sum_{\alpha\in\mathcal{A}} \frac{\partial\mathcal{L}_\mathcal{A}}{\partial z_{i;\alpha}^{(L)}} \frac{dz_{i;\alpha}^{(L)}}{dW_{mj}^{(L)}} = \sum_{\alpha\in\mathcal{A}} \frac{\partial\mathcal{L}_\mathcal{A}}{\partial z_{m;\alpha}^{(L)}} \sigma_j^{(L-1)}
+        \end{split}
+    \end{equation}
+
+    To get the parameters in the subsequent layer $L-1$, the chain rule is once again used:
+
+    \begin{equation}
+        \begin{split}
+        \frac{d\mathcal{L}_\mathcal{A}}{db_j^{(L-1)}} &= \sum^{n_{L}}_{i=1} \sum_{\alpha\in\mathcal{A}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_{i;\alpha}^{(L)}} \frac{dz_{i;\alpha}^{(L)}}{d\sigma_j^{(L-1)}} \frac{d\sigma_j^{(L-1)}}{dz_{j;\alpha}^{(L-1)}} \frac{dz_{j;\alpha}^{(L-1)}}{db_j^{(L-1)}} \\
+        &= \sum^{n_{L}}_{i=1} \sum_{\alpha\in\mathcal{A}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_{i;\alpha}^{(L)}} W_{ij}^{(L)} \sigma_j^{\prime(L-1)} (1) \\
+        \frac{d\mathcal{L}_\mathcal{A}}{dW_{jk}^{(L-1)}} &= \sum^{n_{L}}_{i=1} \sum_{\alpha\in\mathcal{A}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_{i;\alpha}^{(L)}} \frac{dz_{i;\alpha}^{(L)}}{d\sigma_j^{(L-1)}} \frac{d\sigma_j^{(L-1)}}{dz_{j;\alpha}^{(L-1)}} \frac{dz_{j;\alpha}^{(L-1)}}{dW_{jk}^{(L-1)}} \\
+        &= \sum^{n_{L}}_{i=1} \sum_{\alpha\in\mathcal{A}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_{i;\alpha}^{(L)}} W_{ij}^{(L)} \sigma_j^{\prime(L-1)} \sigma_k^{(L-2)}
+        \end{split}
+    \end{equation}
+
+    More generally the following Equations \ref{eq:backprop-gen} may be used iteratively by sequential multiplication of the chain rule factors to determine the parameters $\theta_\mu$ in the $l$-th layer $l=L-1,...,1$ (once again working backwards from layer $L$):
+
+    \begin{equation}
+        \label{eq:backprop-gen}
+        \begin{split}
+        \frac{dz_{i;\alpha}^{(L)}}{db_j^{(l)}} &= \frac{dz_{i;\alpha}^{(L)}}{dz_{j;\alpha}^{(l)}} \\
+        \frac{dz_{i;\alpha}^{(L)}}{dW_{jk}^{(l)}} &= \sum_m \frac{dz_{i;\alpha}^{(L)}}{dz_{m;\alpha}^{(l)}} \frac{dz_{m;\alpha}^{(L)}}{dW_{jk}^{(l)}} = \frac{dz_{i;\alpha}^{(L)}}{dz_{j;\alpha}^{(l)}}\sigma_{k;\alpha}^{(l-1)} \\
+        \frac{dz_{i;\alpha}^{(L)}}{dz_{j;\alpha}^{(l)}} &= \sum^{n_{l+1}}_{k=1} \frac{dz_{i;\alpha}^{(L)}}{dz_{k;\alpha}^{(l+1)}}W_{kj}^{(l+1)}\sigma_{j;\alpha}^{\prime (l)} \quad \text{for} \quad l<L
+        \end{split}
+    \end{equation}
+
+    As a rule of thumb, The change in the loss function $\mathcal{L}_{\mathcal{A}}$ with respect to some parameter $\theta_\mu^{(l)}$ in layer $l < L$ will depend on all of the neurons in the layer above $l+1$ (causing the summations to stack as the change in the loss function with parameters in lower layers are calculated).
+
+    Equation \ref{eq:grad-descent} is run until there is convergence at a least a local minimum or the number of iterations specified is completed \cite{robertsPrinciplesDeepLearning2022b}.
+
+
+
 \end{enumerate}
+
 
 \clearpage
 \subsection{Convolutional Neural Networks (CNN)}
