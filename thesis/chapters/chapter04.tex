@@ -298,7 +298,7 @@ Neural networks are loosely based on the biological structure of the brain; it c
 
 There are also different types of layers depending on the type of input $x$ and the application of the neural network. The following subsections will briefly discuss these different types of layers used in their respective neural network. These layers include the linear layers, convolutional layers, recurrent layers, long short term memory (LSTM) layers and transformer layers.
 
-\subsection{Deep Neural Networks (DNN)}
+\subsection{Deep Neural Networks (DNN)} \label{subsec:DNN}
 \subsubsection{The Neuron}
 Deep Neural Networks consist of many stacked layers of neurons \cite{robertsPrinciplesDeepLearning2022b}. The threshold for considering a neural network "deep" is 3 layers \cite{WhatNeuralNetwork2021}. As mentioned in the Overview, a neuron consists of the weighted sum of the incoming signal $x$ added to some bias $b$, Equation \ref{eq:neuron}. The weights for each layer are stored in a weight matrix $W$.
 
@@ -425,14 +425,49 @@ With the objective of minimizing the loss in mind, training a simple neural netw
     As a rule of thumb, The change in the loss function $\mathcal{L}_{\mathcal{A}}$ with respect to some parameter $\theta_\mu^{(l)}$ in layer $l < L$ will depend on all of the neurons in the layer above $l+1$ (causing the summations to stack as the change in the loss function with parameters in lower layers are calculated).
 
     Equation \ref{eq:grad-descent} is run until there is convergence at a least a local minimum or the number of iterations specified is completed \cite{robertsPrinciplesDeepLearning2022b}.
-
-
-
 \end{enumerate}
+
+After the model parameters have been trained, the forward equation (Equation \ref{eq:recursive-nn}) can be used on new input data to classify, predict or forecast whatever the model was trained to do.
 
 
 \clearpage
 \subsection{Convolutional Neural Networks (CNN)}
+Convolutional Neural Networks (CNN) are typically used for inputs that are in the shape of a 2D array such as an image. They are primarily used in image recognition and classification tasks \cite{tayeTheoreticalUnderstandingConvolutional2023}. Unlike the DNN in Section \ref{subsec:DNN} which requires a set of features to input into the model, CNNs extract the features from images by themselves during the training and do not require the user to determine a set of features. In \cite{tayeTheoreticalUnderstandingConvolutional2023}, CNNs are composed of 4 layers: 
+
+\begin{itemize}
+    \item Convolutional
+    \item Pooling
+    \item Activation function
+    \item Fully Connected (discussed in \ref{subsec:DNN})
+\end{itemize}
+
+A typical architecture for a CNN is outlined in Figure \ref{fig:cnn-architecture}. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{cnn.png}
+    \caption{Architecture of a common CNN \cite{tayeTheoreticalUnderstandingConvolutional2023}.}
+    \label{fig:cnn-architecture}
+\end{figure}
+
+\subsubsection{Convolutinal Layer}
+The convolutional layer involves applying a set of \textbf{filters} or \textbf{kernels} to the data before it is used. These kernels are small 2D arrays whose height and width are typically smaller than the input array. The kernel's values are called \textbf{weights} and are trainable. Initially, the weights are initialized at random, but as the training progresses, the weights change to enable the kernel to extract meaningful features \cite{tayeTheoreticalUnderstandingConvolutional2023}. In the forward pass, the kernel transforms the image through dot product between the kernel and the section of the input array. The kernel starts at the top left of the input array and slides left to right, top to bottom calculating the dot product between itself and the section of the input array. How much the filter slides is control by the \textbf{stride} parameter (ie. a stride of 1 means that the filter will slide to the right 1 element every step where as a stride of 2 means that the filter will stride to the right 2 elements every step). Figure \ref{fig:cnn-filters} shows the result of applying a 2x2 kernel on a 4x4 input with a stride of 1.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{cnn-filters.png}
+    \caption{Applying a kernel (filter) to the input array \cite{tayeTheoreticalUnderstandingConvolutional2023}.}
+    \label{fig:cnn-filters}
+\end{figure}
+
+As seen in Figure \ref{fig:cnn-filters} the output dimension size was less than the input array's dimensions. To avoid the shrinkage in dimension size after applying the kernel, the input array can be zero padded $P$ number of layers. Taye's \cite{tayeTheoreticalUnderstandingConvolutional2023} formula to calculate the expected output dimensions $O$ after applying a kernel with height and width $F$, input array height and width $N$, and stride $S$ is shown in Equation \ref{eq:cnn-out-dim}
+
+\begin{equation}
+    \label{eq:cnn-out-dim}
+    O = 1 + \frac{N + 2P + F}{S}
+\end{equation}
+
+
 \subsection{Recurrent Neural Networks (RNN)}
 \subsection{Long Short Term Memory (LSTM) Neural Networks}
 \subsection{Transformer Neural Networks}
