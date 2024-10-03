@@ -450,7 +450,9 @@ A typical architecture for a CNN is outlined in Figure \ref{fig:cnn-architecture
 \end{figure}
 
 \subsubsection{Convolutional Layer}
-The convolutional layer involves applying a set of \textbf{filters} or \textbf{kernels} to the data before it is used. These kernels are small 2D arrays whose height and width are typically smaller than the input array. The kernel's values are called \textbf{weights} and are trainable. Initially, the weights are initialized at random, but as the training progresses, the weights change to enable the kernel to extract meaningful features \cite{tayeTheoreticalUnderstandingConvolutional2023}. In the forward pass, the kernel transforms the image through the dot product between the kernel and the section of the input array. The kernel starts at the top left of the input array and slides left to right, top to bottom calculating the dot product between itself and the section of the input array. How much the filter slides is controlled by the \textbf{stride} parameter (ie. a stride of 1 means that the filter will slide to the right 1 element every step where as a stride of 2 means that the filter will stride to the right 2 elements every step). Figure \ref{fig:cnn-filters} shows the result of applying a 2x2 kernel on a 4x4 input with a stride of 1.
+The convolutional layer involves applying a set of \textbf{filters} or \textbf{kernels} to the data before it is used (the user can specify the number of kernels $k$ in each layer). These kernels are small 3D arrays whose height and width $F$ are typically smaller than the input array's but have the same depth $r$ as the input array. The kernel's values are called \textbf{weights} and are trainable. 
+
+Initially, the weights are initialized at random, but as the training progresses, the weights change to enable the kernel to extract meaningful features \cite{tayeTheoreticalUnderstandingConvolutional2023}. In the forward pass, the kernel transforms the image through the dot product between the kernel and the section of the input array. The kernel starts at the top left of the input array and slides left to right, top to bottom calculating the dot product between itself and the section of the input array to produce a single value at each step. How much the filter slides is controlled by the \textbf{stride} parameter (ie. a stride of 1 means that the filter will slide to the right 1 element every step where as a stride of 2 means that the filter will stride to the right 2 elements every step). Figure \ref{fig:cnn-filters} shows the result of applying a 2x2 kernel on a 4x4 input with a stride of 1.
 
 \begin{figure}[ht]
     \centering
@@ -459,18 +461,37 @@ The convolutional layer involves applying a set of \textbf{filters} or \textbf{k
     \label{fig:cnn-filters}
 \end{figure}
 
-As seen in Figure \ref{fig:cnn-filters} the output dimension size was less than the input array's dimensions. To avoid the shrinkage in dimension size after applying the kernel, the input array can be zero padded $P$ number of layers. Taye's \cite{tayeTheoreticalUnderstandingConvolutional2023} formula to calculate the expected output dimension's height and width $O$ after applying a kernel with height and width $F$, input array height and width $N$, and stride $S$ is shown in Equation \ref{eq:cnn-out-dim}
+
+
+As seen in Figure \ref{fig:cnn-filters} the output height and width was less than the input array's height and width. To avoid the shrinkage in size after applying the kernel, the input array can be zero padded $P$ number of layers. Taye's \cite{tayeTheoreticalUnderstandingConvolutional2023} formula to calculate the expected output dimension's height and width $O$ after applying a kernel with height and width $F$, input array height and width $N$, and stride $S$ is shown in Equation \ref{eq:cnn-out-dim}
 
 \begin{equation}
     \label{eq:cnn-out-dim}
     O = 1 + \frac{N + 2P + F}{S}
 \end{equation}
 
+The convolutional operation from one filter will produce an array with shape ($O$,$O$,1). For $k$ number of kernels that the user defines, the output shape from the will be ($O$,$O$,$k$).
+
+After the convolution operation is complete, a bias $b$ is added to the output from each kernel and the values are typically passed through the ReLU activation function to remove the negative values \cite{tayeTheoreticalUnderstandingConvolutional2023,purwonoUnderstandingConvolutionalNeural2023}. In other words, the output for the $k$-th kernel $h^k$ (that is passed to the next layer) is as follows
+
+\begin{equation}
+   h^k = \sigma(W^k * x + b^k) 
+\end{equation}
+
+Where $W^k$ are the weights of the $k$-th kernel, $b^k$ is the bias added to the output of the $k$-th kernel, and the $*$ symbol represents the convolution operation.
+
+Based on the information discussed on convolutions, given kernel height and width\footnote{height and width of the kernel do not always need to be the same.} $F$, the number of filters $k$ and the depth of the input layer $r$, the number of trainable parameters in one convolutional layer is shown in Equation \ref{eq:cnn-num-params}
+
+\begin{equation}
+    \label{eq:cnn-num-params}
+    \text{Number of Parameters} = ((F * F * r) + 1)k
+\end{equation}
+
 \subsubsection{Pooling Layer}
 Pooling downsamples the output to decrease the dimensionality while retaining the most important data. Similar to the idea of a filter or kernel in the previous section, the pooling filter can have the height and width specified (eg. 2x2) as well as the type (eg. max, min, avg). The pooling filter starts at the top left and slides left to right, top to bottom applying the pooling rule to section of the input to the pooling filter (eg. if the pooling type is a max, the maximum value in the section of the input array to the pooling filter is taken and becomes the new value in the shrunken output array. Typically, the pooling filter then slides with a stride equal to its dimensions: $S=F$) \cite{tayeTheoreticalUnderstandingConvolutional2023}. Taye provides an example of Max Pooling and Average Pooling with a 2x2 filter size in Figure \ref{fig:cnn-pooling}.
 
 \subsubsection{Fully Connected Layer}
-In CNN architectures such as AlexNet and LeNet \cite{swapnaCNNArchitecturesAlex2020} and the sample CNN architecture in pyTorch \cite{TrainingClassifierPyTorch} the output from the last pooling layer is flattened into a 1D array and fed as an input to fully connected layers discussed in Section \ref{subsec:DNN}. From the literature, it seems that the ReLU activation function is the most popular for its simplicity and time and resource savings \cite{tayeTheoreticalUnderstandingConvolutional2023,swapnaCNNArchitecturesAlex2020}.
+In CNN architectures such as AlexNet and LeNet-5 \cite{swapnaCNNArchitecturesAlex2020} and the sample CNN architecture in pyTorch \cite{TrainingClassifierPyTorch} the output from the last pooling layer is flattened into a 1D array and fed as an input to fully connected layers discussed in Section \ref{subsec:DNN}. From the literature, it seems that the ReLU activation function is the most popular for its simplicity and time and resource savings \cite{tayeTheoreticalUnderstandingConvolutional2023,swapnaCNNArchitecturesAlex2020,prakashAdvancedDeepLearning2021}.
 
 \begin{figure}[ht]
     \centering
