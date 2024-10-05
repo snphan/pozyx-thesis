@@ -378,10 +378,12 @@ With the objective of minimizing the loss in mind, training a simple neural netw
 
 
     \item The gradient of this loss is calculated with respect to each model parameter $\theta_\mu$ and is used to iteratively update the model parameters in the negative direction of the gradient\footnote{While Equation \ref{eq:grad-descent} guarantees at least a local minimum with a small learning rate $\eta$. A popular variant of gradient descent called \textbf{Stochastic gradient descent} (SGD) uses a random subset of the training data $\mathcal{S}_t \in \mathcal{A}$. $\mathcal{S}_t$ is called a batch and training is organized into "epochs" which is a complete pass through the training dataset. Using SGD has the advantage of better generalization and scalability since training time scales with a fixed size $\mathcal{S}_t$ instead of the entire training set $\mathcal{A}$ (since Equation \ref{eq:grad-descent} requires the calculation of the gradient for all data points in the data set used, the computation scales linearly with the set used. Assuming that the gradient can be approximated with $\mathcal{S}_t$, computing the gradient with a smaller subset $\mathcal{S}_t$ is faster than the full $\mathcal{A}$ because there are less gradients to calculate).}
+
     \begin{equation}
         \label{eq:grad-descent}
         \theta_\mu(t+1) = \theta_\mu(t) - \eta \left. {\frac{d\mathcal{L}_\mathcal{A}}{d\theta_\mu}}\right|_{\theta_\mu = \theta_\mu(t)}
     \end{equation}
+
     Where $\eta$ is a positive hyperparameter called the learning rate and dictates the size of the step in the direction of the negative gradient, $\mu$ is added as a subscript to account for all parameters ($[W_{ij}^{(1)}, b_i^{(1)}, ..., W_{ij}^{(L)}, b_i^{(L)}]$), $t$ is the number of steps in the iterative training process usually starting at $t=0$.
 
     The derivative $d\mathcal{L}_\mathcal{A} / d\theta_\mu$ is done iteratively starting at the last layer and propagating the results backwards layer by layer. This step is called \textbf{backpropagation} and using the chain rule, it is shown generalized for any parameter $\theta_\mu$ in Equation \ref{eq:gradient_of_param}\footnote{Note that the $dz^{(L)}_{i;\alpha}/d\theta_\mu$ term evaluates to zero if the $i$-th $z_{i;\alpha}^{(L)}$ doesn't depend on the parameter $\theta_\mu$.}:
@@ -411,7 +413,7 @@ With the objective of minimizing the loss in mind, training a simple neural netw
         \end{split}
     \end{equation}
 
-    More generally the following Equations \ref{eq:backprop-gen} may be used iteratively by sequential multiplication of the chain rule factors to determine the parameters $\theta_\mu$ in the $l$-th layer $l=L-1,...,1$ (once again working backwards from layer $L$):
+    More generally, starting from Equation \ref{eq:gradient_of_param}, the following Equations \ref{eq:backprop-gen} may be used iteratively by sequential multiplication of the chain rule factors to determine the second term in Equation \ref{eq:gradient_of_param} (ie. sensitivity of the output in layer $z_{i;\alpha}^{(L)}$ to parameter $\theta_\mu$: $dz_{i;\alpha}^{(L)}/d\theta_\mu$) in the $l$-th layer $l=L-1,...,1$ (once again working backwards from layer $L$):
 
     \begin{equation}
         \label{eq:backprop-gen}
@@ -432,7 +434,7 @@ After the model parameters have been trained, the forward equation (Equation \re
 
 \clearpage
 \subsection{Convolutional Neural Networks (CNN)}
-Convolutional Neural Networks (CNN) are typically used for inputs that are in the shape of a 2D array such as an image. They are primarily used in image recognition and classification tasks \cite{tayeTheoreticalUnderstandingConvolutional2023}. Unlike the DNN in Section \ref{subsec:DNN} which requires a set of features to input into the model, CNNs extract the features from images by themselves during the training and do not require the user to determine a set of features. Typically, CNNs are composed of 3 layers \cite{tayeTheoreticalUnderstandingConvolutional2023,prakashAdvancedDeepLearning2021}: 
+Convolutional Neural Networks (CNN) are typically used for inputs that are in the shape of a 2D arrays with multiple channels (ie. the depth of the input) such as a color image with RBG channels. They are primarily used in image recognition and classification tasks \cite{tayeTheoreticalUnderstandingConvolutional2023}. Unlike the DNN in Section \ref{subsec:DNN} which requires a set of features to input into the model, CNNs extract the features from images by themselves during the training and do not require the user to determine a set of features. Typically, CNNs are composed of 3 layers \cite{tayeTheoreticalUnderstandingConvolutional2023,prakashAdvancedDeepLearning2021}: 
 
 \begin{itemize}
     \item Convolutional
@@ -467,18 +469,20 @@ As seen in Figure \ref{fig:cnn-filters} the output height and width was less tha
 
 \begin{equation}
     \label{eq:cnn-out-dim}
-    O = 1 + \frac{N + 2P + F}{S}
+    O = 1 + \frac{N + 2P - F}{S}
 \end{equation}
 
-The convolutional operation from one filter will produce an array with shape ($O$,$O$,1). For $k$ number of kernels that the user defines, the output shape from the will be ($O$,$O$,$k$).
+The convolutional operation from one kernel will produce an array with shape ($O$,$O$,1). For $k$ number of kernels that the user defines, the final output shape will be ($O$,$O$,$k$).
 
-After the convolution operation is complete, a bias $b$ is added to the output from each kernel and the values are typically passed through the ReLU activation function to remove the negative values \cite{tayeTheoreticalUnderstandingConvolutional2023,purwonoUnderstandingConvolutionalNeural2023}. In other words, the output for the $k$-th kernel $h^k$ (that is passed to the next layer) is as follows
+After the convolution operation is complete, a bias $b$ is added to the output from each kernel and the values are typically passed through the ReLU activation function $\sigma$ to remove the negative values\footnote{though a Leaky ReLU may be used to avoid the "Dying ReLU" issue} \cite{tayeTheoreticalUnderstandingConvolutional2023,purwonoUnderstandingConvolutionalNeural2023}. In other words, the output $z^{k, (l)}$ at layer $l$ for the $k$-th kernel (that is passed to the next layer) is as follows for some input $x$ \cite{alzubaidiReviewDeepLearning2021}:
 
 \begin{equation}
-   h^k = \sigma(W^k * x + b^k) 
+   \label{eq:cnn-output}
+    z^{k, (l)} = \sigma(W^{k, (l)} * x + b^k)
 \end{equation}
 
-Where $W^k$ are the weights of the $k$-th kernel, $b^k$ is the bias added to the output of the $k$-th kernel, and the $*$ symbol represents the convolution operation.
+
+Where $W^{k, (l)}$ are the weights of the $k$-th kernel, $b^k$ is the bias added to the output of the $k$-th kernel, and the $*$ symbol represents the convolution operation.
 
 Based on the information discussed on convolutions, given kernel height and width\footnote{height and width of the kernel do not always need to be the same.} $F$, the number of filters $k$ and the depth of the input layer $r$, the number of trainable parameters in one convolutional layer is shown in Equation \ref{eq:cnn-num-params}
 
@@ -488,7 +492,7 @@ Based on the information discussed on convolutions, given kernel height and widt
 \end{equation}
 
 \subsubsection{Pooling Layer}
-Pooling downsamples the output to decrease the dimensionality while retaining the most important data. Similar to the idea of a filter or kernel in the previous section, the pooling filter can have the height and width specified (eg. 2x2) as well as the type (eg. max, min, avg). The pooling filter starts at the top left and slides left to right, top to bottom applying the pooling rule to section of the input to the pooling filter (eg. if the pooling type is a max, the maximum value in the section of the input array to the pooling filter is taken and becomes the new value in the shrunken output array. Typically, the pooling filter then slides with a stride equal to its dimensions: $S=F$) \cite{tayeTheoreticalUnderstandingConvolutional2023}. Taye provides an example of Max Pooling and Average Pooling with a 2x2 filter size in Figure \ref{fig:cnn-pooling}.
+Pooling downsamples the output to decrease the height and width dimensionality while retaining the most important data. Similar to the idea of a filter or kernel in the previous section, the pooling filter can have the height and width specified (eg. 2x2) as well as the type (eg. max, min, avg). The pooling filter starts at the top left and slides left to right, top to bottom applying the pooling rule to section of the input to the pooling filter. For example, if the pooling type is a max, the maximum value in the section of the input array where the pooling filter is at is taken and becomes the new value in the shrunken output array. Typically, the pooling filter then slides with a stride equal to its dimensions: $S=F$. The pooling layer operates over all of the channels such that the height and width are reduced, but the depth remains the same \cite{tayeTheoreticalUnderstandingConvolutional2023}. Taye provides an example of Max Pooling and Average Pooling with a 2x2 filter size in Figure \ref{fig:cnn-pooling}. Similar to the convolutional layer, the output height and width $O$ can be calculated using Equation \ref{eq:cnn-out-dim} with no padding (ie. $P=0$) and the depth of the output is the same as the input. 
 
 \subsubsection{Fully Connected Layer}
 In CNN architectures such as AlexNet and LeNet-5 \cite{swapnaCNNArchitecturesAlex2020} and the sample CNN architecture in pyTorch \cite{TrainingClassifierPyTorch} the output from the last pooling layer is flattened into a 1D array and fed as an input to fully connected layers discussed in Section \ref{subsec:DNN}. From the literature, it seems that the ReLU activation function is the most popular for its simplicity and time and resource savings \cite{tayeTheoreticalUnderstandingConvolutional2023,swapnaCNNArchitecturesAlex2020,prakashAdvancedDeepLearning2021}.
@@ -501,6 +505,53 @@ In CNN architectures such as AlexNet and LeNet-5 \cite{swapnaCNNArchitecturesAle
 \end{figure}
 
 \subsubsection{Training the Convolutional Layers}
+Similar to the training done in the DNN section, training the convolutional layers involve backpropagation and finding the gradient of the cost function with respect to all of the model's parameters. Then using gradient descent, the optimal parameters may be found. Recall Equation \ref{eq:grad-descent}:
+
+\begin{equation}
+    \theta_\mu(t+1) = \theta_\mu(t) - \eta \left. {\frac{d\mathcal{L}_\mathcal{A}}{d\theta_\mu}}\right|_{\theta_\mu = \theta_\mu(t)}
+\end{equation} 
+
+First backpropagation is done through the fully connected layers to find the $d\mathcal{L}_\mathcal{A}/d\theta_\mu$ for weights and biases in the fully connected layers. This has already been discussed in Section \ref{subsec:DNN} through the use of the chain rule. Considering that a typical CNN architecture involves stacking of the Convolutional layers and the Pooling layers prior to the fully connected layers (refer to Figure \ref{fig:alexnet} of AlexNet), calculating the weights and biases that are in the Convolutional layers requires backpropagation to work backwards through both the pooling and the convolutional layers. The treatment of the pooling and convolutional layers will be discussed next.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{alexnet.png}
+    \caption{Architecture of the AlexNet \cite{vasudevUnderstandingCalculatingNumber2020}.}
+    \label{fig:alexnet}
+\end{figure}
+
+
+Since there are no parameters in the pooling layer, we must look back to the convolutional layer prior to this pooling layer to see how the pooling layer affects the backpropagation. Each cell $z_{ij}^{k, (l)}$ in the output from the convolutional layer is dependent on all the weights in the $k$-th kernel. Using $ij$ subscripts to denote the position in the output 2D array, $k$ to denote the $k$-th kernel, $F$ as the width and height of the kernel, $r$ the depth of the kernel and $O$ the output height and width, Equation \ref{eq:cnn-output} expanded is shown in Equation \ref{eq:cnn-output-expanded} at layer $l$:
+
+\begin{equation}
+    \label{eq:cnn-output-expanded}
+    z_{ij}^{k, (l)} = \sigma\left(b^{k, (l)} + \sum_{m=1}^{F} \sum_{n=1}^{F} \sum_{d=1}^{r}W^{k, (l)}_{mnd}x_{[m+i-1][n+j-1][d]}\right) \quad \text{for} \quad i,j = 1,...,O
+\end{equation}
+
+Since each output cell $z_{ij}^{k, (l)}$ from the $k$-th kernel depends on each weight in the $k$-th kernel, to calculate the sensitivity of the loss function to some weight parameter in the $k$-th kernel of convolutional layer $l$ ($d\mathcal{L}_\mathcal{A}/dW_{abc}^{k, (l)}$), the sum of the partial derivatives of all the outputs from the convolution between the $k$-th kernel and the input with respect to some weight $W_{abc}^{k, (l)}$ must be calculated:
+
+\begin{equation}
+    \label{eq:cnn-param-sensitivity}
+    \frac{d\mathcal{L}_\mathcal{A}}{dW_{abc}^{k, (l)}} = \sum_{i=1}^{O} \sum_{j=1}^{O} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_{ij}^{k, (l)}} \frac{\partial z_{ij}^{k, (l)}}{\partial W_{abc}^{k, (l)}}
+\end{equation}
+
+With the equations for sensitivity of loss function to the weights and bias in the convolutional layer, the effect of the Pooling layer can be investigated. As seen in AlexNet (Figure \ref{fig:alexnet}), there is a MaxPool layer applied to the output of the convolutional layer before being flattened and fed into the fully connected layers. In the forward pass, this pooling layer selects the "winning" cell (in this case the max value in the area selected by the pooling filter) before sliding to the next area. In terms of the output from the convolutional layer in Equation \ref{eq:cnn-output-expanded}, only changes in the output $z_{ij}^{k, (l)}$ that have been selected as the "winning" cell by the pooling layer will have an effect on the loss $\mathcal{L}_\mathcal{A}$ \cite{zakariaBackpropagationCNNMathematically2020}. Thus, in terms of Equation \ref{eq:cnn-param-sensitivity}, rather calculate all $i, j = 1,...,O$, only the set of the winning cells $C_{\text{win}}$ (or winning indices) are calculated:
+
+\begin{equation}
+    \label{eq:backprop-pool}
+    \frac{d\mathcal{L}_\mathcal{A}}{dW_{abc}^{k, (l)}} = \sum_{ij \in C_{\text{win}}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_{ij}^{k, (l)}} \frac{\partial z_{ij}^{k, (l)}}{\partial W_{abc}^{k, (l)}} 
+\end{equation}
+
+There might also be an Average Pooling layer which has a similar effect to adding a convolutional layer without any additional parameters. In each step, the pooling filter averages the section that it is on:
+
+\begin{equation}
+    \text{POOL}_{ijk} = \frac{1}{F \cdot F} \sum_{m=1}^{F} \sum_{n=1}^{F} x_{[m+i-1][n+j-1][k]} \quad \text{for} \quad i,j = 1,...,O
+\end{equation}
+
+This pooling function would be added to the chain rule in Equation \ref{eq:cnn-param-sensitivity} to properly account for the effects of the average pooling layer.
+
+
+Once again, using the chain rule and Equations \ref{eq:cnn-param-sensitivity} and \ref{eq:backprop-pool} determined for backpropagating through the convolutional and pooling layers, the sensitivity of the loss function to the remaining parameters can be found.
 
 \subsection{Recurrent Neural Networks (RNN)}
 \subsection{Long Short Term Memory (LSTM) Neural Networks}
