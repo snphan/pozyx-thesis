@@ -545,10 +545,15 @@ With the equations for sensitivity of loss function to the weights and bias in t
 There might also be an Average Pooling layer which has a similar effect to adding a convolutional layer without any additional parameters. In each step, the pooling filter averages the section that it is on:
 
 \begin{equation}
-    \text{POOL}_{ijk} = \frac{1}{F \cdot F} \sum_{m=1}^{F} \sum_{n=1}^{F} x_{[m+i-1][n+j-1][k]} \quad \text{for} \quad i,j = 1,...,O
+    \text{POOL}_{ij}^k = \frac{1}{F \cdot F} \sum_{m=1}^{F} \sum_{n=1}^{F} x_{[m+i-1][n+j-1]}^k \quad \text{for} \quad i,j = 1,...,O, \quad k = 1,...,r
 \end{equation}
 
-This pooling function would be added to the chain rule in Equation \ref{eq:cnn-param-sensitivity} to properly account for the effects of the average pooling layer.
+This pooling function would be added to the chain rule in Equation \ref{eq:cnn-param-sensitivity} to properly account for the effects of the average pooling layer. For the output dimensions of the average pooling layer $O_{AVG}$ and the output dimensions of the convolutional layer $O$ the equation to find the sensitivity of the loss function to a weight in the convolutional layer is:
+
+\begin{equation}
+    \frac{d\mathcal{L}_\mathcal{A}}{dW_{abc}^{k, (l)}} = \sum_{m=1}^{O} \sum_{n=1}^{O} \sum_{i=1}^{O_{AVG}} \sum_{j=1}^{O_{AVG}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial POOL_{ij}^k} \frac{\partial POOL_{ij}^k}{\partial z_{mn}^{k, (l)}} \frac{\partial z_{mn}^{k, (l)}}{\partial W_{abc}^{k, (l)}}
+\end{equation}
+
 
 
 Once again, using the chain rule and Equations \ref{eq:cnn-param-sensitivity} and \ref{eq:backprop-pool} determined for backpropagating through the convolutional and pooling layers, the sensitivity of the loss function to the remaining parameters can be found.
