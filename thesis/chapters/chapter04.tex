@@ -554,11 +554,12 @@ This pooling function would be added to the chain rule in Equation \ref{eq:cnn-p
     \frac{d\mathcal{L}_\mathcal{A}}{dW_{abc}^{k, (l)}} = \sum_{m=1}^{O} \sum_{n=1}^{O} \sum_{i=1}^{O_{AVG}} \sum_{j=1}^{O_{AVG}} \frac{\partial \mathcal{L}_\mathcal{A}}{\partial POOL_{ij}^k} \frac{\partial POOL_{ij}^k}{\partial z_{mn}^{k, (l)}} \frac{\partial z_{mn}^{k, (l)}}{\partial W_{abc}^{k, (l)}}
 \end{equation}
 
-
-
 Once again, using the chain rule and Equations \ref{eq:cnn-param-sensitivity} and \ref{eq:backprop-pool} determined for backpropagating through the convolutional and pooling layers, the sensitivity of the loss function to the remaining parameters can be found.
 
 \subsection{Recurrent Neural Networks (RNN)}
+Long Short Term Memory (LSTM) Neural Networks have impressive benchmarks in literature for tasks including language modeling, speech-to-text transcription, and machine translation \cite{sherstinskyFundamentalsRecurrentNeural2020a}. The Recurrent Neural Network (RNN) is a predecessor to and includes as a special case this LSTM neural network \cite{sherstinskyFundamentalsRecurrentNeural2020a}. Since LSTM is a type of RNN, RNN will be discussed first to serve as a foundation for LSTM that will be discussed in the next section.
+
+
 \subsection{Long Short Term Memory (LSTM) Neural Networks}
 \subsection{Transformer Neural Networks}
 
