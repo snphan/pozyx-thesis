@@ -559,6 +559,23 @@ Once again, using the chain rule and Equations \ref{eq:cnn-param-sensitivity} an
 \subsection{Recurrent Neural Networks (RNN)}
 Long Short Term Memory (LSTM) Neural Networks have impressive benchmarks in literature for tasks including language modeling, speech-to-text transcription, and machine translation \cite{sherstinskyFundamentalsRecurrentNeural2020a}. The Recurrent Neural Network (RNN) is a predecessor to and includes as a special case this LSTM neural network \cite{sherstinskyFundamentalsRecurrentNeural2020a}. Since LSTM is a type of RNN, RNN will be discussed first to serve as a foundation for LSTM that will be discussed in the next section.
 
+RNNs were developed out of a need for a model that could handle sequential data: data like time-series data, a sentence, data where the value at some time-step $t$, $x_t$, depends on the data at the previous time-steps (eg. $x_{t-1}, x_{t-2}, x_{t-3}...$). The authors in \cite{salemRecurrentNeuralNetworks2022} present the input as a sequence of vectors that each have $m$ features. The sequential input to the RNN can have $N$ time-steps, real or fictitious, $t=0,...,N$. The size of the output hidden state can be set at some number $n$. At $t=1$ the output is calculated very similarly to the neuron Equation \ref{eq:neuron} in section \ref{subsec:DNN} and passed through an activation function, in RNN this is typically tanh or ReLU \cite{salemRecurrentNeuralNetworks2022}. In vector form:\footnote{note that the subscript now indicate a time-step}
+
+\begin{equation}
+    h_0(x_0) = \sigma(b + Wx_0)
+\end{equation}
+
+What is different from the regular neural network is that $h_0$, in addition to being used as a potential output,  is used as hidden state. This hidden state is weighted by the hidden state weight matrix $U$ and used to calculate the output hidden state of the next time step:
+
+\begin{equation}
+    h_1(x_1) = \sigma(Uh_0+Wx_1+b)
+\end{equation}
+
+More generally \cite{salemRecurrentNeuralNetworks2022}\footnote{Note that typically $h_{-1}=0$ as there is no negative time}:
+
+\begin{equation}
+    h_t(x_t) = \sigma(Uh_{t-1} + Wx_t+b), \quad t=0,...,N
+\end{equation}
 
 \subsection{Long Short Term Memory (LSTM) Neural Networks}
 \subsection{Transformer Neural Networks}
