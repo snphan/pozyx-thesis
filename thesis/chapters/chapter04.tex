@@ -557,15 +557,17 @@ This pooling function would be added to the chain rule in Equation \ref{eq:cnn-p
 Once again, using the chain rule and Equations \ref{eq:cnn-param-sensitivity} and \ref{eq:backprop-pool} determined for backpropagating through the convolutional and pooling layers, the sensitivity of the loss function to the remaining parameters can be found.
 
 \subsection{Recurrent Neural Networks (RNN)}
+
+\subsubsection{Overview}
 Long Short Term Memory (LSTM) Neural Networks have impressive benchmarks in literature for tasks including language modeling, speech-to-text transcription, and machine translation \cite{sherstinskyFundamentalsRecurrentNeural2020a}. The Recurrent Neural Network (RNN) is a predecessor to and includes as a special case this LSTM neural network \cite{sherstinskyFundamentalsRecurrentNeural2020a}. Since LSTM is a type of RNN, RNN will be discussed first to serve as a foundation for LSTM that will be discussed in the next section.
 
-RNNs were developed out of a need for a model that could handle sequential data: data like time-series data, a sentence, data where the value at some time-step $t$, $x_t$, depends on the data at the previous time-steps (eg. $x_{t-1}, x_{t-2}, x_{t-3}...$). The authors in \cite{salemRecurrentNeuralNetworks2022} present the input as a sequence of vectors that each have $m$ features. The sequential input to the RNN can have $N$ time-steps, real or fictitious, $t=0,...,N$. The size of the output hidden state can be set at some number $n$. At $t=1$ the output is calculated very similarly to the neuron Equation \ref{eq:neuron} in section \ref{subsec:DNN} and passed through an activation function, in RNN this is typically tanh or ReLU \cite{salemRecurrentNeuralNetworks2022}. In vector form:\footnote{note that the subscript now indicate a time-step}
+RNNs were developed out of a need for a model that could handle sequential data: data like time-series data, a sentence, data where the value at some time-step $t$, $x_t$, depends on the data at the previous time-steps (eg. $x_{t-1}, x_{t-2}, x_{t-3}...$). The authors in \cite{salemRecurrentNeuralNetworks2022} present the input as a sequence of vectors that each have $m$ features. The sequential input to the RNN can have $N$ time-steps, real or fictitious, $t=0,...,N$. The size of the output hidden state can be specified at some number $n$. At $t=0$ the output is calculated very similarly to the neuron Equation \ref{eq:neuron} in section \ref{subsec:DNN} and passed through an activation function, in RNN this is typically tanh or ReLU \cite{salemRecurrentNeuralNetworks2022}. In vector form with $W$ as an $n \times m$ matrix:\footnote{note that the subscript now indicate a time-step}
 
 \begin{equation}
     h_0(x_0) = \sigma(b + Wx_0)
 \end{equation}
 
-What is different from the regular neural network is that $h_0$, in addition to being used as a potential output,  is used as hidden state. This hidden state is weighted by the hidden state weight matrix $U$ and used to calculate the output hidden state of the next time step:
+What is different from the regular neural network is that $h_0$, in addition to being used as a potential output,  is used as a hidden state. This hidden state is weighted by the hidden state weight $n \times n$ matrix $U$ and used to calculate the output hidden state of the next time step:
 
 \begin{equation}
     h_1(x_1) = \sigma(Uh_0+Wx_1+b)
@@ -574,7 +576,50 @@ What is different from the regular neural network is that $h_0$, in addition to 
 More generally \cite{salemRecurrentNeuralNetworks2022}\footnote{Note that typically $h_{-1}=0$ as there is no negative time}:
 
 \begin{equation}
+    \label{eq:rnn-recursive}
     h_t(x_t) = \sigma(Uh_{t-1} + Wx_t+b), \quad t=0,...,N
+\end{equation}
+
+For hidden states used as an output, they are passed through a linear layer which results in the output $z_t$ vector with a size of $r$.
+
+\begin{equation}
+    z_t(h_t) = Vh_t + c, \quad t = 0,...,N
+\end{equation}
+
+Where $V$ is another weight matrix with dimensions $r \times n$ and $c$ is the bias with a size of $r$.
+
+Note that the weight matrices $U$, $W$, and $V$ in the RNN are reused in each time step for all $t=0,...,N$. In other words, the number of parameters will not grow as the length of the sequence increases or $N$ grows.
+
+\subsubsection{Training the Recurrent Neural Network}
+Once again training the recurrent neural network involves the idea of backpropagation. For RNNs, in addition to backpropagating through the layers, there will need to be back propagation through time (BPTT) \cite{salemRecurrentNeuralNetworks2022}. The authors in \cite{salemRecurrentNeuralNetworks2022} provide equations for the calculation of the RNN parameters:
+
+\begin{equation}
+    \begin{split}
+        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial V} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right) \frac{\partial z_t}{\partial V} = \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right) h_t^T \\
+        \left(\frac{\partial \mathcal{L}_\mathcal{A}}{\partial c}\right)^T &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right)^T \frac{\partial z_t}{\partial c} = \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right)^T (1)
+    \end{split}
+\end{equation}
+
+The partial derivatives for the bias $c$ is transposed to retain the chain-rule derivative for scalar \cite{salemRecurrentNeuralNetworks2022}. 
+
+For the gradients of the parameter $U$, $W$ and $b$, the partial derivative of the loss with respect to the intermediate function in Equation \ref{eq:rnn-recursive} ($y_t = Uh_{t-1} + Wx_t+b$) will be defined. Note that to find the gradient of the parameters, the algorithm is required to step backwards in time starting from the $t=N$ and iteratively using Equation \ref{eq:bptt}.
+
+\begin{equation}
+    \label{eq:bptt}
+    \begin{split}
+    \lambda_t &= \frac{\partial \mathcal{L}_\mathcal{A}}{\partial y_t}  \\
+    &= (U\sigma_t')^T \lambda_{t+1} + (V \sigma_t')^T  \frac{\partial \mathcal{L}_\mathcal{A} }{\partial z_t}, \quad 0 < t \leq N - 1
+    \end{split}
+\end{equation}
+
+With the intermediate partial derivative $\lambda_t$ defined the gradients of the other parameters are as follows:
+
+\begin{equation}
+    \begin{split}
+        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial U} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right) \frac{\partial y_t}{\partial U} = \sum_{t=0}^{N}\lambda_t h_{t-1}^T \\
+        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial W} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right) \frac{\partial y_t}{\partial W} = \sum_{t=0}^{N}\lambda_t x_{t}^T \\
+        \left(\frac{\partial \mathcal{L}_\mathcal{A}}{\partial b}\right)^T &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right)^T \frac{\partial y_t}{\partial b} = \sum_{t=0}^{N} (\lambda_t)^T
+    \end{split}
 \end{equation}
 
 \subsection{Long Short Term Memory (LSTM) Neural Networks}
