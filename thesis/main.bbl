@@ -491,6 +491,11 @@ A.~Sherstinsky, ``Fundamentals of {{Recurrent Neural Network}} ({{RNN}}) and {{L
 F.~M. Salem, \emph{Recurrent {{Neural Networks}}: {{From Simple}} to {{Gated Architectures}}}.\hskip 1em plus 0.5em minus 0.4em\relax Springer International Publishing. [Online]. Available: \url{https://link.springer.com/10.1007/978-3-030-89929-5}
 \BIBentrySTDinterwordspacing
 
+\bibitem{CS231nConvolutionalNeural}
+\BIBentryALTinterwordspacing
+{{CS231n Convolutional Neural Networks}} for {{Visual Recognition}}. [Online]. Available: \url{https://cs231n.github.io/rnn/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{yinPredictionAnalysisTime2023}
 \BIBentryALTinterwordspacing
 Y.~Yin, ``Prediction and analysis of time series data based on granular computing,'' vol.~17. [Online]. Available: \url{https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2023.1192876/full}

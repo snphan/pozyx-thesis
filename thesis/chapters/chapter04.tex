@@ -580,35 +580,46 @@ More generally \cite{salemRecurrentNeuralNetworks2022}\footnote{Note that typica
     h_t(x_t) = \sigma(Uh_{t-1} + Wx_t+b), \quad t=0,...,N
 \end{equation}
 
-For hidden states used as an output, they are passed through a linear layer which results in the output $z_t$ vector with a size of $r$.
+For hidden states used as an output, they are passed through a linear layer which results in the output $y_t$ vector with a size of $r$.
 
 \begin{equation}
-    z_t(h_t) = Vh_t + c, \quad t = 0,...,N
+    \label{eq:rnn-output}
+    y_t(h_t) = Vh_t + c, \quad t = 0,...,N
 \end{equation}
 
 Where $V$ is another weight matrix with dimensions $r \times n$ and $c$ is the bias with a size of $r$.
 
 Note that the weight matrices $U$, $W$, and $V$ in the RNN are reused in each time step for all $t=0,...,N$. In other words, the number of parameters will not grow as the length of the sequence increases or $N$ grows.
 
+A visual depiction of the architecture of the RNN is shown in Figure \ref{fig:rnn} \cite{CS231nConvolutionalNeural}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{rnn.png}
+    \caption{A visual depiction of an RNN. The far left shows the simplified RNN with $x$ being passed in, the middle looping arrow represents the calculation of the hidden state at each time step and being passed to the calculation for the hidden state in the next time step. Each hidden state can be used to calculate an output $y$ using Equation \ref{eq:rnn-output}. The connected structure to the right of the simplified RNN shows the "unrolled" version of the RNN. The arrow to the right shows the hidden state being passed onto the calculation in the subsequent time step \cite{CS231nConvolutionalNeural}.}
+    \label{fig:rnn}
+\end{figure}
+
+
 \subsubsection{Training the Recurrent Neural Network}
 Once again training the recurrent neural network involves the idea of backpropagation. For RNNs, in addition to backpropagating through the layers, there will need to be back propagation through time (BPTT) \cite{salemRecurrentNeuralNetworks2022}. The authors in \cite{salemRecurrentNeuralNetworks2022} provide equations for the calculation of the RNN parameters:
 
 \begin{equation}
     \begin{split}
-        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial V} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right) \frac{\partial z_t}{\partial V} = \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right) h_t^T \\
-        \left(\frac{\partial \mathcal{L}_\mathcal{A}}{\partial c}\right)^T &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right)^T \frac{\partial z_t}{\partial c} = \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right)^T (1)
+        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial V} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right) \frac{\partial y_t}{\partial V} = \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right) h_t^T \\
+        \left(\frac{\partial \mathcal{L}_\mathcal{A}}{\partial c}\right)^T &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right)^T \frac{\partial y_t}{\partial c} = \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right)^T (1)
     \end{split}
 \end{equation}
 
 The partial derivatives for the bias $c$ is transposed to retain the chain-rule derivative for scalar \cite{salemRecurrentNeuralNetworks2022}. 
 
-For the gradients of the parameter $U$, $W$ and $b$, the partial derivative of the loss with respect to the intermediate function in Equation \ref{eq:rnn-recursive} ($y_t = Uh_{t-1} + Wx_t+b$) will be defined. Note that to find the gradient of the parameters, the algorithm is required to step backwards in time starting from the $t=N$ and iteratively using Equation \ref{eq:bptt}.
+For the gradients of the parameter $U$, $W$ and $b$, the partial derivative of the loss with respect to the intermediate function in Equation \ref{eq:rnn-recursive} ($z_t = Uh_{t-1} + Wx_t+b$) will be defined. Note that to find the gradient of the parameters, the algorithm is required to step backwards in time starting from the $t=N$ and iteratively using Equation \ref{eq:bptt}.
 
 \begin{equation}
     \label{eq:bptt}
     \begin{split}
-    \lambda_t &= \frac{\partial \mathcal{L}_\mathcal{A}}{\partial y_t}  \\
-    &= (U\sigma_t')^T \lambda_{t+1} + (V \sigma_t')^T  \frac{\partial \mathcal{L}_\mathcal{A} }{\partial z_t}, \quad 0 < t \leq N - 1
+    \lambda_t &= \frac{\partial \mathcal{L}_\mathcal{A}}{\partial z_t}  \\
+    &= (U\sigma_t')^T \lambda_{t+1} + (V \sigma_t')^T  \frac{\partial \mathcal{L}_\mathcal{A} }{\partial y_t}, \quad 0 < t \leq N - 1
     \end{split}
 \end{equation}
 
@@ -616,9 +627,9 @@ With the intermediate partial derivative $\lambda_t$ defined the gradients of th
 
 \begin{equation}
     \begin{split}
-        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial U} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right) \frac{\partial y_t}{\partial U} = \sum_{t=0}^{N}\lambda_t h_{t-1}^T \\
-        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial W} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right) \frac{\partial y_t}{\partial W} = \sum_{t=0}^{N}\lambda_t x_{t}^T \\
-        \left(\frac{\partial \mathcal{L}_\mathcal{A}}{\partial b}\right)^T &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial y_t}\right)^T \frac{\partial y_t}{\partial b} = \sum_{t=0}^{N} (\lambda_t)^T
+        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial U} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right) \frac{\partial z_t}{\partial U} = \sum_{t=0}^{N}\lambda_t h_{t-1}^T \\
+        \frac{\partial \mathcal{L}_\mathcal{A}}{\partial W} &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right) \frac{\partial z_t}{\partial W} = \sum_{t=0}^{N}\lambda_t x_{t}^T \\
+        \left(\frac{\partial \mathcal{L}_\mathcal{A}}{\partial b}\right)^T &= \sum_{t=0}^{N}\left(\frac{\mathcal{L}_\mathcal{A}^t}{\partial z_t}\right)^T \frac{\partial z_t}{\partial b} = \sum_{t=0}^{N} (\lambda_t)^T
     \end{split}
 \end{equation}
 
