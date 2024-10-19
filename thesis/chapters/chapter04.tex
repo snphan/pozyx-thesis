@@ -601,7 +601,7 @@ A visual depiction of the architecture of the RNN is shown in Figure \ref{fig:rn
 \end{figure}
 
 
-\subsubsection{Training the Recurrent Neural Network}
+\subsubsection{Training the Simple Recurrent Neural Network}
 Once again training the recurrent neural network involves the idea of backpropagation. For RNNs, in addition to backpropagating through the layers, there will need to be back propagation through time (BPTT) \cite{salemRecurrentNeuralNetworks2022}. The authors in \cite{salemRecurrentNeuralNetworks2022} provide equations for the calculation of the RNN parameters:
 
 \begin{equation}
@@ -633,7 +633,59 @@ With the intermediate partial derivative $\lambda_t$ defined the gradients of th
     \end{split}
 \end{equation}
 
+From inspecting the equation for $\lambda_t$, it can be seen that gradient of the parameter matrix $U$ and $W$ will require $U$ and $V$ to be nested multiple times. For example with expansion to the next time step: 
+
+\begin{equation}
+    \lambda_t = (U\sigma_t')^T \left[ (U\sigma_{t+1}')^T \lambda_{t+2} + (V \sigma_{t+1}')^T  \frac{\partial \mathcal{L}_\mathcal{A} }{\partial y_{t+1}} \right] + (V \sigma_t')^T  \frac{\partial \mathcal{L}_\mathcal{A} }{\partial y_t} 
+\end{equation}
+
+The nesting of the parameter matrices in the calculation of $\lambda_t$ causes small changes in the these parameter matrices $W$ and $U$ to be greatly amplified as the sequence of data gets longer leading to the vanishing gradient or exploding gradient issues that typically make these simple RNNs unsuitable for practical use \cite{salemRecurrentNeuralNetworks2022}. Although workarounds such as clipping or setting a threshold on the upper and lower bound of the parameter values seems to alleviate some of these issues, an approach more widely used are LSTMs discussed in the next section \cite{salemRecurrentNeuralNetworks2022}.
+
 \subsection{Long Short Term Memory (LSTM) Neural Networks}
+Long Short Term Memory (LSTM) Neural Networks build upon idea of the simple RNN and allow for information for the sequence of data to be learned while mitigating the issue of the vanishing gradient and the exploding gradient. The LSTM adds a \textbf{memory cell} $c_t$ to the simple RNN architecture. In comparing with the simple RNN, the original calculation for $h_t$ in the simple RNN becomes an intermediate output $\tilde{c}_t$ in the LSTM that is combined with the memory cell before being output as a hidden state to be used in the calculation for subsequent time steps. The equations for the LSTM are as follows \cite{salemRecurrentNeuralNetworks2022}:
+
+\begin{equation}
+    \begin{split}
+        \tilde{c}_t &= g(U_ch_{t-1}+W_cx_t + b) \\
+        c_t &= f_t \odot c_{t-1} + i_t \odot \tilde{c}_t \\
+        h_t &= o_t \odot g(c_t)
+    \end{split}
+\end{equation}
+
+With $\odot$ representing element-wise multiplication and $i_t$, $f_t$ and $o_t$ representing the \textit{input, forget, output} gates respectively. The equations for these gates are as follows:
+
+\begin{equation}
+    \begin{split}
+        i_t &= \sigma(U_ih_{t-1} + W_i x_t + b_i) \\
+        f_t &= \sigma(U_fh_{t-1} + W_f x_t + b_f) \\
+        o_t &= \sigma(U_oh_{t-1} + W_o x_t + b_o) \\
+    \end{split}
+\end{equation}
+
+With the following variables
+
+\begin{itemize}
+    \item $g$: an activation function such as logistic function, tanh, or ReLU. Typically tanh \cite{salemRecurrentNeuralNetworks2022}
+    \item $\sigma$: an activation function such as logistic function, tanh, or ReLU. Typically Logistic to facilitate the "gating" function of forcing the output of the gate to be between 0 and 1 \cite{salemRecurrentNeuralNetworks2022}.
+    \item $U_{step}$: The $U$ parameter matrix for $step$ in the LSTM. Values of the $step \in \{c, i, f, o\}$ for the \textit{memory cell, input, forget} and \textit{output} steps respectively
+    \item $W_{step}$: The $W$ parameter matrix for the $step$ in the LSTM. Values of the $step \in \{c, i, f, o\}$ for the \textit{memory cell, input, forget} and \textit{output} steps respectively
+    \item $b_{step}$: The $b$ bias parameter for the $step$ in the LSTM. Values of the $step \in \{c, i, f, o\}$ for the \textit{memory cell, input, forget} and \textit{output} steps respectively
+\end{itemize}
+
+Similar to the RNN the parameters in the memory cell, input, forget and output steps are reused at calculation for each time step so the number of parameters do not grow as the sequence gets longer. The total number of parameters for the LSTM is 4 times that of a RNN: $n_\text{LSTM, params} = 4(n^2 + nm + n)$ (recall that $n$ is the number of hidden state features and $m$ is the input vector number of features).
+
+The architecture of the LSTM unit is shown in Figure \ref{fig:lstm-arch}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{lstm.png}
+    \caption{LSTM Architecture \cite{salemRecurrentNeuralNetworks2022}. Note that the activation function $g$ is shown as the tanh function.}
+    \label{fig:lstm-arch}
+\end{figure}
+
+\subsection{Training LSTMs}
+The author in \cite{salemRecurrentNeuralNetworks2022} does not provide equations for the backpropagation of the LSTM. However, since the LSTM is a type of RNN, the backpropagation through time (BPTT) would be used to find the gradients of the parameters $U_{step}, W_{step}, b_{step}$ for all of the steps $\{c, i, f, o\}$ by working backwards from the loss function $\mathcal{L}_\mathcal{A}$ to the point when these parameters are used. 
+
 \subsection{Transformer Neural Networks}
 
 \section{Feature Extraction}
