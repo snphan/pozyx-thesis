@@ -496,6 +496,31 @@ F.~M. Salem, \emph{Recurrent {{Neural Networks}}: {{From Simple}} to {{Gated Arc
 {{CS231n Convolutional Neural Networks}} for {{Visual Recognition}}. [Online]. Available: \url{https://cs231n.github.io/rnn/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{vaswaniAttentionAllYou2023}
+\BIBentryALTinterwordspacing
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez, L.~Kaiser, and I.~Polosukhin. Attention {{Is All You Need}}. [Online]. Available: \url{http://arxiv.org/abs/1706.03762}
+\BIBentrySTDinterwordspacing
+
+\bibitem{TorchtextdatautilsTorchtext0180}
+\BIBentryALTinterwordspacing
+Torchtext.data.utils — {{Torchtext}} 0.18.0 documentation. [Online]. Available: \url{https://pytorch.org/text/stable/data\_utils.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{tengComprehensiveReviewCyberbullyingrelated2024}
+\BIBentryALTinterwordspacing
+T.~H. Teng, K.~D. Varathan, and F.~Crestani, ``A comprehensive review of cyberbullying-related content classification in online social media,'' vol. 244, p. 122644. [Online]. Available: \url{https://www.sciencedirect.com/science/article/pii/S0957417423031469}
+\BIBentrySTDinterwordspacing
+
+\bibitem{amanatullahAttentionMechanism2023}
+\BIBentryALTinterwordspacing
+Amanatullah. The {{Attention Mechanism}}. Medium. [Online]. Available: \url{https://medium.com/@amanatulla1606/the-attention-mechanism-797e51c45d46}
+\BIBentrySTDinterwordspacing
+
+\bibitem{longxTransformerAttentionLayer2022}
+\BIBentryALTinterwordspacing
+Longx. Transformer {{Attention Layer}} gradient. Longxiang He. [Online]. Available: \url{https://say-hello2y.github.io/2022-09-07/attention-gradient}
+\BIBentrySTDinterwordspacing
+
 \bibitem{yinPredictionAnalysisTime2023}
 \BIBentryALTinterwordspacing
 Y.~Yin, ``Prediction and analysis of time series data based on granular computing,'' vol.~17. [Online]. Available: \url{https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2023.1192876/full}

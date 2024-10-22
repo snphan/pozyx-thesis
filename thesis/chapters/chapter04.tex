@@ -683,11 +683,126 @@ The architecture of the LSTM unit is shown in Figure \ref{fig:lstm-arch}
     \label{fig:lstm-arch}
 \end{figure}
 
-\subsection{Training LSTMs}
+\subsubsection{Training LSTMs}
 The author in \cite{salemRecurrentNeuralNetworks2022} does not provide equations for the backpropagation of the LSTM. However, since the LSTM is a type of RNN, the backpropagation through time (BPTT) would be used to find the gradients of the parameters $U_{step}, W_{step}, b_{step}$ for all of the steps $\{c, i, f, o\}$ by working backwards from the loss function $\mathcal{L}_\mathcal{A}$ to the point when these parameters are used. 
 
 \subsection{Transformer Neural Networks}
+One limitation of the simple RNN and the LSTM is the sequential nature of the calculations. According to Vaswani et al. the sequential nature of the calculation (ie. $h_t$ depends on the calculation of $h_{t-1}$) prevents any form of parallelization to occur limiting training speed and memory requirements increase with length of the sequences \cite{vaswaniAttentionAllYou2023}. 
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{transformer.png}
+    \caption{Transformer Architecture \cite{vaswaniAttentionAllYou2023}}
+    \label{fig:transformer-arch}
+\end{figure}
+
+The transformer architecture that is proposed in \cite{vaswaniAttentionAllYou2023} eliminates the sequential dependence and uses only the attention mechanism to draw global dependencies between the input and the output \cite{vaswaniAttentionAllYou2023}. Although Vaswani et al. proposed the architecture for the task of machine translation (and more recently natural language processing), the idea of leveraging contextual information in a sequence may be useful in the classification of the time series data in this thesis. The transformer architecture is shown in Figure \ref{fig:transformer-arch}.
+
+\subsubsection{Positional Encoding}
+The first step in the transformer architecture (Figure \ref{fig:transformer-arch}) is the positional encoding step. An input matrix $X$ of $d_{model}$ features and $N$ time steps\footnote{Note that in natural language processing (NLP), these time steps are tokens--words or special characters depending on the tokenization function \cite{TorchtextdatautilsTorchtext0180}} (ie. $X \in \mathbb{R}^{N \times d_{model}}$) needs to have some sort of positional information injected to make use of the sequence since the transformer does not use recurrence or convolution \cite{vaswaniAttentionAllYou2023}. Sine and Cosine functions were used to positionally encode each vector in $X$ \cite{vaswaniAttentionAllYou2023}:
+
+\begin{equation}
+    \label{eq:pos-encoding}
+    \begin{split}
+        PE_{(pos, 2i)} &= sin(pos/10000^{2i/d_model})\\
+        PE_{(pos, 2i + 1)} &= cos(pos/10000^{2i/d_model})
+    \end{split}
+\end{equation}
+
+Where $i$ represents the $i$-th dimension or feature, and $pos$ represents the time-step or position. The $PE \in \mathbb{R}^{N \times d_{model}}$ matrix is added to $X$ to positionally encode the input matrix. 
+
+\subsubsection{Attention}
+After positionally encoding the input matrix, Vaswani et al. use a form of the attention mechanism as a "Scaled Dot-Product Attention" in \cite{vaswaniAttentionAllYou2023}. In general, the input to the attention function consists of queries and keys of dimension $d_k$ and values with dimensions $d_v$. The queries and keys are dot-product together, divided by $\sqrt{d_k}$, and put through a softmax to obtain the weights on the value. Queries, Keys and Values are compactly represented in the form $Q \in \mathbb{R}^{N \times d_k},K \in \mathbb{R}^{N \times d_k},V \in \mathbb{R}^{N \times d_v}$ respectively\footnote{Note that $N$ used here refers to the number of time steps, where as in \cite{vaswaniAttentionAllYou2023} $N$ refers to the number of stacked Attention + Feed Forward layers} and are used as follows in Equation\footnote{note that there is a "masked" version of this equation. Masking ensures that positions don't attend to subsequent positions (since early positions shouldn't have knowledge of future positions). As seen in Figure \ref{fig:attention}, masking is applied after the scaling step and before softmax in the scaled Dot-product attention. for some query vector $q_j$ at position $j$ and key vector $k_l$ at position $l$, if $l > j$ then $q_j \cdot k_l = -\infty$} \ref{eq:attention}
+
+\begin{equation}
+    \label{eq:attention}
+    \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\end{equation}
+
+A visual diagram of the Scaled Dot-Product Attention is shown in Figure \ref{fig:attention}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.95\textwidth]{attention.png}
+    \caption{Attention. (left) Scaled-Dot Product Attention, (right) Multi-head attention. \cite{vaswaniAttentionAllYou2023}}
+    \label{fig:attention}
+\end{figure}
+
+Computing Equation \ref{eq:attention} once is referred to a single head of attention \cite{vaswaniAttentionAllYou2023}. For a model with an input dimension of $d_{model}$ Vaswani et al. employ a multi-headed attention in their transformer architecture by linearly projecting the queries, keys and values to a lower dimension $d_k, d_k$ and $d_v$ respectively. Each $i$ head of attention has an associated trainable query weights $W^Q_i$, key weights $W^K_i$, and value weights $W^V_i$. Given a model input dimension $d_{model}$ and total number of heads $h$, the lower dimensions $d_k$ and $d_v$ are calculated as follows: ($d_k = d_v = d_{model}/h$). 
+
+For example, in \cite{vaswaniAttentionAllYou2023}, the input to the transformer are embeddings (a numerical representation of words that encode semantic and contextual information \cite{tengComprehensiveReviewCyberbullyingrelated2024}) with 512 dimensions. Using 8 heads $h=8$, the dimensions of the query, key and value for each head is $d_k = d_v = 512/8 = 64$ \cite{vaswaniAttentionAllYou2023}. The resulting values from the calculation of each head of attention are concatenated together and matrix multiplied with an output weight matrix $W^O$. The equation for multi-head attention in \cite{vaswaniAttentionAllYou2023} is modified for some input matrix $X \in \mathbb{R}^{N \times d_{model}}$ and shown in Equation \ref{eq:multi-head-attention}
+
+\begin{equation}
+    \label{eq:multi-head-attention}
+    \begin{split}
+        \text{MultiHead}(Q, K, V) &= \text{Concat}(\text{head}_1, ..., \text{head}_h)W^O \\
+        \text{where} \quad \text{head}_i &= \text{Attention}(XW_i^Q, XW_i^K, XW_i^V)
+    \end{split}
+\end{equation}
+
+Where $W_i^Q \in \mathbb{R}^{d_{model} \times d_k}$, $W_i^K \in \mathbb{R}^{d_{model} \times d_k}$, $W_i^V \in \mathbb{R}^{d_{model} \times d_v}$, and $W^O \in \mathbb{R}^{hd_{v} \times d_{model}}$ \cite{vaswaniAttentionAllYou2023}. These weight matrices are all learned in practice \cite{vaswaniAttentionAllYou2023}.
+
+The output of the multi-head attention block is a matrix that is the same shape as the input matrix $X$ and contains information on how the surrounding context should affect the values in each embedding vector. The output from the multi-head attention and $X$ are added together and normalized before being passed onto the next block: the Fully Connected layer.
+
+\subsubsection{Aside: Attention Learning Intuition in NLP}
+Based on Equation \ref{eq:multi-head-attention}, each embedding in $X$ gets converted into a query $q$, key $k$ and value $v$ row vector using the respective weight matrices. These row vectors are vertically stacked forming $Q, K$ and $V$. In the step with the matrix multiplication between $QK^T$ in Equation \ref{eq:attention}, each query is dot-product with each key resulting in a $N \times N$ matrix that shows how similar the $j$-th query is to the $l$-th key. 
+
+\begin{equation}
+    \label{eq:qkt}
+    QK^T = \begin{bmatrix}
+        q_1 \cdot k_1  & \dots & q_1 \cdot k_N \\
+        \vdots & \ddots & \vdots \\
+        q_N \cdot k_1 & \dots & q_N \cdot k_N
+    \end{bmatrix}
+\end{equation}
+
+In consideration of the $QK^T$ step, the weight matrices for the query and key ($W_i^Q$ and $W_i^K$ respectively) are trained so that if there is a relationship between a query at $j$: $q_j$ and key at $l$: $k_l$, then the vectors $q_j$ and $k_l$ will be similar (ie. produce relatively large positive value when dot-product). The $QK^T$ step is responsible determining which elements in the sequence should affect which other elements in the sequence and the magnitude of the effect.
+
+Since the "what" is handled by the $QK^T$, the "how" is handled by $V$ and $W^O$. Through training, $W^V_i$ and $W^O$ together should learn the direction (in terms of vectors) that the $l$-th embedding (from the key) should add to the $j$-th embedding (from the query) that had relationships discovered in the $QK^T$ step. Since
+
+\begin{equation}
+    V = \begin{bmatrix}
+        v_1 \\
+        \vdots \\
+        v_N
+    \end{bmatrix}
+\end{equation}
+
+And treating the softmax and division by $\sqrt{d_k}$ as a function $f()$, the output of a single head of attention is shown in Equation \ref{eq:mat-single-head}\footnote{considering how each row is an embedding, notice how the value and key subscripts increment in tandem. This can be interpreted as the embedding of key's effect on the embedding of the query.}
+
+\begin{equation}
+    \label{eq:mat-single-head}
+    f(QK^T)V = \begin{bmatrix}
+        f(q_1 \cdot k_1) * v_1 + \dots + f(q_1 \cdot k_N) * v_N \\
+        \vdots \\
+        f(q_N \cdot k_1) * v_1 + \dots + f(q_N \cdot k_N) * v_N
+    \end{bmatrix}
+\end{equation}
+
+All the heads of attention are concatenated together and matrix multiplied by $W^O$ to project the heads of attention from $d_v$ back to $d_{model}$ (meaning $W^O$ has a part in influencing the "direction" as well). 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{bank-attention.png}
+    \caption{The river bank pushes the embedding of bank to the left closer to the river related words. Money pushes "bank" embedding toward the financial related words \cite{amanatullahAttentionMechanism2023}.}
+    \label{fig:bank-attention}
+\end{figure}
+
+In terms of NLP, the output of the multi-head attention nudges the original embeddings in $X$ in the direction that is more semantically appropriate based on the context. \cite{amanatullahAttentionMechanism2023} uses the example of the word "bank". Based on the context "bank" could be either a "the bank of the river" or "money in the bank". Keeping in mind Equation \ref{eq:qkt}, well-trained query weights and key weights should produce similar vectors when "bank" is the query and "river" or "money" is the key. With value vectors defining a direction that's added to the original embeddings, in this example, "river's" value vector should nudge the "bank's" embedding closer to "river" related embeddings and "money's" value vector should nudge "bank's" embedding closer to the finance related embeddings, Figure \ref{fig:bank-attention} \cite{amanatullahAttentionMechanism2023}.
+
+\subsubsection{Feed Forward (Fully Connected)}
+After the input is modified by the output of the multi-head attention layer. A fully connected layer is applied to each position separately and identically with a ReLU activation in between \cite{vaswaniAttentionAllYou2023}.
+
+\begin{equation}
+    \text{FFN}(x) = \max{(0, xW_1 + b_1)}W_2 + b_2
+\end{equation}
+ 
+The output from the feed-forward fully connected layer is then added and normalized with the output from the previous layer as shown in the transformer architecture Figure \ref{fig:transformer-arch}. The feed forward and attention layers are repeated as many times as the user specifies and eventually outputs the probabilities (prediction). 
+
+\subsection{Training a Transformer}
+The authors in \cite{vaswaniAttentionAllYou2023} do not go into the mathematical theory for training the transformer architecture. It is assumed that similar to the other architectures, backpropagation is used to train the weights $W^O$, and each of the $W_i^Q, W_i^K$ and $W_i^V$ in the multi-headed attention step. Liang in \cite{longxTransformerAttentionLayer2022} uses calculus to find the gradients of these parameter matrices and has also validated it with pyTorch's implementation of the MultiHeadAttention.
+
+\clearpage
 \section{Feature Extraction}
 Time series data is a series of data that each consists of a value at an associated timestamp. In terms of the system investigated in this thesis, this could be a series of position in the x-axis measured at time $t_1, t_2, t_3...$ respectively. The data can be said to be indexed by time \cite{yinPredictionAnalysisTime2023} typically in ascending order.
 

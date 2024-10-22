@@ -17,6 +17,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated field_info (elt_size=4) to 10152 items from 5000.
 Database file #1: ReHM.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
@@ -59,49 +60,51 @@ Warning--empty year in swapnaCNNArchitecturesAlex2020
 Warning--empty journal in sherstinskyFundamentalsRecurrentNeural2020a
 Warning--empty year in sherstinskyFundamentalsRecurrentNeural2020a
 Warning--empty year in salemRecurrentNeuralNetworks2022
+Warning--empty journal in tengComprehensiveReviewCyberbullyingrelated2024
+Warning--empty year in tengComprehensiveReviewCyberbullyingrelated2024
 Warning--empty journal in yinPredictionAnalysisTime2023
 Warning--empty year in yinPredictionAnalysisTime2023
 
 Done.
-You've used 107 entries,
+You've used 112 entries,
             4087 wiz_defined-function locations,
-            1464 strings with 33690 characters,
-and the built_in function-call counts, 74896 in all, are:
-= -- 6181
-> -- 1696
-< -- 569
-+ -- 911
-- -- 303
-* -- 4102
-:= -- 11739
-add.period$ -- 221
-call.type$ -- 107
-change.case$ -- 122
+            1491 strings with 34804 characters,
+and the built_in function-call counts, 77029 in all, are:
+= -- 6340
+> -- 1751
+< -- 571
++ -- 938
+- -- 316
+* -- 4176
+:= -- 12094
+add.period$ -- 232
+call.type$ -- 112
+change.case$ -- 127
 chr.to.int$ -- 1197
-cite$ -- 147
-duplicate$ -- 5404
-empty$ -- 5718
-format.name$ -- 371
-if$ -- 17054
+cite$ -- 154
+duplicate$ -- 5576
+empty$ -- 5907
+format.name$ -- 386
+if$ -- 17536
 int.to.chr$ -- 0
-int.to.str$ -- 107
-missing$ -- 983
-newline$ -- 504
-num.names$ -- 100
-pop$ -- 2292
+int.to.str$ -- 112
+missing$ -- 1026
+newline$ -- 529
+num.names$ -- 104
+pop$ -- 2429
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 5590
+skip$ -- 5751
 stack$ -- 0
-substring$ -- 2976
-swap$ -- 4535
-text.length$ -- 170
+substring$ -- 2989
+swap$ -- 4642
+text.length$ -- 172
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 107
-warning$ -- 40
-while$ -- 313
-width$ -- 110
-write$ -- 1217
+type$ -- 112
+warning$ -- 42
+while$ -- 318
+width$ -- 115
+write$ -- 1265
 (There was 1 error message)
