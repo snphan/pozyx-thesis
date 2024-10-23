@@ -803,6 +803,31 @@ The output from the feed-forward fully connected layer is then added and normali
 The authors in \cite{vaswaniAttentionAllYou2023} do not go into the mathematical theory for training the transformer architecture. It is assumed that similar to the other architectures, backpropagation is used to train the weights $W^O$, and each of the $W_i^Q, W_i^K$ and $W_i^V$ in the multi-headed attention step. Liang in \cite{longxTransformerAttentionLayer2022} uses calculus to find the gradients of these parameter matrices and has also validated it with pyTorch's implementation of the MultiHeadAttention.
 
 \clearpage
-\section{Feature Extraction}
+\section{Classification Strategy}
 Time series data is a series of data that each consists of a value at an associated timestamp. In terms of the system investigated in this thesis, this could be a series of position in the x-axis measured at time $t_1, t_2, t_3...$ respectively. The data can be said to be indexed by time \cite{yinPredictionAnalysisTime2023} typically in ascending order.
+
+Based on the models investigated in this section, some can take the time-series input as is, and some requires "Feature Extraction" or compressing the data down into a feature vector that can be used with the model. In the section for Random Forests, random subsequences of a time-series (with a minimum length) was taken and the subsequence was compressed into a feature vector consisting of the Mean, Standard Deviation and the Slope \cite{faouziTimeSeriesClassification2024}. The Time-series Feature extraction library (TSFEL) is a library that Barandas et al. built for the time-series feature extraction task and has over 60 features across temporal, statistical and spectral domains \cite{barandasTSFELTimeSeries2020}. In addition to the mean, standard deviation, and slope, features can include the min, max, median, absolute energy, max frequency, median frequency and many others \cite{ListAvailableFeatures}. Table \ref{tab:model-summary} summarizes the models discussed and the type of input required.
+
+\begin{table}[ht]
+    \small
+    \centering
+    \caption{Summary of the models discussed in this section along with their Input. Acronyms used: Feature Extraction (FE), Time-series (TS)}
+    \label{tab:model-summary}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{>{\hsize=.6\hsize}X >{\hsize=.25\hsize}X X}
+        \hline
+        \textbf{Model} & \textbf{FE?} & \textbf{Input} \\
+        \hline
+        kNN & Yes & Extracted features from a subsequence \\
+        kNN with DTW & No & The full subsequence \\
+        SVM & Yes & Extracted features from a subsequence \\
+        Random Forests & Yes & Extracted features from a subsequence \\
+        Shapelet Transform & No & The full subsequence \\
+        \hline
+        DNN with Features & Yes & Extracted features from a subsequence \\
+        DNN with TS & No & TS with constant $n_{samples}$ \\ 
+        \hline
+    \end{tabularx}
+\end{table}
+
 

@@ -526,4 +526,14 @@ Longx. Transformer {{Attention Layer}} gradient. Longxiang He. [Online]. Availab
 Y.~Yin, ``Prediction and analysis of time series data based on granular computing,'' vol.~17. [Online]. Available: \url{https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2023.1192876/full}
 \BIBentrySTDinterwordspacing
 
+\bibitem{barandasTSFELTimeSeries2020}
+\BIBentryALTinterwordspacing
+M.~Barandas, D.~Folgado, L.~Fernandes, S.~Santos, M.~Abreu, P.~Bota, H.~Liu, T.~Schultz, and H.~Gamboa, ``{{TSFEL}}: {{Time Series Feature Extraction Library}},'' vol.~11, p. 100456. [Online]. Available: \url{https://www.sciencedirect.com/science/article/pii/S2352711020300017}
+\BIBentrySTDinterwordspacing
+
+\bibitem{ListAvailableFeatures}
+\BIBentryALTinterwordspacing
+List of available features — {{TSFEL}} 0.1.9 documentation. [Online]. Available: \url{https://tsfel.readthedocs.io/en/latest/descriptions/feature\_list.html}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}
