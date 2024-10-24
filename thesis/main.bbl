@@ -526,6 +526,16 @@ Longx. Transformer {{Attention Layer}} gradient. Longxiang He. [Online]. Availab
 Y.~Yin, ``Prediction and analysis of time series data based on granular computing,'' vol.~17. [Online]. Available: \url{https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2023.1192876/full}
 \BIBentrySTDinterwordspacing
 
+\bibitem{wangTimeSeriesClassification2016}
+\BIBentryALTinterwordspacing
+Z.~Wang, W.~Yan, and T.~Oates. Time {{Series Classification}} from {{Scratch}} with {{Deep Neural Networks}}: {{A Strong Baseline}}. [Online]. Available: \url{http://arxiv.org/abs/1611.06455}
+\BIBentrySTDinterwordspacing
+
+\bibitem{LSTMPyTorch25}
+\BIBentryALTinterwordspacing
+{{LSTM}} — {{PyTorch}} 2.5 documentation. [Online]. Available: \url{https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html}
+\BIBentrySTDinterwordspacing
+
 \bibitem{barandasTSFELTimeSeries2020}
 \BIBentryALTinterwordspacing
 M.~Barandas, D.~Folgado, L.~Fernandes, S.~Santos, M.~Abreu, P.~Bota, H.~Liu, T.~Schultz, and H.~Gamboa, ``{{TSFEL}}: {{Time Series Feature Extraction Library}},'' vol.~11, p. 100456. [Online]. Available: \url{https://www.sciencedirect.com/science/article/pii/S2352711020300017}
