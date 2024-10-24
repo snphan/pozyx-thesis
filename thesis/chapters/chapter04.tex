@@ -804,6 +804,7 @@ The authors in \cite{vaswaniAttentionAllYou2023} do not go into the mathematical
 
 \clearpage
 \section{Classification Strategy}
+The objective of the thesis is to use positional + IMU sensor data to create a system that can classify fine-grained cooking tasks in real-time. Once again, this real-time classification system would enable ADL quality monitoring which would allow for the early detection of physical or cognitive decline \cite{gadey_technologies_2023}.
 
 \subsubsection{Model and Input}
 Time series data is a series of data that each consists of a value at an associated timestamp. In terms of the system investigated in this thesis, this could be a series of position in the x-axis measured at time $t_1, t_2, t_3...$ respectively. The data can be said to be indexed by time \cite{yinPredictionAnalysisTime2023} typically in ascending order.
@@ -836,4 +837,13 @@ Time series data is a series of data that each consists of a value at an associa
 Based on the models investigated in this section, some can take the time-series input as is, and some requires "Feature Extraction" or compressing the data down into a feature vector that can be used with the model. In the section for Random Forests, random subsequences of a time-series (with a minimum length) was taken and the subsequence was compressed into a feature vector consisting of the Mean, Standard Deviation and the Slope \cite{faouziTimeSeriesClassification2024}. The Time-series Feature extraction library (TSFEL) is a library that Barandas et al. built for the time-series feature extraction task and has over 60 features across temporal, statistical and spectral domains \cite{barandasTSFELTimeSeries2020}. In addition to the mean, standard deviation, and slope, features can include the min, max, median, absolute energy, max frequency, median frequency and many others \cite{ListAvailableFeatures}. Table \ref{tab:model-summary} summarizes the models discussed and the type of input required.
 
 \subsubsection{Real-Time Considerations}
+In addition to the classification model that must be evaluated, the system's practicality in real-time application must be investigated. The following are considerations for real-time classification:
+
+\begin{itemize}
+    \item The latency of the model or the speed of the classification. The latency of classification must be lower than the time taken to collect the data for classification. If the latency of classification is higher than the data collection interval, then the classification system will not be able to keep up with the data input.
+    \item Robustness to temporal variation. The task speed is expected to vary greatly depending on multiple factors such as skill and health conditions. For example, able-bodied adults would be expected to complete tasks faster than older adults with comorbidities. 
+    \item Real-time activity boundary detection. Since each task inherently varies in time, opening a door versus continuous chopping, how can the start and end of an input be selected to capture a specific task.
+\end{itemize}
+
+
 
