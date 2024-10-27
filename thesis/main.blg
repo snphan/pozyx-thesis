@@ -6,11 +6,7 @@ A level-1 auxiliary file: chapters/chapter02.aux
 A level-1 auxiliary file: chapters/chapter03.aux
 A level-1 auxiliary file: chapters/chapter04.aux
 A level-1 auxiliary file: chapters/chapter05.aux
-I couldn't open auxiliary file chapters/chapter06.aux
----line 28 of file main.aux
- : \@input{chapters/chapter06.aux
- :                               }
-I'm skipping whatever remains of this command
+A level-1 auxiliary file: chapters/chapter06.aux
 The style file: IEEEtran.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -109,4 +105,4 @@ warning$ -- 44
 while$ -- 321
 width$ -- 119
 write$ -- 1301
-(There was 1 error message)
+(There were 44 warnings)
