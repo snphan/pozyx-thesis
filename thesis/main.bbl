@@ -300,6 +300,11 @@ B.~Bouchard, K.~Bouchard, and A.~Bouzouane, ``\BIBforeignlanguage{en}{A smart co
 E.~Dubuc, M.~Gagnon-Roy, M.~Couture, N.~Bier, S.~Giroux, and C.~Bottari, ``\BIBforeignlanguage{en}{Perceived needs and difficulties in meal preparation of people living with traumatic brain injury in a chronic phase: {Supporting} long-term services and interventions},'' \emph{\BIBforeignlanguage{en}{Australian Occupational Therapy Journal}}, vol.~66, no.~6, pp. 720--730, 2019, \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/1440-1630.12611. [Online]. Available: \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/1440-1630.12611}
 \BIBentrySTDinterwordspacing
 
+\bibitem{dohertyCookingTaskMaking2015}
+\BIBentryALTinterwordspacing
+T.~A. Doherty, L.~A. Barker, R.~Denniss, A.~Jalil, and M.~D. Beer, ``The cooking task: Making a meal of executive functions,'' vol.~9, p.~22. [Online]. Available: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC4324235/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{malani_joy_2020}
 P.~Malani, J.~Kullgren, E.~Solway, J.~Wolfson, C.~Leung, D.~Singer, and M.~Kirch, ``The {Joy} of {Cooking} and its {Benefits} for {Older} {Adults},'' University of Michigan, Tech. Rep., Jun. 2020.
 
@@ -544,6 +549,11 @@ M.~Barandas, D.~Folgado, L.~Fernandes, S.~Santos, M.~Abreu, P.~Bota, H.~Liu, T.~
 \bibitem{ListAvailableFeatures}
 \BIBentryALTinterwordspacing
 List of available features — {{TSFEL}} 0.1.9 documentation. [Online]. Available: \url{https://tsfel.readthedocs.io/en/latest/descriptions/feature\_list.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{huszHumanActivityRecognition2007}
+\BIBentryALTinterwordspacing
+Z.~L. Husz, A.~M. Wallace, and P.~R. Green, ``Human activity recognition with action primitives,'' in \emph{2007 {{IEEE Conference}} on {{Advanced Video}} and {{Signal Based Surveillance}}}, pp. 330--335. [Online]. Available: \url{https://ieeexplore.ieee.org/document/4425332/?arnumber=4425332}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
