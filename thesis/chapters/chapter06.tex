@@ -83,7 +83,15 @@ The initial setup prior to conducting the experiments involved the following ste
 \end{enumerate}
 
 \subsection{Protocol: Cutting Fruit}
-Based on Figure \ref{fig:PASS-fruit}, this task involves getting a piece of fruit from the refrigerator, choosing a knife, peeling the fruit, cutting it into 8 pieces, plating and serving it. The detailed steps for the protocol are shown in Table \ref{tab:protocol-cutting-fruit} with the fruit being an apple. Figure \ref{fig:PASS-fruit-setup} shows a part of the setup for the PASS fruit cutting task. 
+Based on Figure \ref{fig:PASS-fruit}, this task involves getting a piece of fruit from the refrigerator, choosing a knife, peeling the fruit, cutting it into 8 pieces, plating and serving it. The detailed steps for the protocol are shown in Table \ref{tab:protocol-cutting-fruit} with the fruit being an apple. Figure \ref{fig:PASS-fruit-setup} shows a part of the setup for the PASS fruit cutting task. Prior to performing the task, the items that the participant interacts with are placed in their original location:
+
+\begin{itemize}
+    \item apples - refrigerator
+    \item knife - cutlery drawer
+    \item plate - tableware cabinet
+    \item chopping board - chopping board holder
+    \item towel - on oven handle
+\end{itemize}
 
 \begin{figure}[ht]
     \centering
@@ -149,8 +157,9 @@ Based on Figure \ref{fig:PASS-fruit}, this task involves getting a piece of frui
     30 & Close the tableware cabinet & CLOSE-TABLEWARE \\
     31 & Move to the position in front of the kitchen counter & \\
     32 & Transfer the apple slices from the cutting board to the plate & PLATING \\
-    33 & Grab the plate with the apples and bring place it on the dining table & SERVE \\
+    33 & Grab the plate with the apples and bring it to the dining table & SERVE \\
     34 & Return to the position in front of the refrigerator and stand in QS for 5 seconds & QS \\
+    35 & End data collection and end the recording & \\
     \hline
 \end{xltabular}
 }
@@ -158,3 +167,92 @@ Based on Figure \ref{fig:PASS-fruit}, this task involves getting a piece of frui
 \clearpage
 \subsection{Protocol: Making Soup}
 
+Based on Figure \ref{fig:PASS-soup}, this task involves preparing soup from a soup can. The individual must locate the soup can in the pantry, open it and prepare it according to the instructions. The preparation of a soup can typically involves measuring and adding a liquid such as milk or water to the contents in the soup can and warming it up on the stove top. The detailed steps are documented in Table \ref{tab:protocol-making-soup}. Similar to the cutting fruit task, the items (shown in Figure \ref{fig:PASS-soup-items}) that the participant interacts with must be placed back in their original position:
+
+\begin{itemize}
+    \item soup can - pantry
+    \item towel - on oven handle
+    \item can opener - cutlery cabinet
+    \item spoon - cutlery drawer
+    \item pot - cookware drawer
+    \item bowl - tableware cabinet
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{makesoup-items.jpg}
+    \caption{Items used in the PASS make soup task. From the left: the can of soup, can opener, spoon and pot.}
+    \label{fig:PASS-soup-items}
+\end{figure}
+
+{\small
+\centering
+\renewcommand{\arraystretch}{1.5}
+\clearpage
+\begin{xltabular}{\textwidth}{>{\hsize=.15\hsize}X X >{\hsize=.4\hsize}X}
+\caption{Protocol for the PASS making soup task. Note that Quiet Standing (QS) refers to the position where the participant has their hands on the side of their thighs, being as still as possible.} \label{tab:protocol-making-soup} \\
+
+% First Header
+\hline \textbf{Step} & \textbf{Details} & \textbf{Fine-Grained Action} \\ \hline 
+\endfirsthead
+
+% Subsequent headers.
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\hline \textbf{Step} & \textbf{Details} & \textbf{Fine-Grained Action} \\ \hline 
+\endhead
+
+% Footers
+\hline \multicolumn{3}{r}{\textit{Continued on next page}} \\ \hline
+\endfoot
+
+% Last Footer
+\hline
+\endlastfoot
+
+% The Table
+    1  & Start the video with the countdown and just as the countdown finishes start data collection script & \\ 
+    2  & Move to the position in front of the refrigerator and stand in a Quiet Standing (QS) position for 2-3 seconds. Quickly raise and lower the hand with the sensor (for sensor and video time synchronization) and return to QS & \\ 
+    3  & Stay in QS for 5 seconds & QS \\
+    4  & Walk to the sink & \\
+    5  & Open the faucet and wash hands for 10 seconds, close the faucet & WASH \\
+    6  & Walk to the position in front of the oven (where the drying towel is) &  \\
+    7  & Dry hands & DRY \\
+    8  & Move to the position in front of the pantry cabinet & \\
+    9  & Open the pantry cabinet & OPEN-PANTRY \\
+    10 & Grab the soup can inside the pantry cabinet & GRAB-PANTRY \\
+    11 & Close the pantry cabinet & CLOSE-PANTRY \\
+    12 & Bring the soup can to the kitchen counter and set it on the counter & \\
+    13 & Move to the position in front of the cutlery drawer & \\
+    14 & Open the cutlery drawer & OPEN-CUTLERY \\
+    15 & Grab the spoon and the can opener in the cutlery drawer and place them on the counter & GRAB-CUTLERY \\
+    16 & Close the cutlery drawer & CLOSE-CUTLERY \\
+    17 & Move to the position in front of the cookware drawer & \\
+    18 & Open the cookware drawer & OPEN-COOKWARE \\
+    19 & Grab the pot from the cookware drawer and place it on the counter & GRAB-COOKWARE \\
+    20 & Close the cookware drawer & CLOSE-COOKWARE \\
+    21 & Move to the position in front of the kitchen counter & \\
+    22 & Using the can opener, open the can of soup & OPEN-CAN \\
+    23 & Pour the contents into the pot & POUR \\
+    24 & While holding the empty can, move to the position in front of the sink &  \\
+    25 & Fill the soup can to the top with tap water & FILL-WATER \\
+    26 & Move back to the position in front of the kitchen counter & \\
+    27 & Pour the water into the pot containing the concentrated soup & POUR \\
+    28 & Grab the pot and move to the position in front of the stove & \\
+    29 & Place the pot on one of the burners & \\
+    30 & Turn the burner on & BURNER-ON \\
+    31 & Move back about a meter and stand in QS for about 10 seconds to mimic waiting for the soup to boil & QS \\
+    32 & Grab the spoon on the counter and use it to stir the soup for about 10 seconds & STIR \\
+    33 & Turn the burner off & BURNER-OFF \\
+    34 & Move to the position in front of the tableware cabinet & \\
+    35 & Open the tableware cabinet door & OPEN-TABLEWARE \\
+    36 & Grab a bowl and place it on the kitchen counter & GRAB-TABLEWARE \\
+    37 & Close the tableware cabinet & CLOSE-TABLEWARE \\
+    38 & Move to the position in front of the stove and grab the pot & \\
+    39 & Move to the position in front of the cabinet with the pot & \\
+    40 & Pour the soup in the pot into the bowl (being careful not to spill any) & POUR \\
+    41 & Grab the bowl of soup and bring it to the dining table & SERVE \\
+    42 & Return to the position in front of the refrigerator and stand in QS for 5 seconds & QS \\
+    43 & End data collection and end the recording & \\
+    \hline
+\end{xltabular}
+}
