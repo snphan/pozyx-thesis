@@ -75,11 +75,24 @@ This section will detail the experimental protocol for each of the 3 pass tasks.
 \subsection{Initial Setup}
 The initial setup prior to conducting the experiments involved the following steps:
 
+\subsubsection{Data Recording}
 \begin{enumerate}
     \item Referencing the 9H configuration the resulted in the best accuracy and repeatability determined in Chapter \ref{chp:sys-tuning}, the anchors are set up in the locations indicated by Figure \ref{fig:anchorplacement}.
     \item Based on the documentation for the Pozyx \cite{pozyx_configuration_nodate}, the settings for the fastest possible sample rate (16 Hz) without a large effect on the communication range was a bitrate of 850 kbit/s and a preamble length of 128. Both the anchors and the tags were set to communicate at these settings.
     \item Setup a camera with a countdown timer so that segments of the data can be manually labelled at a later time.
     \item Wear the Pozyx tag on the dominant hand.
+\end{enumerate}
+
+\subsubsection{Home Conditions}
+The home conditions per the PASS Meal Preparation Tasks are listed as the following \cite{rogers_performance_2014}:
+\begin{enumerate}
+    \item Kitchen area and Electric or gas stove with oven
+    \item Sink, “as is”
+    \item Usual meal preparation utensils and supplies (e.g., spoons, spatula, bowls, oven mitt/pot holder, etc.)
+    \item Apple placed in refrigerator, within easy view when door is opened
+    \item Muffin tin for 6 muffins and muffin mix requiring only the addition of water/milk
+    \item Can of soup requiring the addition of water/milk
+    \item Cookie sheet on kitchen counter nearest stove, with items 5-6 stacked on it
 \end{enumerate}
 
 \subsection{Protocol: Cutting Fruit}
@@ -253,6 +266,137 @@ Based on Figure \ref{fig:PASS-soup}, this task involves preparing soup from a so
     41 & Grab the bowl of soup and bring it to the dining table & SERVE \\
     42 & Return to the position in front of the refrigerator and stand in QS for 5 seconds & QS \\
     43 & End data collection and end the recording & \\
+    \hline
+\end{xltabular}
+}
+
+\clearpage
+\subsection{Protocol: Making Muffins}
+From Figure \ref{fig:PASS-muffin}, this PASS task evaluates the older adult's ability to use the oven through baking muffins. The muffin batter is made using pre-made muffin mix to minimize the number of steps required in gathering the ingredients per the PASS task instructions. The participant is required to make the muffin batter, pour the batter into the muffin tin for 6 muffins and place the muffin tin into the oven. To simulate a speed up in the baking process, a pre-baked 6 pack of muffin has been placed in the oven before hand and used as the finished product for plating and serving. Items used in this experiment are shown in Figure \ref{fig:PASS-muffin-items} Detailed steps are found in Table \ref{tab:protocol-making-muffins}. Similar to the making soup task, the items (shown in Figure \ref{fig:PASS-muffin-items}) that the participant interacts with must be placed back in their original position:
+
+\begin{itemize}
+    \item muffin mix - pantry
+    \item towel - on oven handle
+    \item measuring cup - cutlery drawer
+    \item tongs - cutlery drawer
+    \item spoon - cutlery drawer
+    \item mixing bowl - cookware drawer
+    \item muffin tin - baking trays drawer
+    \item water measuring cup - cups cabinet
+    \item oven mitts - cookware drawer
+    \item 6-pack pre-baked muffins - inside the oven, to one side
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{baking-muffin-items.jpg}
+    \caption{Items used in the Baking Muffin task. From the left: the muffin mix, the mixing bowl, the spoon, the muffin tin, the water measuring cup, the (green) measuring cup, and assorted oven mitts. The 6 pack of muffins and tongs are not shown in the image, but can be found at any local super market and kitchen supply store respectively.}
+    \label{fig:PASS-muffin-items}
+\end{figure}
+
+{\small
+\centering
+\renewcommand{\arraystretch}{1.5}
+\clearpage
+\begin{xltabular}{\textwidth}{>{\hsize=.15\hsize}X X >{\hsize=.4\hsize}X}
+\caption{Protocol for the PASS making muffins task. Note that Quiet Standing (QS) refers to the position where the participant has their hands on the side of their thighs, being as still as possible.} \label{tab:protocol-making-muffins} \\
+
+% First Header
+\hline \textbf{Step} & \textbf{Details} & \textbf{Fine-Grained Action} \\ \hline 
+\endfirsthead
+
+% Subsequent headers.
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\hline \textbf{Step} & \textbf{Details} & \textbf{Fine-Grained Action} \\ \hline 
+\endhead
+
+% Footers
+\hline \multicolumn{3}{r}{\textit{Continued on next page}} \\ \hline
+\endfoot
+
+% Last Footer
+\hline
+\endlastfoot
+
+% The Table
+    1  & Start the video with the countdown and just as the countdown finishes start data collection script & \\ 
+    2  & Move to the position in front of the refrigerator and stand in a Quiet Standing (QS) position for 2-3 seconds. Quickly raise and lower the hand with the sensor (for sensor and video time synchronization) and return to QS & \\ 
+    3  & Stay in QS for 5 seconds & QS \\
+    4  & Walk to the sink & \\
+    5  & Open the faucet and wash hands for 10 seconds, close the faucet & WASH \\
+    6  & Walk to the position in front of the oven (where the drying towel is) &  \\
+    7  & Dry hands & DRY \\
+    8  & Move to the position in front of the pantry cabinet & \\
+    9  & Open the pantry cabinet with the dominant hand & OPEN-PANTRY \\
+    10 & Grab the muffin mix in the pantry with the dominant hand & GRAB-PANTRY \\
+    11 & Close the pantry cabinet with the dominant hand & CLOSE-PANTRY \\
+    12 & Bring the muffin mix kitchen counter and set it on the counter & \\
+    13 & Move to the position in front of the cutlery drawer & \\
+    14 & Open the cutlery drawer with the dominant hand & OPEN-CUTLERY \\
+    15 & Grab the spoon and the measuring cup in the cutlery drawer and place them on the counter & GRAB-CUTLERY \\
+    16 & Close the cutlery drawer with the dominant hand & CLOSE-CUTLERY \\
+    17 & Move to the position in front of the cups cabinet & \\
+    18 & Open the cup cabinet with the dominant hand & OPEN-CUPS \\
+    19 & Grab the water measuring cup with the dominant hand & GRAB-CUPS \\
+    20 & Close the cup cabinet with the dominant hand & GRAB-CUPS \\
+    21 & Move to the position in front of the cookware drawer & \\
+    22 & Open the cookware drawer with the dominant hand & OPEN-COOKWARE \\
+    23 & Grab the mixing bowl from the cookware drawer and place it on the counter & GRAB-COOKWARE \\
+    24 & Close the cookware drawer with the dominant hand & CLOSE-COOKWARE \\
+    25 & Move to the position in front of the kitchen counter & \\
+    26 & Open the muffin mix and grab the measuring cup with the dominant hand & \\
+    27 & Scoop the required amount of muffin mix into the mixing bowl & SCOOP \\
+    28 & Put down the measuring cup and grab the water measuring cup with the dominant hand & \\
+    29 & While holding the empty water measuring cup, move to the position in front of the sink &  \\
+    30 & Fill the water measuring cup can to the required level (per muffin mix directions) with tap water & FILL-WATER \\
+    31 & Move back to the position in front of the kitchen counter & \\
+    32 & Pour the water in the water measuring cup into the mixing bowl containing the muffin mix & POUR \\
+    33 & Put down the water measuring cup and grab the spoon & \\
+    34 & Mix the water and muffin mix together in the mixing bowl using a stirring motion & STIR \\
+    35 & Put the spoon down and move to the position in front of the drawer for the baking trays &  \\
+    36 & Open the baking tray drawer with the dominant hand & OPEN-BAKING-TRAYS \\
+    37 & Grab the muffin tin from the drawer with the dominant hand & GRAB-BAKING-TRAYS \\
+    38 & Close the baking tray drawer with the dominant hand & CLOSE-BAKING-TRAYS \\
+    39 & Bring the tray to the kitchen counter and set it close to the mixing bowl & \\
+    40 & Grab the measuring cup with the dominant hand & \\
+    41 & Scoop the muffin batter in the mixing bowl into the muffin tin & SCOOP \\
+    42 & Move in front of the oven & \\
+    43 & Simulate turning on the oven (do not actually turn it on) with the dominant hand & OVEN-POWER \\
+    44 & Step backwards around 1 meter away from the oven and stand in QS for about 10 seconds to mimic waiting for the oven to preheat & QS \\
+    45 & Once the oven has "pre-heated" move back to the position in front of the oven & \\
+    46 & Open the oven using the dominant hand & OPEN-OVEN \\
+    47 & Grab the muffin tin with the muffin batter and place it into one of the oven racks & GRAB-OVEN \\
+    48 & Close the oven with the dominant hand & CLOSE-OVEN \\
+    49 & Step backwards around 1 meter away from the oven and stand in QS for about 10 seconds to mimic waiting for the muffins to bake & QS \\
+    50 & Move back in front of the oven & \\
+    51 & Simulate turning off the oven with the dominant hand & OVEN-POWER \\
+    52 & Move in front of the cookware drawer & \\
+    53 & Open the cookware drawer with the dominant hand & OPEN-COOKWARE \\
+    54 & Grab some oven mitts that are in the cookware drawer & GRAB-COOKWARE \\
+    55 & Close the cookware drawer with the dominant hand & CLOSE-COOKWARE \\
+    56 & Put on the oven mitts & \\
+    57 & Move to the position in front of the oven & \\
+    58 & Open the oven with the dominant hand & OPEN-OVEN \\
+    59 & Reach in and grab the pre-made 6-pack of muffins with the dominant hand and place the muffins on the stovetop (because in a real baking scenario it should be hot) & GRAB-OVEN \\
+    60 & Close the oven with the dominant hand & CLOSE-OVEN \\
+    61 & Take the oven mitts off and move to the position in front of the cookware drawer & \\
+    62 & Open the cookware drawer with the dominant hand & OPEN-COOKWARE \\
+    63 & Place the oven mitts into the cookware drawer & GRAB-COOKWARE \\
+    64 & Close the cookware drawer with the dominant hand & CLOSE-COOKWARE \\
+    65 & Move to the position in front of the cutler drawer & \\
+    66 & Open the cutlery drawer with the dominant hand & OPEN-CUTLERY \\
+    67 & Grab the tongs from the cutlery drawer with the dominant hand & GRAB-CUTLERY \\
+    68 & Close the cutlery drawer with the dominant hand & CLOSE-CUTLERY \\
+    69 & Move to the position in front of the tableware cabinet & \\
+    70 & Open the tableware cabinet door with the dominant hand & OPEN-TABLEWARE \\
+    71 & Grab a plate and place it on the kitchen counter & GRAB-TABLEWARE \\
+    72 & Close the tableware cabinet with the dominant hand & CLOSE-TABLEWARE \\
+    73 & Move to the position in front of the kitchen counter & \\
+    74 & Use the tongs to transfer 3 muffins from the "muffin tin" to the plate & PLATING \\
+    75 & Put the tongs down & \\                        
+    76 & Grab the plate with the muffins on it and bring it to the dining table & SERVE \\
+    77 & Return to the position in front of the refrigerator and stand in QS for 5 seconds & QS \\
+    78 & End data collection and end the recording & \\ 
     \hline
 \end{xltabular}
 }
