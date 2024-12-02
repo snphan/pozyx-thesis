@@ -5,7 +5,7 @@ The previous chapter highlighted the experimental protocol and the results of th
 \section{Data Labelling}
 For each trial, the video was used to confirm the synchronization between the sensor and the video. In all of the trials, the timestamp for the quick raising of the hand always corresponded to the timestamp where a sudden spike in the acceleration occurred so issues with time synchronization between the video and sensor were mitigated in this dataset. Using a custom Python script leveraging matplotlib's ginput method, the beginning and ending of each fine-grained action derived in Tables \ref{tab:protocol-cutting-fruit}, \ref{tab:protocol-making-soup}, and \ref{tab:protocol-making-muffins} were manually labelled by referencing the timestamps of the beginning and ending of the fine-grained action in the associated video. An example of the output is shown in Figure \ref{fig:label-output}:
 
-\begin{lstlisting}[label=fig:label-output, caption=Manual labelling output]
+\begin{lstlisting}[label=fig:label-output, caption=Manual labelling output for the cutting fruit task.]
 BEGIN_QS: 1716994151.777581
 END_QS: 1716994158.2329004
 BEGIN_WALK: 1716994159.0218837
