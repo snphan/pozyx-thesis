@@ -11,7 +11,16 @@
 \usepackage{csquotes}
 \usepackage{longtable, booktabs}
 \usepackage{siunitx}
+\usepackage{algorithm}
+\usepackage{tabularx}
+\usepackage{algpseudocode}
+\usepackage{xltabular}
+\usepackage{listings}
+% Custom Macros
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
 
+\includeonly{chapters/chapter06, chapters/chapter07}
 \graphicspath{ {images/} }
 
 \title{
@@ -41,16 +50,25 @@
 % ==================================================
 % CHAPTERS
 \chapter{Introduction}
-\input{chapters/chapter01}
+\include{chapters/chapter01}
 
-\chapter{Literature Review}\label{chp2}
-\input{chapters/chapter02}
+\chapter{Literature Review}\label{chp:lit-review}
+\include{chapters/chapter02}
 
-\chapter{System Testing and Tuning at the Independent Living Suite}\label{chp3}
-\input{chapters/chapter03}
+\chapter{System Testing and Tuning at the Independent Living Suite}\label{chp:sys-tuning}
+\include{chapters/chapter03}
+
+\chapter{Classification of Time Series Data}\label{chp:ts-classification}
+\include{chapters/chapter04}
 
 \chapter{Pilot Testing of Detecting Activities to make a Sandwich}
-\input{chapters/chapter04}
+\include{chapters/chapter05}
+
+\chapter{Data Collection for Fine-grained Activities}\label{chp:pass-tasks}
+\include{chapters/chapter06}
+
+\chapter{Data Preparation and Creation of the Classification Model}\label{chp:analysis}
+\include{chapters/chapter07}
 % --------------------------------------------------
 % \appendix
 % \chapter{Appendix}

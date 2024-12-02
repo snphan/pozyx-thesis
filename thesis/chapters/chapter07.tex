@@ -1,0 +1,53 @@
+
+
+The previous chapter highlighted the experimental protocol and the results of the data collection steps. Building upon the previous chapter, this chapter will use the dataset to try and create a model that can be used to classify cooking tasks within the ILS. But before classification can be done, the specific sub actions as well as the time-window that the specific sub actions occurs must be labelled. 
+
+\section{Data Labelling}
+For each trial, the video was used to confirm the synchronization between the sensor and the video. In all of the trials, the timestamp for the quick raising of the hand always corresponded to the timestamp where a sudden spike in the acceleration occurred so issues with time synchronization between the video and sensor were mitigated in this dataset. Using a custom Python script leveraging matplotlib's ginput method, the beginning and ending of each fine-grained action derived in Tables \ref{tab:protocol-cutting-fruit}, \ref{tab:protocol-making-soup}, and \ref{tab:protocol-making-muffins} were manually labelled by referencing the timestamps of the beginning and ending of the fine-grained action in the associated video. An example of the output is shown in Figure \ref{fig:label-output}:
+
+\begin{lstlisting}[label=fig:label-output, caption=Manual labelling output]
+BEGIN_QS: 1716994151.777581
+END_QS: 1716994158.2329004
+BEGIN_WALK: 1716994159.0218837
+END_WALK: 1716994160.3846734
+BEGIN_WASH: 1716994160.7433023
+END_WASH: 1716994170.1393783
+BEGIN_WALK: 1716994170.4262812
+END_WALK: 1716994172.1476998
+BEGIN_DRY: 1716994173.367038
+END_DRY: 1716994175.4470851
+BEGIN_WALK: 1716994175.7339883
+END_WALK: 1716994177.957487
+BEGIN_OPEN-FRIDGE: 1716994178.7443902
+END_OPEN-FRIDGE: 1716994180.1809862
+BEGIN_GRAB-FRIDGE: 1716994180.467889
+END_GRAB-FRIDGE: 1716994183.7672746
+BEGIN_CLOSE-FRIDGE: 1716994183.982452
+END_CLOSE-FRIDGE: 1716994185.4169674
+BEGIN_GRAB-BOARD: 1716994189.2184331
+END_GRAB-BOARD: 1716994190.7964
+BEGIN_OPEN-CUTLERY: 1716994193.2350764
+END_OPEN-CUTLERY: 1716994195.243398
+BEGIN_GRAB-CUTLERY: 1716994195.3868494
+END_GRAB-CUTLERY: 1716994196.8930907
+BEGIN_CLOSE-CUTLERY: 1716994198.2558804
+END_CLOSE-CUTLERY: 1716994199.4034927
+BEGIN_WASH: 1716994201.6987174
+END_WASH: 1716994210.234084
+BEGIN_PEEL: 1716994213.5334694
+END_PEEL: 1716994266.2519107
+BEGIN_CUT: 1716994273.0658588
+END_CUT: 1716994293.005623
+BEGIN_OPEN-TABLEWARE: 1716994295.3008478
+END_OPEN-TABLEWARE: 1716994296.5201857
+BEGIN_GRAB-TABLEWARE: 1716994296.5201857
+END_GRAB-TABLEWARE: 1716994301.3975382
+BEGIN_CLOSE-TABLEWARE: 1716994301.469264
+END_CLOSE-TABLEWARE: 1716994302.9037795
+BEGIN_PLATING: 1716994304.912101
+END_PLATING: 1716994312.0129523
+BEGIN_SERVE: 1716994312.084678
+END_SERVE: 1716994318.4682715
+BEGIN_QS: 1716994323.8477044
+END_QS: 1716994329.8009434
+\end{lstlisting}
