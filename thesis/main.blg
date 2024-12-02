@@ -7,6 +7,7 @@ A level-1 auxiliary file: chapters/chapter03.aux
 A level-1 auxiliary file: chapters/chapter04.aux
 A level-1 auxiliary file: chapters/chapter05.aux
 A level-1 auxiliary file: chapters/chapter06.aux
+A level-1 auxiliary file: chapters/chapter07.aux
 The style file: IEEEtran.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -69,7 +70,7 @@ Warning--empty year in huszHumanActivityRecognition2007
 Done.
 You've used 119 entries,
             4087 wiz_defined-function locations,
-            1525 strings with 36375 characters,
+            1526 strings with 36397 characters,
 and the built_in function-call counts, 80525 in all, are:
 = -- 6592
 > -- 1846
