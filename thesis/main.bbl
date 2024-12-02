@@ -556,4 +556,9 @@ List of available features — {{TSFEL}} 0.1.9 documentation. [Online]. Availabl
 Z.~L. Husz, A.~M. Wallace, and P.~R. Green, ``Human activity recognition with action primitives,'' in \emph{2007 {{IEEE Conference}} on {{Advanced Video}} and {{Signal Based Surveillance}}}, pp. 330--335. [Online]. Available: \url{https://ieeexplore.ieee.org/document/4425332/?arnumber=4425332}
 \BIBentrySTDinterwordspacing
 
+\bibitem{noauthor_tutorial_nodate}
+\BIBentryALTinterwordspacing
+Tutorial 3: Orientation 3d (arduino). [Online]. Available: \url{https://docs.pozyx.io/creator/tutorial-3-orientation-3d-arduino}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}
