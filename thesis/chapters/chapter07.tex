@@ -81,27 +81,29 @@ END_QS: 1716994329.8009434
 \end{lstlisting}
 
 \clearpage
-\section{Summary of Fine-Grained Actions}
-The fine-grained actions were broken down such that there was overlap between the different tasks. For example, washing hands and drying hands were common fine-grained actions shared among all cooking tasks. Opening the pantry, grabbing something from the pantry and closing the pantry was shared between the muffin making task and the making soup task. Further cooking skills such as mixing and pouring were common among the making muffin and making soup tasks. After manually labelling all of the tasks, the overall statistics of each fine-grained action is summarized in Table
+\section{Inspecting the Dataset}
+The fine-grained actions were broken down such that there was overlap between the different tasks. For example, washing hands and drying hands were common fine-grained actions shared among all cooking tasks. Opening the pantry, grabbing something from the pantry and closing the pantry was shared between the muffin making task and the making soup task. Further cooking skills such as mixing and pouring were common among the making muffin and making soup tasks. 
+
+After manually labelling all of the tasks, the overall details of the dataset for the fine-grained actions are summarized in Table \ref{tab:fine-grained-actions-summary}. A total of 40 fine-grained actions were derived from the PATH experiments with a combined number of occurrences of 2879 across all fine-grained actions. As expected, the continuous fine-grained actions that involve preparing the ingredients such as PEEL, CUT, STIR, and SCOOP had the longest average duration of 43.82s, 25.05s, 21.77s, and 13.53s respectively. Opening and closing the cabinets, drawers, and appliances consisted of short motion in one direction and took from 0.86s (OPEN-CUPS) to 2.11s (OPEN-OVEN) on average. The duration labelled as grabbing something from these cabinets, drawers and appliances were an action catch-all between the opening and closing actions. Thus, the "grab" action typically contained multiple finer actions such as "putting the item on the kitchen counter" or "grabbing multiple items" such as grabbing the spoon and measuring cup from the cutlery drawer. The duration of the grabbing action ranged from 3.13s (GRAB-PANTRY) to 8.87 (GRAB-OVEN).
 
 
 {\small
 \centering
 \renewcommand{\arraystretch}{1.5}
-\begin{xltabular}{\textwidth}{>{\hsize=.3\hsize}X X >{\hsize=.4\hsize}X}
-\caption{Descriptive Summary of the fine-grained actions.} \label{tab:fine-grained-actions} \\
+\begin{xltabular}{\textwidth}{X X X X}
+\caption{Overall Descriptive Summary of the fine-grained actions.} \label{tab:fine-grained-actions-summary} \\
 
 % First Header
-\hline \textbf{Action} & \textbf{Count} & \textbf{Example} \\ \hline 
+\hline \textbf{Action} & \textbf{Count} & \textbf{Avg. Time (s)} & \textbf{Std. Time (s)} \\ \hline 
 \endfirsthead
 
 % Subsequent headers.
-\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
-\hline \textbf{Action} & \textbf{Count} & \textbf{Example} \\ \hline 
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\hline \textbf{Action} & \textbf{Count} & \textbf{Avg. Time (s)} & \textbf{Std. Time (s)} \\ \hline 
 \endhead
 
 % Footers
-\hline \multicolumn{3}{r}{\textit{Continued on next page}} \\ \hline
+\hline \multicolumn{4}{r}{\textit{Continued on next page}} \\ \hline
 \endfoot
 
 % Last Footer
@@ -109,7 +111,46 @@ The fine-grained actions were broken down such that there was overlap between th
 \endlastfoot
 
 % The Table
-    QS  & Start the video with the countdown and just as the countdown finishes start data collection script & \\ 
+PEEL                 & 33    & 43.82  & 10.95  \\
+CUT                  & 32    & 25.05  & 11.33  \\
+STIR                 & 62    & 21.77  & 10.78  \\
+SCOOP                & 61    & 13.53  & 9.36   \\
+GRAB-OVEN            & 62    & 8.87   & 4.37   \\
+OPEN-CAN             & 32    & 7.92   & 1.81   \\
+PLATING              & 63    & 7.66   & 3.77   \\
+WASH                 & 127   & 7.6    & 1.79   \\
+SERVE                & 95    & 5.67   & 0.62   \\
+QS                   & 281   & 5.51   & 1.95   \\
+GRAB-TABLEWARE       & 95    & 5.37   & 2.77   \\
+GRAB-FRIDGE          & 32    & 5.33   & 5.04   \\
+DRY                  & 95    & 5.17   & 1.34   \\
+GRAB-CUTLERY         & 126   & 5.02   & 2.81   \\
+GRAB-COOKWARE        & 103   & 4.24   & 2.13   \\
+GRAB-BAKING-TRAYS    & 31    & 4.12   & 7.81   \\
+GRAB-CUPS            & 31    & 3.82   & 0.54   \\
+GRAB-PANTRY          & 63    & 3.13   & 1.02   \\
+FILL-WATER           & 63    & 2.96   & 1.13   \\
+OVEN-POWER           & 58    & 2.4    & 1.81   \\
+POUR                 & 129   & 2.29   & 0.98   \\
+OPEN-OVEN            & 62    & 2.11   & 0.55   \\
+CLOSE-OVEN           & 62    & 1.83   & 1.29   \\
+OPEN-FRIDGE          & 32    & 1.73   & 0.54   \\
+CLOSE-FRIDGE         & 32    & 1.68   & 0.37   \\
+GRAB-BOARD           & 32    & 1.28   & 0.45   \\
+BURNER-ON            & 33    & 1.27   & 0.53   \\
+OPEN-CUTLERY         & 126   & 1.26   & 0.57   \\
+BURNER-OFF           & 31    & 1.26   & 0.35   \\
+CLOSE-COOKWARE       & 120   & 1.24   & 0.85   \\
+CLOSE-CUTLERY        & 114   & 1.17   & 0.48   \\
+OPEN-COOKWARE        & 121   & 1.14   & 0.27   \\
+OPEN-TABLEWARE       & 95    & 1.13   & 0.34   \\
+OPEN-PANTRY          & 63    & 1.05   & 0.28   \\
+CLOSE-PANTRY         & 63    & 1.05   & 0.67   \\
+CLOSE-TABLEWARE      & 95    & 1.03   & 0.37   \\
+CLOSE-BAKING-TRAYS   & 31    & 1.01   & 0.26   \\
+OPEN-BAKING-TRAYS    & 31    & 0.99   & 1.57   \\
+CLOSE-CUPS           & 31    & 0.94   & 0.29   \\
+OPEN-CUPS            & 31    & 0.86   & 0.27   \\
     \hline
 \end{xltabular}
 }
