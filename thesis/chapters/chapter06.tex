@@ -419,39 +419,3 @@ To both further the amount of data collected as well as increase the variation i
     \caption{Items used to simulate disability.}
     \label{fig:disability-simulation}
 \end{figure}
-
-\section{The Dataset}
-
-8 trials for each task (cutting fruit, making soup, making muffins) and each type of disability + able-bodied (one-eyed: OE, knitted gloves: KG, electrical gloves: EG, able-bodied: AB) were recorded resulting in a total 8 * 3 * 4 = 96 trials lasting a duration of 6 hours 3 minutes and 53 seconds of data. The data collected with the descriptions and units are shown in Table \ref{tab:pozyx-data}. Preparing and processing the data for classification will be explored in the next chapter.
-
-\begin{table}[ht]
-    \small
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \caption{Details of the data collected through the Pozyx system \cite{noauthor_tutorial_nodate}.}
-    \label{tab:pozyx-data}
-    \begin{tabularx}{\textwidth}{ >{\hsize=.5\hsize}X >{\hsize=.3\hsize}X X }
-        \hline
-        \textbf{Name} & \textbf{Units} & \textbf{Description} \\
-        \hline
-        POS\_X    & mm & Position of sensor relative to the origin in the X axis \\
-        POS\_Y    & mm & Position of sensor relative to the origin in the Y axis \\
-        POS\_Z    & mm & Position of sensor relative to the origin in the Z axis \\
-        Heading   & deg & Heading orientation of the sensor \\
-        Roll      & deg & Roll orientation of the sensor \\
-        Pitch     & deg & Pitch orientation of the sensor \\
-        ACC\_X    & g & X axis acceleration with gravity \\
-        ACC\_Y    & g & Y axis acceleration with gravity \\
-        ACC\_Z    & g & Z axis acceleration with gravity \\
-        LINACC\_X & g & X axis acceleration with the gravity removed \\
-        LINACC\_Y & g & Y axis acceleration with the gravity removed \\
-        LINACC\_Z & g & Z axis acceleration with the gravity removed \\
-        GYRO\_X   & deg/s & Angular Velocity in the X axis \\
-        GYRO\_Y   & deg/s & Angular Velocity in the Y axis \\
-        GYRO\_Z   & deg/s & Angular Velocity in the Z axis \\
-        Pressure  & Pa & The pressure (low-resolution) \\
-        \hline
-    \end{tabularx}
-\end{table}
-
-

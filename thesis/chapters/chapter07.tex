@@ -1,23 +1,51 @@
 
+The previous chapter highlighted the experimental protocol. Building upon the previous chapter, this chapter will review the resulting dataset and use the dataset to try and create a model to classify cooking tasks within the ILS. But before classification can be done, the specific sub actions as well as the time-window that the specific sub actions occurs must be labelled. 
 
-The previous chapter highlighted the experimental protocol and the results of the data collection steps. Building upon the previous chapter, this chapter will use the dataset to try and create a model that can be used to classify cooking tasks within the ILS. But before classification can be done, the specific sub actions as well as the time-window that the specific sub actions occurs must be labelled. 
+\section{The Dataset}
+
+8 trials for each task (cutting fruit, making soup, making muffins) and each type of disability + able-bodied (one-eyed: OE, knitted gloves: KG, electrical gloves: EG, able-bodied: AB) were recorded resulting in a total 8 * 3 * 4 = 96 trials lasting a duration of 6 hours 3 minutes and 53 seconds of data. The data collected with the descriptions and units are shown in Table \ref{tab:pozyx-data}.
+
+\begin{table}[ht]
+    \small
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \caption{Details of the data collected through the Pozyx system \cite{noauthor_tutorial_nodate}.}
+    \label{tab:pozyx-data}
+    \begin{tabularx}{\textwidth}{ >{\hsize=.5\hsize}X >{\hsize=.3\hsize}X X }
+        \hline
+        \textbf{Name} & \textbf{Units} & \textbf{Description} \\
+        \hline
+        POS\_X    & mm & Position of sensor relative to the origin in the X axis \\
+        POS\_Y    & mm & Position of sensor relative to the origin in the Y axis \\
+        POS\_Z    & mm & Position of sensor relative to the origin in the Z axis \\
+        Heading   & deg & Heading orientation of the sensor \\
+        Roll      & deg & Roll orientation of the sensor \\
+        Pitch     & deg & Pitch orientation of the sensor \\
+        ACC\_X    & g & X axis acceleration with gravity \\
+        ACC\_Y    & g & Y axis acceleration with gravity \\
+        ACC\_Z    & g & Z axis acceleration with gravity \\
+        LINACC\_X & g & X axis acceleration with the gravity removed \\
+        LINACC\_Y & g & Y axis acceleration with the gravity removed \\
+        LINACC\_Z & g & Z axis acceleration with the gravity removed \\
+        GYRO\_X   & deg/s & Angular Velocity in the X axis \\
+        GYRO\_Y   & deg/s & Angular Velocity in the Y axis \\
+        GYRO\_Z   & deg/s & Angular Velocity in the Z axis \\
+        Pressure  & Pa & The pressure (low-resolution) \\
+        \hline
+    \end{tabularx}
+\end{table}
 
 \section{Data Labelling}
-For each trial, the video was used to confirm the synchronization between the sensor and the video. In all of the trials, the timestamp for the quick raising of the hand always corresponded to the timestamp where a sudden spike in the acceleration occurred so issues with time synchronization between the video and sensor were mitigated in this dataset. Using a custom Python script leveraging matplotlib's ginput method, the beginning and ending of each fine-grained action derived in Tables \ref{tab:protocol-cutting-fruit}, \ref{tab:protocol-making-soup}, and \ref{tab:protocol-making-muffins} were manually labelled by referencing the timestamps of the beginning and ending of the fine-grained action in the associated video. An example of the output is shown in Figure \ref{fig:label-output}:
+For each trial, the video was used to confirm the synchronization between the sensor and the video. In all of the trials, the timestamp for the quick raising of the hand always corresponded to the timestamp where a sudden spike in the acceleration occurred so issues with time synchronization between the video and sensor were mitigated in this dataset. Using a custom Python script leveraging matplotlib's ginput method, the beginning and ending of each fine-grained action derived in Tables \ref{tab:protocol-cutting-fruit}, \ref{tab:protocol-making-soup}, and \ref{tab:protocol-making-muffins} were manually labelled by referencing the timestamps of the beginning and ending of the fine-grained action in the associated video. An example of the output is shown in Listing \ref{fig:label-output}:
+
 
 \begin{lstlisting}[label=fig:label-output, caption=Manual labelling output for the cutting fruit task.]
 BEGIN_QS: 1716994151.777581
 END_QS: 1716994158.2329004
-BEGIN_WALK: 1716994159.0218837
-END_WALK: 1716994160.3846734
 BEGIN_WASH: 1716994160.7433023
 END_WASH: 1716994170.1393783
-BEGIN_WALK: 1716994170.4262812
-END_WALK: 1716994172.1476998
 BEGIN_DRY: 1716994173.367038
 END_DRY: 1716994175.4470851
-BEGIN_WALK: 1716994175.7339883
-END_WALK: 1716994177.957487
 BEGIN_OPEN-FRIDGE: 1716994178.7443902
 END_OPEN-FRIDGE: 1716994180.1809862
 BEGIN_GRAB-FRIDGE: 1716994180.467889
@@ -51,3 +79,37 @@ END_SERVE: 1716994318.4682715
 BEGIN_QS: 1716994323.8477044
 END_QS: 1716994329.8009434
 \end{lstlisting}
+
+\clearpage
+\section{Summary of Fine-Grained Actions}
+The fine-grained actions were broken down such that there was overlap between the different tasks. For example, washing hands and drying hands were common fine-grained actions shared among all cooking tasks. Opening the pantry, grabbing something from the pantry and closing the pantry was shared between the muffin making task and the making soup task. Further cooking skills such as mixing and pouring were common among the making muffin and making soup tasks. After manually labelling all of the tasks, the overall statistics of each fine-grained action is summarized in Table
+
+
+{\small
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{xltabular}{\textwidth}{>{\hsize=.3\hsize}X X >{\hsize=.4\hsize}X}
+\caption{Descriptive Summary of the fine-grained actions.} \label{tab:fine-grained-actions} \\
+
+% First Header
+\hline \textbf{Action} & \textbf{Count} & \textbf{Example} \\ \hline 
+\endfirsthead
+
+% Subsequent headers.
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\hline \textbf{Action} & \textbf{Count} & \textbf{Example} \\ \hline 
+\endhead
+
+% Footers
+\hline \multicolumn{3}{r}{\textit{Continued on next page}} \\ \hline
+\endfoot
+
+% Last Footer
+\hline
+\endlastfoot
+
+% The Table
+    QS  & Start the video with the countdown and just as the countdown finishes start data collection script & \\ 
+    \hline
+\end{xltabular}
+}
