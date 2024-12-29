@@ -1,5 +1,6 @@
 """
 This file is to be used with the RAW_SPLIT_DATA created from 00b_split_wild_data.py
+creates an input for a table in LATEX
 """
 
 import numpy as np
