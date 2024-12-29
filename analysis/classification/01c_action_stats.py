@@ -1,6 +1,10 @@
 """
 This file is to be used with the RAW_SPLIT_DATA created from 00b_split_wild_data.py
-creates an input for a table in LATEX
+creates an input for a table in LATEX.
+
+Example command
+
+python 01c_action_stats.py --root-dir ../outputs/RAW_SPLIT_DATA
 """
 
 import numpy as np
@@ -13,6 +17,12 @@ parser = argparse.ArgumentParser("Counts the number of actions")
 parser.add_argument(
     "--root-dir", required=True, help="The root dir where all of the actions are."
 )
+parser.add_argument(
+    "--disability",
+    nargs="+",
+    required=False,
+    help="Space separated list of the disability. AB, OE, KG, EG",
+)
 args = parser.parse_args()
 
 root_dir = Path(args.root_dir)
@@ -23,14 +33,19 @@ for action_path in root_dir.glob("*"):
     action = action_path.name
     # Get the average time elapsed for each action
     times = []
+    count = 0
     for repetition_path in action_path.glob("*.csv"):
+        disability = repetition_path.name.split("-")[0]
+        if args.disability and disability not in args.disability:
+            continue
         repetition_df = pd.read_csv(repetition_path, index_col=0)
         duration = repetition_df.index[-1] - repetition_df.index[0]
         times.append(duration)
+        count += 1
     counts.append(
         {
             "action": action,
-            "count": len(list(action_path.glob("*.csv"))),
+            "count": count,
             "avg_time": np.mean(times),
             "std_time": np.std(times),
         }
@@ -45,5 +60,6 @@ for row in counts_df.iterrows():
     )
 
 print("\n\n")
+print(f"Disabilities: {'ALL' if not args.disability else args.disability}")
 print(f"Number of classes {len(counts)}")
 print(f"Number of fine-grained-actions {np.sum(counts_df['count'])}")
