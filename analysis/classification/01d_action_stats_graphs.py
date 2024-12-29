@@ -1,5 +1,9 @@
 """
-Create the plots for the average durations by disability
+Create the plots for the average durations by disability.
+
+Sample Command
+
+python 01d_action_stats_graphs.py --root-dir ../outputs/RAW_SPLIT_DATA --actions PEEL CUT STIR SCOOP --grouping Continuous
 """
 
 import numpy as np
@@ -20,6 +24,7 @@ parser = argparse.ArgumentParser("Counts the number of actions")
 parser.add_argument(
     "--root-dir", required=True, help="The root dir where all of the actions are."
 )
+parser.add_argument("--grouping", required=False, help="The grouping of actions")
 parser.add_argument(
     "--disability",
     required=False,
@@ -65,7 +70,9 @@ average_durations = average_durations.loc[
 ]
 print(average_durations.head())
 axs = average_durations.plot(kind="barh")
-axs.set_title("Average duration of actions by disability")
+axs.set_title(
+    f"Average duration of {'All' if not args.grouping else args.grouping} actions by disability"
+)
 axs.set_xlabel("Duration (s)")
 plt.tight_layout()
 plt.show()
