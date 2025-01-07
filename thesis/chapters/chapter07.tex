@@ -87,7 +87,7 @@ The fine-grained actions were broken down such that there would be overlap betwe
 
 \subsection{Overall}
 
-After manually labelling all of the tasks, the overall details of the dataset for the fine-grained actions are summarized in Table \ref{tab:fine-grained-actions-summary}. A total of 40 fine-grained actions were derived from the PATH experiments with a combined number of occurrences of 2879 across all fine-grained actions. As expected, the continuous fine-grained actions that involve preparing the ingredients such as PEEL, CUT, STIR, and SCOOP had the longest average duration of 43.82s, 25.05s, 21.77s, and 13.53s respectively since they typically require more dexterity and skill than the other tasks. Opening and closing the cabinets, drawers, and appliances consisted of short motion in one direction and took from 0.86s (OPEN-CUPS) to 2.11s (OPEN-OVEN) on average. The duration labelled as grabbing something from these cabinets, drawers and appliances were an action catch-all between the opening and closing actions. Thus, the "grab" action typically contained multiple finer actions such as "putting the item on the kitchen counter" or "grabbing multiple items" such as grabbing the spoon and measuring cup from the cutlery drawer. The duration of the grabbing action ranged from 3.13s (GRAB-PANTRY) to 8.87 (GRAB-OVEN).
+After manually labelling all of the tasks, the overall details of the dataset for the fine-grained actions are summarized in Table \ref{tab:fine-grained-actions-summary}. A total of 40 fine-grained actions were derived from the PATH experiments with a combined number of occurrences of 2881 across all fine-grained actions. As expected, the continuous fine-grained actions that involve preparing the ingredients such as PEEL, CUT, STIR, and SCOOP had the longest average duration of 43.82s, 25.05s, 21.77s, and 13.6s respectively since they typically require more dexterity and skill than the other tasks. Opening and closing the cabinets, drawers, and appliances consisted of short motion in one direction and took from 0.86s (OPEN-CUPS) to 2.11s (OPEN-OVEN) on average. The duration labelled as grabbing something from these cabinets, drawers and appliances were an action catch-all between the opening and closing actions. Thus, the "grab" action typically contained multiple finer actions such as "putting the item on the kitchen counter" or "grabbing multiple items" such as grabbing the spoon and measuring cup from the cutlery drawer. The duration of the grabbing action ranged from 3.13s (GRAB-PANTRY) to 8.87 (GRAB-OVEN).
 
 
 {\small
@@ -117,7 +117,7 @@ After manually labelling all of the tasks, the overall details of the dataset fo
 PEEL                 & 33    & 43.82  & 10.95  \\
 CUT                  & 32    & 25.05  & 11.33  \\
 STIR                 & 62    & 21.77  & 10.78  \\
-SCOOP                & 61    & 13.53  & 9.36   \\
+SCOOP                & 62    & 13.6   & 9.3    \\
 GRAB-OVEN            & 62    & 8.87   & 4.37   \\
 OPEN-CAN             & 32    & 7.92   & 1.81   \\
 PLATING              & 63    & 7.66   & 3.77   \\
@@ -128,11 +128,11 @@ GRAB-TABLEWARE       & 95    & 5.37   & 2.77   \\
 GRAB-FRIDGE          & 32    & 5.33   & 5.04   \\
 DRY                  & 95    & 5.17   & 1.34   \\
 GRAB-CUTLERY         & 126   & 5.02   & 2.81   \\
-GRAB-COOKWARE        & 103   & 4.24   & 2.13   \\
-GRAB-BAKING-TRAYS    & 31    & 4.12   & 7.81   \\
+GRAB-COOKWARE        & 104   & 4.22   & 2.13   \\
 GRAB-CUPS            & 31    & 3.82   & 0.54   \\
 GRAB-PANTRY          & 63    & 3.13   & 1.02   \\
 FILL-WATER           & 63    & 2.96   & 1.13   \\
+GRAB-BAKING-TRAYS    & 31    & 2.67   & 0.58   \\
 OVEN-POWER           & 58    & 2.4    & 1.81   \\
 POUR                 & 129   & 2.29   & 0.98   \\
 OPEN-OVEN            & 62    & 2.11   & 0.55   \\
@@ -143,17 +143,17 @@ GRAB-BOARD           & 32    & 1.28   & 0.45   \\
 BURNER-ON            & 33    & 1.27   & 0.53   \\
 OPEN-CUTLERY         & 126   & 1.26   & 0.57   \\
 BURNER-OFF           & 31    & 1.26   & 0.35   \\
-CLOSE-COOKWARE       & 120   & 1.24   & 0.85   \\
 CLOSE-CUTLERY        & 114   & 1.17   & 0.48   \\
+CLOSE-COOKWARE       & 120   & 1.17   & 0.39   \\
 OPEN-COOKWARE        & 121   & 1.14   & 0.27   \\
 OPEN-TABLEWARE       & 95    & 1.13   & 0.34   \\
 OPEN-PANTRY          & 63    & 1.05   & 0.28   \\
 CLOSE-PANTRY         & 63    & 1.05   & 0.67   \\
 CLOSE-TABLEWARE      & 95    & 1.03   & 0.37   \\
 CLOSE-BAKING-TRAYS   & 31    & 1.01   & 0.26   \\
-OPEN-BAKING-TRAYS    & 31    & 0.99   & 1.57   \\
 CLOSE-CUPS           & 31    & 0.94   & 0.29   \\
 OPEN-CUPS            & 31    & 0.86   & 0.27   \\
+OPEN-BAKING-TRAYS    & 31    & 0.71   & 0.25   \\
     \hline
 \end{xltabular}
 }
