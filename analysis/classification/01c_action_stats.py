@@ -35,13 +35,16 @@ for action_path in root_dir.glob("*"):
     times = []
     count = 0
     for repetition_path in action_path.glob("*.csv"):
-        disability = repetition_path.name.split("-")[0]
-        if args.disability and disability not in args.disability:
-            continue
-        repetition_df = pd.read_csv(repetition_path, index_col=0)
-        duration = repetition_df.index[-1] - repetition_df.index[0]
-        times.append(duration)
-        count += 1
+        try:
+            disability = repetition_path.name.split("-")[0]
+            if args.disability and disability not in args.disability:
+                continue
+            repetition_df = pd.read_csv(repetition_path, index_col=0)
+            duration = repetition_df.index[-1] - repetition_df.index[0]
+            times.append(duration)
+            count += 1
+        except Exception as e:
+            raise Exception(f"{e} at file {repetition_path.name}")
     counts.append(
         {
             "action": action,
