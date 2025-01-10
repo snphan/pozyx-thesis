@@ -3,7 +3,7 @@ The previous chapter highlighted the experimental protocol. Building upon the pr
 
 \section{The Dataset}
 
-8 trials for each task (cutting fruit, making soup, making muffins) and each type of disability + able-bodied (one-eyed: OE, knitted gloves: KG, electrical gloves: EG, able-bodied: AB) were recorded resulting in a total 8 * 3 * 4 = 96 trials lasting a duration of 6 hours 3 minutes and 53 seconds of data. The data collected with the descriptions and units are shown in Table \ref{tab:pozyx-data}.
+8 trials for each task (cutting fruit, making soup, making muffins) and each type of disability + able-bodied (one-eyed: OE, knitted gloves: KG, electrical gloves: EG, able-bodied: AB) were recorded resulting in a total 8 * 3 * 4 = 96 trials lasting a duration of 6 hours 3 minutes and 53 seconds of continuous data. Disability and task type were randomized using numpy's shuffle method and performed in the order after randomization. The data collected with the descriptions and units are shown in Table \ref{tab:pozyx-data}.
 
 \begin{table}[ht]
     \small
@@ -183,3 +183,11 @@ The data can be broken down further into the average duration of each action by 
     \caption{Duration of One-Time actions by disabilities. The disabilities are AB=Able-Bodied, OE=One-eyed, KG=Knitted Gloves, and EG=Electrical Gloves}
     \label{fig:bar-duration-onetime}
 \end{figure}
+
+From Figure \ref{fig:bar-duration-cont}, most of the continuous actions have a similar duration regardless of the disability. However, visually, the CUT action and the PLATING actions were the top two actions that were impeded by the Electrical Gloves (EG) disability having average durations of around 40 seconds and 13 seconds compared to the other disabilities that had durations around 20 seconds and 10 seconds respectively. Upon reviewing the video capture, it is clear that there was more difficulty during the EG-CUTFRUIT trials when manipulating and moving the small apple pieces after they have been cut which results in higher durations for the EG variant of these tasks.
+
+From Figure \ref{fig:bar-duration-cabinet}, some of the "GRAB" family of actions had noticeable longer durations for the EG disability. GRAB-CUTLERY, GRAB-FRIDGE, GRAB-TABLEWARE, GRAB-PANTRY and GRAB-OVEN suggesting that EG increased the difficulty of the task and the participant struggled more when attempting to perform these tasks.
+
+From Figure \ref{fig:bar-duration-onetime}, the only discrepancy is the OVEN-POWER action for AB having a higher duration than the other 3 disabilities. Upon review of the video capture, it was found that the participant was more involved with the touch panel for turning on and off the oven during the AB trials. 
+
+The dataset presents fine-grained actions with high variability in the duration ranging from very quick actions such as OPEN-BAKING-TRAYS taking 0.71s to PEEL (an apple) which takes 43.82s. Within actions, disabilities may increase the time it takes to perform the action, especially if an individual has a fine-motor skill impairment such as the EG disability. From a data standpoint, the disabilities may stretch the signal in the time domain or certain signal features more spread out. In designing a real-time method to classify these fine-grained actions, the variation in duration of each action must be kept in mind and must contain a way to determine the fine-grained action boundaries in real-time. 
