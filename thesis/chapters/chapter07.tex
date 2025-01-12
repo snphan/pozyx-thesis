@@ -158,7 +158,7 @@ OPEN-BAKING-TRAYS    & 31    & 0.71   & 0.25   \\
 \end{xltabular}
 }
 
-\subsection{Average Durations by Disability}
+\subsection{Average Durations by Disability}\label{subsec:avg-durations}
 
 The data can be broken down further into the average duration of each action by disability. After grouping the actions by common traits (and for better visibility on the graphs) into Continuous Repetitive actions (PEEL, CUT, STIR, SCOOP, WASH, PLATING, DRY, OPEN-CAN), Cabinetry actions (anything with OPEN, GRAB, then CLOSE sequences) and one-time actions (POUR, FILL-WATER, BURNER-ON, BURNER-OFF, OVEN-POWER, QS, SERVE, GRAB-BOARD). Figures \ref{fig:bar-duration-cont} to \ref{fig:bar-duration-onetime} present the average durations of these actions in their respective groups.
 
@@ -190,4 +190,21 @@ From Figure \ref{fig:bar-duration-cabinet}, some of the "GRAB" family of actions
 
 From Figure \ref{fig:bar-duration-onetime}, the only discrepancy is the OVEN-POWER action for AB having a higher duration than the other 3 disabilities. Upon review of the video capture, it was found that the participant was more involved with the touch panel for turning on and off the oven during the AB trials. 
 
-The dataset presents fine-grained actions with high variability in the duration ranging from very quick actions such as OPEN-BAKING-TRAYS taking 0.71s to PEEL (an apple) which takes 43.82s. Within actions, disabilities may increase the time it takes to perform the action, especially if an individual has a fine-motor skill impairment such as the EG disability. From a data standpoint, the disabilities may stretch the signal in the time domain or certain signal features more spread out. In designing a real-time method to classify these fine-grained actions, the variation in duration of each action must be kept in mind and must contain a way to determine the fine-grained action boundaries in real-time. 
+The dataset presents fine-grained actions with high variability in the duration ranging from very quick actions such as OPEN-BAKING-TRAYS taking 0.71s to PEEL (an apple) which takes 43.82s. Within actions, disabilities may increase the time it takes to perform the action, especially if an individual has a fine-motor skill impairment such as the EG-like disability (eg. arthritis). From a data standpoint, the disabilities may stretch the signal in the time domain or certain signal features may be more spread out due to hesitation. In designing a real-time method to classify these fine-grained actions, the variation in duration of each action must be kept in mind and must have a way to determine the fine-grained action boundaries in real-time.
+
+\clearpage
+\subsection{Determining Action Boundaries}
+
+As mentioned in the previous Section \ref{subsec:avg-durations}, the action boundaries at which these fine-grained action occur must be determined to have a snapshot (an action start and end range) which the model can extract features from and eventually classify. The challenge with this real-time signal classification endeavor is that the durations for each action vary greatly. Referring to Table \ref{tab:fine-grained-actions-summary}, there are very short single actions that have durations less than 1 second (OPEN-BAKING-TRAYS, OPEN-CUPS, and CLOSE-CUPS) and single actions that take longer such as the GRAB-OVEN (8.87s) and GRAB-FRIDGE (5.33s). The continuous actions take the most amount of time during the experiments with PEEL at 43.82s, CUT at 25.05s and STIR at 21.77s.
+
+\subsubsection{Fixed Window Sizes}
+For this problem, a fixed window-approach may work for continuous actions where a window of fixed size is selected and every time there is enough data from the sensor stream, the new data can be put through the classification model. With this approach, and considering the current dataset, the window size will need to be selected so that it is short enough that multiple short duration actions aren't contained in one window (which may lead to poor classification accuracy), but long enough such that all of the information for one of the longer actions is contained in one snapshot. Referring again to Table \ref{tab:fine-grained-actions-summary}, there doesn't seem to be an obvious window size duration that captures all of the information in the longer actions without potentially capturing multiple short actions within it. Since a single window size is not enough, another potential idea is to choose multiple fixed window sizes (a short, medium and long) and run the classification on each window. Though this approach may work at the cost of increased computational time, the model developed may suffer from being not general enough to classify fine-grained actions as decline in functional ability progresses and elongates the duration of the actions. More adaptive approaches may need to be considered for this problem.
+
+\subsubsection{Accelerometer Energy}
+
+Another approach can be to observe the energy in the more sensitive components of the signal such as the Angular Velocity or the Linear Acceleration. Energy is calculated as the sum of squares of the datapoints in the signal (Equation \ref{eq:energy} \cite{alexander_title_2017})
+
+\begin{equation}\label{eq:energy}
+    E_x = \sum^{N_2}_{n=N_1} |x(n)|^2 
+\end{equation}
+An energy threshold can be determined by selecting energy threshold that captures the most actions in the dataset. Data can be ingested in short chunks (for example, 1 second chunks) and the energy is calculated. If the energy is above the threshold, assume that the action continues and append the data to the "data-to-be-classified". Otherwise, if the energy is below this threshold, assume that the action has ended and put all of the "data-to-be-classified" through the classification model.

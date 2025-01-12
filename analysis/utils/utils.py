@@ -9,23 +9,29 @@ import matplotlib.pyplot as plt
 import matplotlib.path as mpltPath
 from matplotlib.patches import Rectangle
 from sklearn.preprocessing import OneHotEncoder
-import joblib 
+import joblib
 from pathlib import Path
-#MARK: UTIITY FUNCTIONS
+from collections.abc import Callable
+
+# MARK: UTIITY FUNCTIONS
+
 
 def list_from_series(data):
     return data.values.tolist()
 
+
 def what_location(x, y, regions):
     for k, v in regions.items():
         path = mpltPath.Path(v)
-        if path.contains_point([x,y]): return k
+        if path.contains_point([x, y]):
+            return k
     return "undefined"
 
-#MARK: PREPROCESSING
+
+# MARK: PREPROCESSING
 def extract_time_labels(fp):
     """
-    Expects the file to have lines that read: 
+    Expects the file to have lines that read:
     LABEL_NAME: TIMESTAMP
 
     Eg. Go to fridge: 16900000.104
@@ -38,9 +44,10 @@ def extract_time_labels(fp):
         labels = f.readlines()
 
     label_keys = ["Timestamp", "Label"]
-    labels = [label.replace("\n","").split(": ")[::-1] for label in labels]
-    labels =  [{label_keys[0]: label[0], label_keys[1]:label[1]} for label in labels]
+    labels = [label.replace("\n", "").split(": ")[::-1] for label in labels]
+    labels = [{label_keys[0]: label[0], label_keys[1]: label[1]} for label in labels]
     return labels
+
 
 def copy_df_format(df):
     """
@@ -50,7 +57,9 @@ def copy_df_format(df):
     copy_df.index.name = df.index.name
     return copy_df
 
-#MARK: CLEANING DATA
+
+# MARK: CLEANING DATA
+
 
 def remove_periods(df, periods):
     """Deletes the selected periods"""
@@ -77,10 +86,13 @@ def df_iterp1d(df, num_points):
         col_data = df[col].values
         f = interpolate.interp1d(x, col_data)
         new_col_data = f(xnew)
-        new_df = pd.DataFrame({'Timestamp': xnew, col: new_col_data}).set_index('Timestamp')
+        new_df = pd.DataFrame({"Timestamp": xnew, col: new_col_data}).set_index(
+            "Timestamp"
+        )
         interp_df = pd.concat([interp_df, new_df], axis=1)
 
     return interp_df
+
 
 def interp1d_periods(df, periods, num_points):
     for period in periods:
@@ -89,6 +101,7 @@ def interp1d_periods(df, periods, num_points):
         df = df.drop(df.index[mask])
         df = pd.concat([df, interp_df])
     return df
+
 
 def handle_spikes(df: pd.DataFrame, columns: list[str], jump_thresholds: list[float]):
     """
@@ -104,17 +117,21 @@ def handle_spikes(df: pd.DataFrame, columns: list[str], jump_thresholds: list[fl
     -------
     df: processed df
     """
-    if len(columns) != len(jump_thresholds): raise ValueError("columns and jump_thresholds do not have the same length")
+    if len(columns) != len(jump_thresholds):
+        raise ValueError("columns and jump_thresholds do not have the same length")
 
     for col, threshold in zip(columns, jump_thresholds):
         for ind in range(len(df.index) - 1):
             diff = abs(
-                df.iloc[ind+1, list_from_series(df.columns).index(col)] 
+                df.iloc[ind + 1, list_from_series(df.columns).index(col)]
                 - df.iloc[ind, list_from_series(df.columns).index(col)]
-            ) 
+            )
             if diff > threshold:
-                df.iloc[ind+1, list_from_series(df.columns).index(col)] = df.iloc[ind-10:ind+1, list_from_series(df.columns).index(col)].mean()
+                df.iloc[ind + 1, list_from_series(df.columns).index(col)] = df.iloc[
+                    ind - 10 : ind + 1, list_from_series(df.columns).index(col)
+                ].mean()
     return df
+
 
 def MAV_cols(df: pd.DataFrame, columns: list[str], n: int):
     for col in columns:
@@ -122,17 +139,27 @@ def MAV_cols(df: pd.DataFrame, columns: list[str], n: int):
         df.loc[:, col] = mav_data
     return df
 
+
 def round_cols(df: pd.DataFrame, columns: list[str], base=1):
     for col in columns:
-        rounded = (df.loc[:, col] / base).round() * base 
+        rounded = (df.loc[:, col] / base).round() * base
         df.loc[:, col] = rounded
     return df
-    
 
-def determine_location(df, regions): # Note that df must contain POS_X and POS_Y
-    df["Location"] = df.apply(lambda row: what_location(row['POS_X'], row['POS_Y'], regions), axis=1)
+
+def apply_func(df: pd.DataFrame, columns: list[str], method: Callable):
+    for col in columns:
+        df.loc[:, col] = method(df.loc[:, col])
+    return df
+
+
+def determine_location(df, regions):  # Note that df must contain POS_X and POS_Y
+    df["Location"] = df.apply(
+        lambda row: what_location(row["POS_X"], row["POS_Y"], regions), axis=1
+    )
 
     return df
+
 
 def one_hot_encode_col(df: pd.DataFrame, column: str, enc: OneHotEncoder):
     locations = np.reshape(df[column].values, (-1, 1))
@@ -145,52 +172,91 @@ def one_hot_encode_col(df: pd.DataFrame, column: str, enc: OneHotEncoder):
     return pd.concat([df, one_hot_encode_df], axis=1).drop([column], axis=1)
 
 
-#MARK: VISUALIZATION
+# MARK: VISUALIZATION
 
-def plot_pozyx_locations_with_timings(data: pd.DataFrame, labels: list[dict], title="Location with Timings", ylabel="Location"):
+
+def plot_pozyx_locations_with_timings(
+    data: pd.DataFrame,
+    labels: list[dict],
+    title="Location with Timings",
+    ylabel="Location",
+):
     """
     Args
     ----
 
-    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>} 
+    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>}
     """
-    fig = plt.figure(figsize=(20,10))
+    fig = plt.figure(figsize=(20, 10))
     ax = plt.subplot()
-    ax.scatter(data.index, data.loc[:, 'Location'], s=10, marker="+")
+    ax.scatter(data.index, data.loc[:, "Location"], s=10, marker="+")
     ax.set_title(title)
     ax.set_ylabel(ylabel)
     for label in labels:
         if label["Label"] != "10 sec elapsed":
-            ax.axvline(float(label['Timestamp']), color="red", alpha=0.5)
-            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", alpha=0.5, size=18)
+            ax.axvline(float(label["Timestamp"]), color="red", alpha=0.5)
+            ax.text(
+                float(label["Timestamp"]) + 0.5,
+                0,
+                label["Label"],
+                rotation=90,
+                color="red",
+                alpha=0.5,
+                size=18,
+            )
         else:
-            ax.axvline(float(label['Timestamp']), color="black")
+            ax.axvline(float(label["Timestamp"]), color="black")
     return ax
 
-def plot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], ax=None, title="Data with Timings", ylim=(-1000, 15000), ylabel="Position (mm)"):
+
+def plot_pozyx_data_with_timings(
+    data: pd.DataFrame,
+    columns: list[str],
+    labels: list[dict],
+    ax=None,
+    title="Data with Timings",
+    ylim=(-1000, 15000),
+    ylabel="Position (mm)",
+):
     """
     Args
     ----
 
-    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>} 
+    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>}
     """
-    ax = data.loc[:, columns].plot(figsize=(20,10), ax=ax)
+    ax = data.loc[:, columns].plot(figsize=(20, 10), ax=ax)
     ax.set_title(title)
     ax.set_ylim(ylim)
     ax.set_ylabel(ylabel)
     for label in labels:
         if label["Label"] != "10 sec elapsed":
-            ax.axvline(float(label['Timestamp']), color="red", alpha=0.5)
-            ax.text(float(label['Timestamp'])+0.5,0,label["Label"], rotation=90, color="red", alpha=0.5, size=10)
+            ax.axvline(float(label["Timestamp"]), color="red", alpha=0.5)
+            ax.text(
+                float(label["Timestamp"]) + 0.5,
+                0,
+                label["Label"],
+                rotation=90,
+                color="red",
+                alpha=0.5,
+                size=10,
+            )
         else:
-            ax.axvline(float(label['Timestamp']), color="black")
+            ax.axvline(float(label["Timestamp"]), color="black")
     return ax
 
 
-def plot_interactive_pozyx_data(data, title, xlim=(0,12000), ylim=(0,12000), ground_truth=[], bg_path="", bg_multiplier=1):
-    @widgets.interact(to_index=(0, 2000),window=(1,100))
-    def f(to_index=0,window=1):
-        fig = plt.figure(figsize=(10,10))
+def plot_interactive_pozyx_data(
+    data,
+    title,
+    xlim=(0, 12000),
+    ylim=(0, 12000),
+    ground_truth=[],
+    bg_path="",
+    bg_multiplier=1,
+):
+    @widgets.interact(to_index=(0, 2000), window=(1, 100))
+    def f(to_index=0, window=1):
+        fig = plt.figure(figsize=(10, 10))
         data_clean = data.rolling(window).mean()
         plt.plot(data_clean.iloc[:to_index, 0], data_clean.iloc[:to_index, 1])
         plt.xlabel("X(mm)")
@@ -202,19 +268,33 @@ def plot_interactive_pozyx_data(data, title, xlim=(0,12000), ylim=(0,12000), gro
         if bg_path:
             img = Image.open(bg_path).convert("L")
             img = np.asarray(img)
-            plt.imshow(img, extent=[0,1803*bg_multiplier,0,1683*bg_multiplier], cmap='gray', vmin=0, vmax=255)
+            plt.imshow(
+                img,
+                extent=[0, 1803 * bg_multiplier, 0, 1683 * bg_multiplier],
+                cmap="gray",
+                vmin=0,
+                vmax=255,
+            )
         for point in ground_truth:
-            plt.scatter(point['x'], point['y'], color='red', s=2, marker="x")
-            plt.text(point['x'] + 50, point['y'], point['label'], color='red')
+            plt.scatter(point["x"], point["y"], color="red", s=2, marker="x")
+            plt.text(point["x"] + 50, point["y"], point["label"], color="red")
 
-def subplot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labels: list[dict], title="Data with Timings", ylim=(-1000, 15000), units="(mm)"):
+
+def subplot_pozyx_data_with_timings(
+    data: pd.DataFrame,
+    columns: list[str],
+    labels: list[dict],
+    title="Data with Timings",
+    ylim=(-1000, 15000),
+    units="(mm)",
+):
     """
     Args
     ----
 
-    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>} 
+    labels: list of dictionary {'Timestamp': <TIMESTAMP>, 'Label': <LABEL_NAME>}
     """
-    fig, axs = plt.subplots(len(columns), 1, figsize=(20,10))
+    fig, axs = plt.subplots(len(columns), 1, figsize=(20, 10))
     for ind, ax in enumerate(axs):
         current_data = data.loc[:, columns[ind]]
         min_data = current_data.dropna().values.min()
@@ -226,32 +306,43 @@ def subplot_pozyx_data_with_timings(data: pd.DataFrame, columns: list[str], labe
         ax.set_ylabel(f"{columns[ind]} {units}")
         ax.set_xlim(current_data.index.min() - 0.5, current_data.index.max())
 
-        if "POS" in columns[ind]: ax.set_ylim(data_mean - 80, data_mean + 80)
+        if "POS" in columns[ind]:
+            ax.set_ylim(data_mean - 80, data_mean + 80)
 
         for label in labels:
             if label["Label"] != "10 sec elapsed":
-                ax.axvline(float(label['Timestamp']), color="red", alpha=0.5)
+                ax.axvline(float(label["Timestamp"]), color="red", alpha=0.5)
                 if ind == len(columns) - 1:
-                    ax.text(float(label['Timestamp'])+0.5,min_data,label["Label"], alpha=0.5, rotation=90, color="red", size=18)
+                    ax.text(
+                        float(label["Timestamp"]) + 0.5,
+                        min_data,
+                        label["Label"],
+                        alpha=0.5,
+                        rotation=90,
+                        color="red",
+                        size=18,
+                    )
             else:
-                ax.axvline(float(label['Timestamp']), color="black")
+                ax.axvline(float(label["Timestamp"]), color="black")
     return axs
 
 
 # https://github.com/DTrimarchi10/confusion_matrix/blob/master/cf_matrix.py
-def make_confusion_matrix(cf,
-                          group_names=None,
-                          categories='auto',
-                          count=True,
-                          percent=True,
-                          cbar=True,
-                          xyticks=True,
-                          xyplotlabels=True,
-                          sum_stats=True,
-                          figsize=None,
-                          cmap='Blues',
-                          title=None):
-    '''
+def make_confusion_matrix(
+    cf,
+    group_names=None,
+    categories="auto",
+    count=True,
+    percent=True,
+    cbar=True,
+    xyticks=True,
+    xyplotlabels=True,
+    sum_stats=True,
+    figsize=None,
+    cmap="Blues",
+    title=None,
+):
+    """
     This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
     Arguments
     ---------
@@ -268,23 +359,23 @@ def make_confusion_matrix(cf,
     figsize:       Tuple representing the figure size. Default will be the matplotlib rcParams value.
     cmap:          Colormap of the values displayed from matplotlib.pyplot.cm. Default is 'Blues'
                    See http://matplotlib.org/examples/color/colormaps_reference.html
-                   
+
     title:         Title for the heatmap. Default is None.
-    '''
+    """
 
     cf = np.pad(cf, ((0, 1), (0, 1)))
     # Calculate the totals
     cf[cf.shape[0] - 1, cf.shape[1] - 1] = np.sum(cf.flatten())
     for col in range(cf.shape[1] - 1):
-        cf[cf.shape[0]-1, col] = np.sum(cf[:, col])
+        cf[cf.shape[0] - 1, col] = np.sum(cf[:, col])
 
     for row in range(cf.shape[0] - 1):
-        cf[row, cf.shape[1]-1] = np.sum(cf[row, :])
+        cf[row, cf.shape[1] - 1] = np.sum(cf[row, :])
 
     # CODE TO GENERATE TEXT INSIDE EACH SQUARE
-    blanks = ['' for i in range(cf.size)]
+    blanks = ["" for i in range(cf.size)]
 
-    if group_names and len(group_names)==cf.size:
+    if group_names and len(group_names) == cf.size:
         group_labels = ["{}\n".format(value) for value in group_names]
     else:
         group_labels = blanks
@@ -295,22 +386,27 @@ def make_confusion_matrix(cf,
         group_counts = blanks
 
     if percent:
-        group_percentages = ["{0:.2%}".format(value) for value in cf.flatten()/np.sum(cf)]
+        group_percentages = [
+            "{0:.2%}".format(value) for value in cf.flatten() / np.sum(cf)
+        ]
     else:
         group_percentages = blanks
 
-    box_labels = [f"{v1}{v2}{v3}".strip() for v1, v2, v3 in zip(group_labels,group_counts,group_percentages)]
-    box_labels = np.asarray(box_labels).reshape(cf.shape[0],cf.shape[1])
+    box_labels = [
+        f"{v1}{v2}{v3}".strip()
+        for v1, v2, v3 in zip(group_labels, group_counts, group_percentages)
+    ]
+    box_labels = np.asarray(box_labels).reshape(cf.shape[0], cf.shape[1])
 
     # CODE TO GENERATE SUMMARY STATISTICS & TEXT FOR SUMMARY STATS
     if sum_stats:
-        #Accuracy is sum of diagonal divided by total observations
-        accuracy  = np.trace(cf[:-1, :-1]) / float(np.sum(cf[:-1, :-1]))
+        # Accuracy is sum of diagonal divided by total observations
+        accuracy = np.trace(cf[:-1, :-1]) / float(np.sum(cf[:-1, :-1]))
 
-        #if it is a binary confusion matrix, show some more stats
-        if len(cf)==2:
+        # if it is a binary confusion matrix, show some more stats
+        if len(cf) == 2:
             pass
-            #Metrics for Binary Confusion Matrices
+            # Metrics for Binary Confusion Matrices
             # precision = cf[1,1] / sum(cf[:,1])
             # recall    = cf[1,1] / sum(cf[1,:])
             # f1_score  = 2*precision*recall / (precision + recall)
@@ -322,59 +418,97 @@ def make_confusion_matrix(cf,
             for ind, category in enumerate(categories):
                 cf_raw = cf[:-1, :-1]
                 TP = cf_raw[ind, ind]
-                TN = np.sum(cf_raw[0:ind, 0:ind]) + np.sum(cf_raw[ind+1:, ind+1:])
+                TN = np.sum(cf_raw[0:ind, 0:ind]) + np.sum(cf_raw[ind + 1 :, ind + 1 :])
                 FP = np.sum(cf_raw[:, ind]) - TP
                 FN = np.sum(cf_raw[ind, :]) - TP
 
-                precision = TP/(TP+FP)
-                sensitivity = TP/(TP+FN)
-                specificity = TN/(FP+TN)
+                precision = TP / (TP + FP)
+                sensitivity = TP / (TP + FN)
+                specificity = TN / (FP + TN)
 
                 stats_text += f"\n{category}: Precision={precision:.2f}, Sensitivity={sensitivity:.2f}, Specificity={specificity:.2f}"
     else:
         stats_text = ""
 
-
     # SET FIGURE PARAMETERS ACCORDING TO OTHER ARGUMENTS
-    if figsize==None:
-        #Get default figure size if not set
-        figsize = plt.rcParams.get('figure.figsize')
+    if figsize == None:
+        # Get default figure size if not set
+        figsize = plt.rcParams.get("figure.figsize")
 
-    if xyticks==False:
-        #Do not show categories if xyticks is False 
-        categories=False
-
+    if xyticks == False:
+        # Do not show categories if xyticks is False
+        categories = False
 
     # MAKE THE HEATMAP VISUALIZATION
     plt.figure(figsize=figsize)
-    ax = sns.heatmap(cf,annot=box_labels,fmt="",cmap=cmap,cbar=cbar,xticklabels=categories,yticklabels=categories, vmin=np.min(cf[:-1, :-1].flatten()), vmax=np.max(cf[:-1, :-1].flatten()))
-    ax.tick_params(axis='x', which='major', labelbottom = False, bottom=False, top=True, labeltop=True, rotation=45)
-    ax.add_patch(Rectangle((0, cf.shape[0]-1), cf.shape[1], 1, edgecolor='gray', lw=4, clip_on=False, fill=False))
-    ax.add_patch(Rectangle((cf.shape[0]-1, 0), 1, cf.shape[1], edgecolor='gray', lw=4, clip_on=False, fill=False))
+    ax = sns.heatmap(
+        cf,
+        annot=box_labels,
+        fmt="",
+        cmap=cmap,
+        cbar=cbar,
+        xticklabels=categories,
+        yticklabels=categories,
+        vmin=np.min(cf[:-1, :-1].flatten()),
+        vmax=np.max(cf[:-1, :-1].flatten()),
+    )
+    ax.tick_params(
+        axis="x",
+        which="major",
+        labelbottom=False,
+        bottom=False,
+        top=True,
+        labeltop=True,
+        rotation=45,
+    )
+    ax.add_patch(
+        Rectangle(
+            (0, cf.shape[0] - 1),
+            cf.shape[1],
+            1,
+            edgecolor="gray",
+            lw=4,
+            clip_on=False,
+            fill=False,
+        )
+    )
+    ax.add_patch(
+        Rectangle(
+            (cf.shape[0] - 1, 0),
+            1,
+            cf.shape[1],
+            edgecolor="gray",
+            lw=4,
+            clip_on=False,
+            fill=False,
+        )
+    )
 
     if xyplotlabels:
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label' + stats_text)
+        plt.ylabel("True label")
+        plt.xlabel("Predicted label" + stats_text)
     else:
         plt.xlabel(stats_text)
-    
+
     if title:
         plt.title(title)
 
+
 # MATPLOTLIB
 
-def zoom_factory(ax, max_xlim, max_ylim, base_scale = 2.):
+
+def zoom_factory(ax, max_xlim, max_ylim, base_scale=2.0):
     def zoom_fun(event):
         # get the current x and y limits
         cur_xlim = ax.get_xlim()
         cur_ylim = ax.get_ylim()
-        xdata = event.xdata # get event x location
-        ydata = event.ydata # get event y location
-        if event.button == 'up':
+        xdata = event.xdata  # get event x location
+        ydata = event.ydata  # get event y location
+        if event.button == "up":
             # deal with zoom in
-            scale_factor = 1/base_scale
+            scale_factor = 1 / base_scale
             x_scale = scale_factor / 2
-        elif event.button == 'down':
+        elif event.button == "down":
             # deal with zoom out
             scale_factor = base_scale
             x_scale = scale_factor * 2
@@ -412,9 +546,9 @@ def zoom_factory(ax, max_xlim, max_ylim, base_scale = 2.):
         ax.set_ylim([y_min, y_max])
         ax.figure.canvas.draw()
 
-    fig = ax.get_figure() # get the figure of interest
+    fig = ax.get_figure()  # get the figure of interest
     # attach the call back
-    fig.canvas.mpl_connect('scroll_event',zoom_fun)
+    fig.canvas.mpl_connect("scroll_event", zoom_fun)
 
-    #return the function
+    # return the function
     return zoom_fun

@@ -561,4 +561,9 @@ Z.~L. Husz, A.~M. Wallace, and P.~R. Green, ``Human activity recognition with ac
 Tutorial 3: Orientation 3d (arduino). [Online]. Available: \url{https://docs.pozyx.io/creator/tutorial-3-orientation-3d-arduino}
 \BIBentrySTDinterwordspacing
 
+\bibitem{alexander_title_2017}
+\BIBentryALTinterwordspacing
+``Title page,'' in \emph{Digital Signal Processing}, W.~Alexander and C.~Williams, Eds.\hskip 1em plus 0.5em minus 0.4em\relax Academic Press, pp. i--iii. [Online]. Available: \url{https://www.sciencedirect.com/science/article/pii/B9780128045473000127}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

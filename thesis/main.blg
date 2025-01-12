@@ -14,7 +14,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated field_info (elt_size=4) to 10474 items from 5000.
+Reallocated field_info (elt_size=4) to 10520 items from 5000.
 Database file #1: ReHM.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
@@ -66,47 +66,49 @@ Warning--empty year in yinPredictionAnalysisTime2023
 Warning--empty journal in barandasTSFELTimeSeries2020
 Warning--empty year in barandasTSFELTimeSeries2020
 Warning--empty year in huszHumanActivityRecognition2007
+Warning--empty author in alexander_title_2017
+Warning--empty year in alexander_title_2017
 
 Done.
-You've used 119 entries,
+You've used 120 entries,
             4087 wiz_defined-function locations,
-            1526 strings with 36397 characters,
-and the built_in function-call counts, 80525 in all, are:
-= -- 6592
-> -- 1846
-< -- 584
-+ -- 987
-- -- 336
-* -- 4328
-:= -- 12625
-add.period$ -- 243
-call.type$ -- 119
-change.case$ -- 134
-chr.to.int$ -- 1221
-cite$ -- 166
-duplicate$ -- 5852
-empty$ -- 6208
-format.name$ -- 410
-if$ -- 18337
+            1533 strings with 36580 characters,
+and the built_in function-call counts, 81330 in all, are:
+= -- 6656
+> -- 1862
+< -- 591
++ -- 991
+- -- 338
+* -- 4373
+:= -- 12755
+add.period$ -- 246
+call.type$ -- 120
+change.case$ -- 137
+chr.to.int$ -- 1239
+cite$ -- 169
+duplicate$ -- 5905
+empty$ -- 6277
+format.name$ -- 413
+if$ -- 18520
 int.to.chr$ -- 0
-int.to.str$ -- 119
-missing$ -- 1087
-newline$ -- 564
-num.names$ -- 108
-pop$ -- 2624
+int.to.str$ -- 120
+missing$ -- 1094
+newline$ -- 569
+num.names$ -- 110
+pop$ -- 2648
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 4
-skip$ -- 6013
+skip$ -- 6071
 stack$ -- 0
-substring$ -- 3064
-swap$ -- 4824
-text.length$ -- 177
+substring$ -- 3105
+swap$ -- 4865
+text.length$ -- 178
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 119
-warning$ -- 47
-while$ -- 328
-width$ -- 122
-write$ -- 1331
-(There were 47 warnings)
+type$ -- 120
+warning$ -- 49
+while$ -- 333
+width$ -- 123
+write$ -- 1343
+(There were 49 warnings)
